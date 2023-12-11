@@ -1,6 +1,6 @@
-## Capstone Project Idea: "Find My Perfect Plant"
+## Capstone Project: "Plantbuddy"
 
-"Find My Perfect Plant" is an innovative app designed for plant enthusiasts who seek a comprehensive and personalized plant care experience. Whether you're a green-thumb expert or just starting your plant parenting journey, this app is your go-to guide for all things plant-related.
+"Plantbuddy" is an innovative app designed for plant enthusiasts who seek a comprehensive and personalized plant care experience. Whether you're a green-thumb expert or just starting your plant parenting journey, this app is your go-to guide for all things plant-related.
 
 
 ### Target Audience
