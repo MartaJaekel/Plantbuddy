@@ -1,7 +1,7 @@
 import { plants } from "@/lib/data";
 import Image from "next/image";
 
-export function PlantCard() {
+export default function PlantCard() {
   return (
     <ul>
       {plants.map((plant) => (

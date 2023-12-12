@@ -1,10 +1,11 @@
-import { Card } from "@/components/Card/index.js"
+import PlantCard from "@/components/Card";
+
 
 export default function HomePage() {
   return (
     <>
       <h1>PlantBuddy</h1>
-      <Card />     
+      <PlantCard />    
     </>
   );
 }
