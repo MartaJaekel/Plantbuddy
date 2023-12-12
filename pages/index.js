@@ -1,10 +1,12 @@
 import PlantCard from "@/components/Card";
+import FilterForm from "@/components/FilterForm";
 import styled from "styled-components";
 
 export default function HomePage() {
   return (
     <>
       <StyledHeader>PlantBuddy</StyledHeader>
+      <FilterForm />
       <PlantCard />
     </>
   );

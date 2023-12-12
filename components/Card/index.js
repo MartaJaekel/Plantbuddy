@@ -23,7 +23,7 @@ export default function PlantCard() {
 }
 
 const StyledList = styled.ul`
-  margin-top: 6rem;
+  /* margin-top: 6rem; */
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
