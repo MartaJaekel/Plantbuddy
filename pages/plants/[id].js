@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import { plants } from "@/lib/data";
 import Link from "next/link";
 import Image from "next/image";
+import SizeIcon from "../../assets/SizeIcon.svg";
 
 export default function PlantDetail() {
   const router = useRouter();
@@ -32,6 +33,7 @@ export default function PlantDetail() {
           <h2>{plant.species}</h2>
           <article>
             <div>
+              <Image src={SizeIcon} />
               <p>Size</p>
               <p>{plant.size}</p>
             </div>
