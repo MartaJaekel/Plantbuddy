@@ -1,7 +1,10 @@
+import { Card } from "@/components/Card/index.js"
+
 export default function HomePage() {
   return (
-    <div>
-      <h1>Hello from Next.js</h1>
-    </div>
+    <>
+      <h1>PlantBuddy</h1>
+      <Card />     
+    </>
   );
 }
