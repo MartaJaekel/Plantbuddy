@@ -7,19 +7,19 @@ export default function PlantCard() {
   return (
     <StyledList>
       {plants.map((plant) => (
-        <Link href={`plants/${plant.id}`}>
-        <li key={plant.id}>
-          <StyledFigure>
-            <Image
-              src={plant.image}
-              width={150}
-              height={150}
-              alt={plant.commonName}
-            />
-            <StyledCaption>{plant.commonName}</StyledCaption>
-          </StyledFigure>
-        </li>
-        </Link>
+        <StyledLink href={`plants/${plant.id}`}>
+          <li key={plant.id}>
+            <StyledFigure>
+              <Image
+                src={plant.image}
+                width={150}
+                height={150}
+                alt={plant.commonName}
+              />
+              <StyledCaption>{plant.commonName}</StyledCaption>
+            </StyledFigure>
+          </li>
+        </StyledLink>
       ))}
     </StyledList>
   );
@@ -46,4 +46,9 @@ const StyledFigure = styled.figure`
 const StyledCaption = styled.figcaption`
   text-align: center;
   margin: 0.25rem;
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: var(--color-black);
 `;

@@ -49,10 +49,10 @@ export default function PlantDetail() {
               <StyledInfoText>{plant.waterNeeds}</StyledInfoText>
             </StyledInfoPoint>
           </StyledInfo>
-          <StyledDescription>
+          <article>
             <h3>Description</h3>
             <p>{plant.description}</p>
-          </StyledDescription>
+          </article>
         </StyledSection>
       </main>
     </>
@@ -113,5 +113,3 @@ const StyledInfoHeadline = styled.h3`
 const StyledInfoText = styled.p`
   margin: 0;
 `;
-
-const StyledDescription = styled.article``;
