@@ -7,7 +7,7 @@ export default function PlantCard() {
   return (
     <StyledList>
       {plants.map((plant) => (
-        <Link href={`plants/${plants.id}`}>
+        <Link href={`plants/${plant.id}`}>
         <li key={plant.id}>
           <StyledFigure>
             <Image
