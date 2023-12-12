@@ -1,23 +1,15 @@
 import { useRouter } from "next/router";
+import { plants } from "@/lib/data";
 
-export default function PlantDetail() {
-    const router = useRouter
-    const { id } = router.query;
+export default function PlantDetail() {
+  const router = useRouter();
+  const { id } = router.query;
 
-    const plant = plants.find((plant) => plant.id === id);
+  const plant = plants.find((plant) => plant.id === id);
 
-    function NavigateToPlant(targetId) {
-        router.push(`/plants/${targetId}`)
-    }
+  if (!plant) {
+    return <h2>Plant not found!</h2>;
+  }
 
-    if (!plant) {
-        return <h2>Plant not found!</h2>
-    }
-
-    return (
-        <>
-        
-        
-        </>
-    )
+  return <></>;
 }

@@ -1,11 +1,13 @@
 import { plants } from "@/lib/data";
 import Image from "next/image";
 import styled from "styled-components";
+import Link from "next/link";
 
 export default function PlantCard() {
   return (
     <StyledList>
       {plants.map((plant) => (
+        <Link href={`plants/${plants.id}`}>
         <li key={plant.id}>
           <StyledFigure>
             <Image
@@ -17,6 +19,7 @@ export default function PlantCard() {
             <StyledCaption>{plant.commonName}</StyledCaption>
           </StyledFigure>
         </li>
+        </Link>
       ))}
     </StyledList>
   );
