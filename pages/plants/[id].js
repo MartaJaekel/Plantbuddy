@@ -81,12 +81,14 @@ const StyledSection = styled.section`
 const StyledName = styled.h1`
   font-family: serif;
   font-size: 2rem;
+  line-height: 2rem;
   color: var(--color-green);
   margin: 0;
 `;
 
 const StyledSpecies = styled.h2`
   text-transform: uppercase;
+  padding-top: 0.5rem;
   font-weight: 300;
   font-size: 1.25rem;
   margin: 0;
