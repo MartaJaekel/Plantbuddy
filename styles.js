@@ -1,10 +1,4 @@
 import { createGlobalStyle } from "styled-components";
-import { Newsreader } from "next/font/google";
-
-const newsreader = Newsreader({
-  subsets: ["latin"],
-  style: ["normal", "italic"],
-});
 
 export default createGlobalStyle`
   *,
