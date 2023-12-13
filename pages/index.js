@@ -1,4 +1,5 @@
 import PlantCard from "@/components/Card";
+import Navigation from "@/components/Navigation";
 import styled from "styled-components";
 
 export default function HomePage() {
