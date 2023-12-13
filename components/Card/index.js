@@ -4,31 +4,12 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Link from "next/link";
 
-
 export default function PlantCard({ search }) {
   const [plants, setPlants] = useState([...plantsData]);
   const [error, setError] = useState(false);
-  /*useEffect(() => {
-    setError(false);
-    const searchResult = plantsData.filter((plant) => {
-      if (
-        search.length >= 3 &&
-        plant.commonName.toLowerCase().includes(search.toLowerCase())
-      ) {
-        return plant;
-      } else if (search.length < 3) {
-        return plant;
-      }
-    });
-    if (search.length >= 3 && searchResult.length === 0) {
-      setError(true);
-    }
-    setPlants(searchResult);
-  }, [search]);*/
+
   useEffect(() => {
     setError(false);
-
-    
 
     const searchResult = plantsData.filter((plant) => {
       return plant.commonName.toLowerCase().startsWith(search.toLowerCase());
@@ -41,14 +22,15 @@ export default function PlantCard({ search }) {
     setPlants(searchResult);
   }, [search]);
 
-
   if (error) {
     return (
       <ErrorMessageContainer>
-      <ErrorMessage>
-        sorry we could not find <br /> anything with the name<br /> {search}
-      </ErrorMessage></ErrorMessageContainer>
-    )
+        <ErrorMessage>
+          sorry we could not find <br /> anything with the name
+          <br /> {search}
+        </ErrorMessage>
+      </ErrorMessageContainer>
+    );
   }
 
   return (
@@ -100,14 +82,14 @@ const StyledLink = styled(Link)`
 `;
 
 const ErrorMessageContainer = styled.div`
-
-display: flex;
+  display: flex;
   align-items: center;
   justify-content: center;
-  height: 50vh;`
+  height: 50vh;
+`;
 
 const ErrorMessage = styled.p`
   color: black;
   font-weight: bold;
-  margin-top: 80px;`
-  
+  margin-top: 80px;
+`;

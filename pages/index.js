@@ -4,7 +4,7 @@ import { useState } from "react";
 import styled from "styled-components";
 
 export default function HomePage() {
-  const [search, setSearch] = useState("")
+  const [search, setSearch] = useState("");
   return (
     <>
       <StyledHeader>PlantBuddy</StyledHeader>
