@@ -1,15 +1,16 @@
 import PlantCard from "@/components/Card";
 import SearchField from "@/components/SearchField";
-
+import { useState } from "react";
 import styled from "styled-components";
 
 export default function HomePage() {
+  const [search, setSearch] = useState("")
   return (
     <>
       <StyledHeader>PlantBuddy</StyledHeader>
       <HeaderSpacing />
-      <SearchField />
-      <PlantCard />
+      <SearchField onChange={setSearch} />
+      <PlantCard search={search} />
     </>
   );
 }

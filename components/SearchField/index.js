@@ -1,6 +1,9 @@
 import styled from "styled-components";
 
-export default function SearchField() {
+export default function SearchField({onChange}) {
+    function handleOnChange(event) {
+        onChange(event.target.value)
+    }
   return (
     <InputWrapper>
       <label htmlFor="search"></label>
@@ -8,6 +11,7 @@ export default function SearchField() {
         type="search"
         id="search"
         placeholder="Search for plants"
+        onChange={handleOnChange}
       />
     </InputWrapper>
   );

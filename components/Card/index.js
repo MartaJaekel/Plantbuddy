@@ -1,15 +1,24 @@
-import { plants} from "@/lib/data";
+import { plants as plantsData } from "@/lib/data";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Link from "next/link";
 
-export default function PlantCard() {
-  
-
- 
-    
-
+export default function PlantCard({search}) {
+  const [plants, setPlants] = useState([...plantsData]);
+  useEffect(() => {
+    const searchResult = plantsData.filter((plant) => {
+      if (
+        search.length >= 3 &&
+        plant.commonName.toLowerCase().includes(search.toLowerCase())
+      ) {
+        return plant;
+      } else if (search.length < 3) {
+        return plant;
+      }
+    });
+    setPlants(searchResult);
+  }, [search]);
 
   return (
     <StyledList>
