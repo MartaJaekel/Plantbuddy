@@ -4,11 +4,13 @@ export default function FilterForm() {
   return (
     <StyledForm>
       <select name="plantSize">
+        <option value="">Select Size</option>
         <option value="small">Small</option>
         <option value="medium">Medium</option>
         <option value="large">Large</option>
       </select>
       <select name="sunlightRequirement">
+        <option value="">Select Sunlight Requirement</option>
         <option value="lowToMediumLight">Low to Medium Light</option>
         <option value="lowToBrightLight">Low to Bright Light</option>
         <option value="brightIndirectLight">Bright Indirect Light</option>
@@ -16,6 +18,7 @@ export default function FilterForm() {
         <option value="fullSun">Full Sun</option>
       </select>
       <select name="waterNeeds">
+        <option value="">Select Water Needs</option>
         <option value="low">Low</option>
         <option value="lowToMedium">Low to Medium</option>
         <option value="medium">Medium</option>
@@ -23,6 +26,7 @@ export default function FilterForm() {
         <option value="high">High</option>
       </select>
       <select name="optimalTemperature">
+        <option value="">Select Temperature</option>
         <option value="15to27">15-27°C</option>
         <option value="18to25">18-25°C</option>
         <option value="18to24">18-24°C</option>
@@ -30,6 +34,7 @@ export default function FilterForm() {
         <option value="15to30">15-30°C</option>
       </select>
       <select name="petFriendly">
+        <option value="">Select Pet Compatibility</option>
         <option value="petFriendlyTrue">Yes</option>
         <option value="petFriendlyFalse">No</option>
       </select>
