@@ -2,7 +2,7 @@ import styled from "styled-components";
 import React, { useState } from "react";
 import { plants } from "@/lib/data";
 
-export default function FilterForm() {
+export default function FilterForm({ onFilterUpdate }) {
   const [plantSize, setPlantSize] = useState("");
   const [sunlightRequirement, setsunlightRequirement] = useState("");
   const [waterNeeds, setwaterNeeds] = useState("");
@@ -12,13 +12,7 @@ export default function FilterForm() {
   const handleFilter = (event) => {
     event.preventDefault();
 
-    console.log('Selected Size:', plantSize);
-    console.log('Selected sun:', sunlightRequirement);
-    console.log('Selected water:', waterNeeds);
-    console.log('Selected temp:', optimalTemperature);
-    console.log('Selected pet:', petFriendly);
-
-    const filteredPlants = plants.filter(plant => 
+    const newFilteredPlants = plants.filter(plant => 
       (plantSize ? plant.size === plantSize : true) &&
       (sunlightRequirement ? plant.sunlightRequirements === sunlightRequirement : true) &&
       (waterNeeds ? plant.waterNeeds === waterNeeds : true) &&
@@ -26,7 +20,7 @@ export default function FilterForm() {
       (petFriendly ? plant.petFriendly === (petFriendly === "true") : true)
       );
 
-      console.log(filteredPlants);
+      onFilterUpdate(newFilteredPlants);
   }
 
   return (

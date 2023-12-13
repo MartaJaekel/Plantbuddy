@@ -1,13 +1,21 @@
+import React, { useState } from "react";
 import PlantCard from "@/components/Card";
 import FilterForm from "@/components/FilterForm";
 import styled from "styled-components";
+import { plants } from "@/lib/data";
 
 export default function HomePage() {
+  const [filteredPlants, setFilteredPlants] = useState(plants);
+
+  const handleFilterUpdate = (newFilteredPlants) => {
+    setFilteredPlants(newFilteredPlants);
+  };
+
   return (
     <>
       <StyledHeader>PlantBuddy</StyledHeader>
-      <FilterForm />
-      <PlantCard />
+      <FilterForm onFilterUpdate={handleFilterUpdate} />
+      <PlantCard plantsToDisplay={filteredPlants} />
     </>
   );
 }

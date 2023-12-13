@@ -1,12 +1,14 @@
-import { plants } from "@/lib/data";
 import Image from "next/image";
 import styled from "styled-components";
 import Link from "next/link";
 
-export default function PlantCard() {
+export default function PlantCard({plantsToDisplay}) {
+  if (plantsToDisplay.length === 0) {
+    return <NoMatches>Apologies, but we couldn't find any plants in our database that align with your filter criteria.</NoMatches>
+  }
   return (
     <StyledList>
-      {plants.map((plant) => (
+      {plantsToDisplay.map((plant) => (
         <StyledLink key={plant.id} href={`plants/${plant.id}`}>
           <li>
             <StyledFigure>
@@ -51,4 +53,10 @@ const StyledCaption = styled.figcaption`
 const StyledLink = styled(Link)`
   text-decoration: none;
   color: var(--color-black);
+`;
+
+const NoMatches = styled.p`
+  text-align: center;
+  margin-top: 1rem;
+  color: red;
 `;
