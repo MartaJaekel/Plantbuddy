@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Link from "next/link";
 
+
 export default function PlantCard({ search }) {
   const [plants, setPlants] = useState([...plantsData]);
   const [error, setError] = useState(false);

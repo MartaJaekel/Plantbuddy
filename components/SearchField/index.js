@@ -1,12 +1,31 @@
 import styled from "styled-components";
-
+import MagnifyingGlass from "../../assets/magnifying-glass.svg"
+import Image from "next/image";
 export default function SearchField({onChange}) {
     function handleOnChange(event) {
         onChange(event.target.value)
     }
   return (
     <InputWrapper>
-      <label htmlFor="search"></label>
+      <span
+        style={{
+          position: 'absolute',
+          left: '15px',
+          top: '50%',
+          transform: 'translateY(-50%)',
+          width: '30px', 
+          height: '42px',
+          overflow: "hidden",
+          backgroundColor: "#8fa871",
+          borderRadius: "0.4rem",
+          display: "flex",
+          alignItems: "center"
+
+  
+        }}
+      >
+        <MagnifyingGlass />
+      </span>
       <SearchFieldInput
         type="search"
         id="search"
@@ -18,6 +37,7 @@ export default function SearchField({onChange}) {
 }
 
 const InputWrapper = styled.div`
+ position: relative;
   display: flex;
   flex-flow: column;
   padding: 1rem;
@@ -25,18 +45,13 @@ const InputWrapper = styled.div`
 
 const SearchFieldInput = styled.input`
   border-radius: 0.4rem;
+  
   padding: 0.8rem;
-  background-color: var(--color-green);
+  background-color: #a4bf86;
   color: var(--color-beige);
-  border: none;
+  border: 2px solid #a4bf86;
+  padding-left: 40px;
+  
 
-  &::after {
-    content: 'y';
-    position: absolute;
-    top: 50%;
-    right: 10px;
-    transform: translateY(-50%);
-    cursor: pointer;
-    color: #333;
-  }
+ 
 `;
