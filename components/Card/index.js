@@ -1,22 +1,25 @@
 import { plants } from "@/lib/data";
 import Image from "next/image";
 import styled from "styled-components";
+import Link from "next/link";
 
 export default function PlantCard() {
   return (
     <StyledList>
       {plants.map((plant) => (
-        <li key={plant.id}>
-          <StyledFigure>
-            <Image
-              src={plant.image}
-              width={150}
-              height={150}
-              alt={plant.commonName}
-            />
-            <StyledCaption>{plant.commonName}</StyledCaption>
-          </StyledFigure>
-        </li>
+        <StyledLink key={plant.id} href={`plants/${plant.id}`}>
+          <li>
+            <StyledFigure>
+              <Image
+                src={plant.image}
+                width={150}
+                height={150}
+                alt={plant.commonName}
+              />
+              <StyledCaption>{plant.commonName}</StyledCaption>
+            </StyledFigure>
+          </li>
+        </StyledLink>
       ))}
     </StyledList>
   );
@@ -43,4 +46,9 @@ const StyledFigure = styled.figure`
 const StyledCaption = styled.figcaption`
   text-align: center;
   margin: 0.25rem;
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: var(--color-black);
 `;
