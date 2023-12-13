@@ -4,9 +4,11 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Link from "next/link";
 
-export default function PlantCard({search}) {
+export default function PlantCard({ search }) {
   const [plants, setPlants] = useState([...plantsData]);
+  const [error, setError] = useState(false);
   useEffect(() => {
+    setError(false);
     const searchResult = plantsData.filter((plant) => {
       if (
         search.length >= 3 &&
@@ -17,8 +19,21 @@ export default function PlantCard({search}) {
         return plant;
       }
     });
+    if (search.length >= 3 && searchResult.length === 0) {
+      setError(true);
+    }
     setPlants(searchResult);
   }, [search]);
+
+
+  if (error) {
+    return (
+      <ErrorMessageContainer>
+      <ErrorMessage>
+        sorry we could not find <br /> anything with the name<br /> {search}
+      </ErrorMessage></ErrorMessageContainer>
+    )
+  }
 
   return (
     <StyledList>
@@ -67,3 +82,16 @@ const StyledLink = styled(Link)`
   text-decoration: none;
   color: var(--color-black);
 `;
+
+const ErrorMessageContainer = styled.div`
+
+display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50vh;`
+
+const ErrorMessage = styled.p`
+  color: black;
+  font-weight: bold;
+  margin-top: 80px;`
+  

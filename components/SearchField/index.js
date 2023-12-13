@@ -30,7 +30,5 @@ const SearchFieldInput = styled.input`
   color: var(--color-beige);
   border: none;
 
-  &::placeholder {
-    color: #c0c0c0;
-  }
+  
 `;
