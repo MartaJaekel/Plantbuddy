@@ -1,4 +1,15 @@
-<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M5.33334 18.6667V26.6667M5.33334 26.6667H13.3333M5.33334 26.6667L12 20" stroke="#426B1F" stroke-width="2" stroke-linecap="round"/>
-<path d="M26.6667 13.3333V5.33333M26.6667 5.33333H18.6667M26.6667 5.33333L20 12" stroke="#426B1F" stroke-width="2" stroke-linecap="round"/>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 28.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Ebene_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 40 40" style="enable-background:new 0 0 40 40;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:none;stroke:#426B1F;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+	.st1{fill:#426B1F;}
+	.st2{fill:none;stroke:#426B1F;stroke-width:2;}
+	.st3{fill:none;stroke:#426B1F;stroke-width:2;stroke-linecap:round;}
+</style>
+<g>
+	<path class="st3" d="M2.4,24.4v13.2 M2.4,37.6h13.2 M2.4,37.6l11-11"/>
+	<path class="st3" d="M37.6,15.6V2.4 M37.6,2.4H24.4 M37.6,2.4l-11,11"/>
+</g>
 </svg>

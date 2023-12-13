@@ -3,6 +3,12 @@ import { plants } from "@/lib/data";
 import Link from "next/link";
 import Image from "next/image";
 import styled from "styled-components";
+import arrowURL from "@/assets/ArrowIcon.svg?url";
+import sizeURL from "@/assets/SizeIcon.svg?url";
+import sunlightURL from "@/assets/SunlightIcon.svg?url";
+import waterURL from "@/assets/WaterIcon.svg?url";
+import temperatureURL from "@/assets/TemperatureIcon.svg?url";
+import PlantCharacteristics from "@/components/PlantCharacteristics";
 
 export default function PlantDetail() {
   const router = useRouter();
@@ -19,7 +25,9 @@ export default function PlantDetail() {
   return (
     <>
       <StyledBackLink>
-        <Link href="/">〈</Link>
+        <Link href="/">
+          <Image src={arrowURL} alt="Back Link" width={30} height={25} />
+        </Link>
       </StyledBackLink>
       <main>
         <StyledImage
@@ -31,24 +39,32 @@ export default function PlantDetail() {
         <StyledSection>
           <StyledName>{plant.commonName}</StyledName>
           <StyledSpecies>{plant.species}</StyledSpecies>
-          <StyledInfo>
-            <StyledInfoPoint>
-              <StyledInfoHeadline>Size</StyledInfoHeadline>
-              <StyledInfoText>{plant.size}</StyledInfoText>
-            </StyledInfoPoint>
-            <StyledInfoPoint>
-              <StyledInfoHeadline>Sunlight</StyledInfoHeadline>
-              <StyledInfoText>{plant.sunlightRequirements}</StyledInfoText>
-            </StyledInfoPoint>
-            <StyledInfoPoint>
-              <StyledInfoHeadline>Temperature</StyledInfoHeadline>
-              <StyledInfoText>{plant.optimalTemperature}</StyledInfoText>
-            </StyledInfoPoint>
-            <StyledInfoPoint>
-              <StyledInfoHeadline>Water</StyledInfoHeadline>
-              <StyledInfoText>{plant.waterNeeds}</StyledInfoText>
-            </StyledInfoPoint>
-          </StyledInfo>
+          <StyledPlantCharacteristics>
+            <PlantCharacteristics
+              headline="Size"
+              imageAlt="Size Icon"
+              imageSrc={sizeURL}
+              info={plant.size}
+            />
+            <PlantCharacteristics
+              headline="Sunlight"
+              imageAlt="Sunlight Icon"
+              imageSrc={sunlightURL}
+              info={plant.sunlightRequirements}
+            />
+            <PlantCharacteristics
+              headline="Temperature"
+              imageAlt="Temperature Icon"
+              imageSrc={temperatureURL}
+              info={plant.optimalTemperature}
+            />
+            <PlantCharacteristics
+              headline="Water"
+              imageAlt="Water Icon"
+              imageSrc={waterURL}
+              info={plant.waterNeeds}
+            />
+          </StyledPlantCharacteristics>
           <article>
             <h3>Description</h3>
             <p>{plant.description}</p>
@@ -67,6 +83,8 @@ const StyledBackLink = styled.nav`
   border-radius: 50%;
   width: 40px;
   height: 40px;
+  display: flex;
+  align-items: center;
 `;
 
 const StyledImage = styled(Image)`
@@ -94,24 +112,11 @@ const StyledSpecies = styled.h2`
   margin: 0;
 `;
 
-const StyledInfo = styled.article`
+const StyledPlantCharacteristics = styled.article`
   display: flex;
   gap: 1rem 3rem;
   flex-wrap: wrap;
   justify-content: center;
   border-bottom: 2px solid #e6e6e6;
   padding: 1rem 0 1rem 0;
-`;
-
-const StyledInfoPoint = styled.div`
-  width: 130px;
-`;
-
-const StyledInfoHeadline = styled.h3`
-  font-size: 1rem;
-  margin: 0;
-`;
-
-const StyledInfoText = styled.p`
-  margin: 0;
 `;
