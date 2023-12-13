@@ -7,7 +7,7 @@ import Link from "next/link";
 export default function PlantCard({ search }) {
   const [plants, setPlants] = useState([...plantsData]);
   const [error, setError] = useState(false);
-  useEffect(() => {
+  /*useEffect(() => {
     setError(false);
     const searchResult = plantsData.filter((plant) => {
       if (
@@ -22,6 +22,21 @@ export default function PlantCard({ search }) {
     if (search.length >= 3 && searchResult.length === 0) {
       setError(true);
     }
+    setPlants(searchResult);
+  }, [search]);*/
+  useEffect(() => {
+    setError(false);
+
+    
+
+    const searchResult = plantsData.filter((plant) => {
+      return plant.commonName.toLowerCase().startsWith(search.toLowerCase());
+    });
+
+    if (search.length > 0 && searchResult.length === 0) {
+      setError(true);
+    }
+
     setPlants(searchResult);
   }, [search]);
 

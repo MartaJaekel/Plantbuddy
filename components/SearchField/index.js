@@ -30,5 +30,13 @@ const SearchFieldInput = styled.input`
   color: var(--color-beige);
   border: none;
 
-  
+  &::after {
+    content: 'y';
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #333;
+  }
 `;
