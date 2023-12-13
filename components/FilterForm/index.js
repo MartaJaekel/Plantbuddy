@@ -1,6 +1,13 @@
 import styled from "styled-components";
+import React, { useState } from "react";
 
 export default function FilterForm() {
+  const [plantSize, setPlantSize] = useState("");
+  const [sunlightRequirement, setsunlightRequirement] = useState("");
+  const [waterNeeds, setwaterNeeds] = useState("");
+  const [optimalTemperature, setoptimalTemperature] = useState("");
+  const [petFriendly, setpetFriendly] = useState("");
+
   return (
     <StyledForm>
       <select name="plantSize">
