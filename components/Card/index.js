@@ -1,9 +1,16 @@
-import { plants } from "@/lib/data";
+import { plants} from "@/lib/data";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Link from "next/link";
 
 export default function PlantCard() {
+  
+
+ 
+    
+
+
   return (
     <StyledList>
       {plants.map((plant) => (
@@ -26,7 +33,6 @@ export default function PlantCard() {
 }
 
 const StyledList = styled.ul`
-  margin-top: 6rem;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;

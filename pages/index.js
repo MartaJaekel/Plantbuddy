@@ -1,14 +1,22 @@
 import PlantCard from "@/components/Card";
+import SearchField from "@/components/SearchField";
+
 import styled from "styled-components";
 
 export default function HomePage() {
   return (
     <>
       <StyledHeader>PlantBuddy</StyledHeader>
+      <HeaderSpacing />
+      <SearchField />
       <PlantCard />
     </>
   );
 }
+
+const HeaderSpacing = styled.div`
+  margin-top: 6rem;
+`;
 
 const StyledHeader = styled.h1`
   position: fixed;
