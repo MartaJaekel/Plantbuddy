@@ -30,4 +30,5 @@ const StyledHeader = styled.h1`
   font-size: 3rem;
   margin: 0;
   padding: 1rem;
+  z-index: 1;
 `;
