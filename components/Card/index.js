@@ -5,26 +5,23 @@ import styled from "styled-components";
 import Link from "next/link";
 
 export default function PlantCard({ search, plantsToDisplay}) {
-  if (plantsToDisplay.length === 0) {
-    return <NoMatches>Apologies, but we couldn&apos;t find any plants in our database that align with your filter criteria.</NoMatches>
-  }
   const [plants, setPlants] = useState([...plantsData]);
   const [error, setError] = useState(false);
-
+  
   useEffect(() => {
     setError(false);
-
+    
     const searchResult = plantsData.filter((plant) => {
       return plant.commonName.toLowerCase().startsWith(search.toLowerCase());
     });
-
+    
     if (search.length > 0 && searchResult.length === 0) {
       setError(true);
     }
-
+    
     setPlants(searchResult);
   }, [search]);
-
+  
   if (error) {
     return (
       <ErrorMessageContainer>
@@ -35,10 +32,15 @@ export default function PlantCard({ search, plantsToDisplay}) {
       </ErrorMessageContainer>
     );
   }
+  
+  if (plantsToDisplay.length === 0) {
+    return <NoMatches>Apologies, but we couldn&apos;t find any plants in our database that align with your filter criteria.</NoMatches>
+  }
 
   return (
     <StyledList>
-      {plantsToDisplay.map((plant) => (
+      { search.length === 0  ? (
+      plantsToDisplay.map((plant) => (
         <StyledLink key={plant.id} href={`plants/${plant.id}`}>
           <li>
             <StyledFigure>
@@ -52,13 +54,30 @@ export default function PlantCard({ search, plantsToDisplay}) {
             </StyledFigure>
           </li>
         </StyledLink>
-      ))}
+      ))
+      ) : (
+        plants.map((plant) => (
+          <StyledLink key={plant.id} href={`plants/${plant.id}`}>
+            <li>
+              <StyledFigure>
+                <Image
+                  src={plant.image}
+                  width={150}
+                  height={150}
+                  alt={plant.commonName}
+                />
+                <StyledCaption>{plant.commonName}</StyledCaption>
+              </StyledFigure>
+            </li>
+          </StyledLink>
+        ))
+      )
+    }
     </StyledList>
   );
 }
 
 const StyledList = styled.ul`
-  /* margin-top: 6rem; */
   display: flex;
   flex-wrap: wrap;
   justify-content: center;

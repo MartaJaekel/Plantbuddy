@@ -73,7 +73,7 @@ const StyledForm = styled.form`
   justify-content: center;
   gap: 1rem;
   max-width: 19rem;
-  margin: 6rem auto 1rem auto;
+  margin: 1rem auto 1rem auto;
 `;
 
 const StyledSelect = styled.select`
