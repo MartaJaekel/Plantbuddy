@@ -24,6 +24,7 @@ export default function Navigation() {
 }
 
 const StyledNav = styled.nav`
+  z-index: 2;
   position: fixed;
   bottom: 0;
   width: 100%;
@@ -31,7 +32,7 @@ const StyledNav = styled.nav`
 `;
 
 const StyledList = styled.ul`
-display: flex;
-justify-content: space-around;
-align-content: center;
-`
+  display: flex;
+  justify-content: space-around;
+  align-content: center;
+`;
