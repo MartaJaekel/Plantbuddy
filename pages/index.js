@@ -1,17 +1,23 @@
-import PlantCard from "@/components/Card";
-import Navigation from "@/components/Navigation";
+import PlantList from "@/components/PlantList";
 import styled from "styled-components";
 
-export default function HomePage() {
+export default function HomePage({ onToggleFavorite, favorites, plants }) {
   return (
     <>
       <StyledHeader>PlantBuddy</StyledHeader>
-      <PlantCard />
+      <main>
+        <PlantList
+          onToggleFavorite={onToggleFavorite}
+          favorites={favorites}
+          plants={plants}
+        />
+      </main>
     </>
   );
 }
 
 const StyledHeader = styled.h1`
+  z-index: 1;
   position: fixed;
   top: 0;
   background-color: white;

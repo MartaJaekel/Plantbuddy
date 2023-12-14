@@ -1,36 +1,34 @@
-import { plants } from "@/lib/data";
 import Image from "next/image";
 import styled from "styled-components";
 import Link from "next/link";
+import FavoriteButton from "../FavoriteButton";
 
-export default function PlantCard() {
+
+export default function PlantCard({ onToggleFavorite, favorites, plant }) {
+  console.log(plant);
   return (
-    <StyledList>
-      {plants.map((plant) => (
-        <StyledLink key={plant.id} href={`plants/${plant.id}`}>
-          <li>
+        <StyledListItem>
+          <FavoriteButton
+            onClick={() => onToggleFavorite(plant?.id)}
+            isFavorite={favorites?.includes(plant?.id)}
+          />
+          <StyledLink href={`plants/${plant?.id}`}>
             <StyledFigure>
               <Image
-                src={plant.image}
+                src={plant?.image}
                 width={150}
                 height={150}
-                alt={plant.commonName}
+                alt={plant?.commonName}
               />
-              <StyledCaption>{plant.commonName}</StyledCaption>
+              <StyledCaption>{plant?.commonName}</StyledCaption>
             </StyledFigure>
-          </li>
-        </StyledLink>
-      ))}
-    </StyledList>
+          </StyledLink>
+        </StyledListItem>
   );
 }
 
-const StyledList = styled.ul`
-  margin-top: 6rem;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1rem;
+const StyledListItem = styled.li`
+  position: relative;
 `;
 
 const StyledFigure = styled.figure`
@@ -49,6 +47,8 @@ const StyledCaption = styled.figcaption`
 `;
 
 const StyledLink = styled(Link)`
+  position: relative;
   text-decoration: none;
   color: var(--color-black);
 `;
+
