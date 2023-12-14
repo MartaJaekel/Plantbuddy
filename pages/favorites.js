@@ -5,6 +5,8 @@ import styled from "styled-components";
 export default function FavoritePage({ plants, favorites, onToggleFavorite }) {
   const favoritePlants = plants.filter((plant) => favorites.includes(plant.id));
 
+  console.log(favoritePlants);
+
   return (
     <>
       <StyledHeader>PlantBuddy</StyledHeader>
@@ -17,15 +19,16 @@ export default function FavoritePage({ plants, favorites, onToggleFavorite }) {
             <p>Start adding your first favorite!</p>
           </StyledArticle>
         ) : (
-          <ul>
+          <StyledPlantList>
             {favoritePlants.map((plant) => (
               <PlantCard
+                plant={plant}
                 key={plant.id}
                 favorites={favorites}
                 onToggleFavorite={onToggleFavorite}
               />
             ))}
-          </ul>
+          </StyledPlantList>
         )}
       </main>
     </>
@@ -57,4 +60,12 @@ const StyledArticle = styled.article`
   text-align: center;
   line-height: 1;
   padding: 1rem;
+`;
+
+const StyledPlantList = styled.ul`
+  padding-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
 `;

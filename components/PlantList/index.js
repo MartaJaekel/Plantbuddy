@@ -2,7 +2,6 @@ import styled from "styled-components";
 import PlantCard from "../Card";
 
 export default function PlantList({ plants, favorites, onToggleFavorite }) {
-    console.log(`plant list ${plants}`);
     return (
     <>
       <StyledPlantList>

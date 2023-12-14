@@ -3,27 +3,26 @@ import styled from "styled-components";
 import Link from "next/link";
 import FavoriteButton from "../FavoriteButton";
 
-
 export default function PlantCard({ onToggleFavorite, favorites, plant }) {
   console.log(plant);
   return (
-        <StyledListItem>
-          <FavoriteButton
-            onClick={() => onToggleFavorite(plant?.id)}
-            isFavorite={favorites?.includes(plant?.id)}
+    <StyledListItem>
+        <FavoriteButton
+          onClick={() => onToggleFavorite(plant?.id)}
+          isFavorite={favorites?.includes(plant?.id)}
+        />
+      <StyledLink href={`plants/${plant?.id}`}>
+        <StyledFigure>
+          <Image
+            src={plant?.image}
+            width={150}
+            height={150}
+            alt={plant?.commonName}
           />
-          <StyledLink href={`plants/${plant?.id}`}>
-            <StyledFigure>
-              <Image
-                src={plant?.image}
-                width={150}
-                height={150}
-                alt={plant?.commonName}
-              />
-              <StyledCaption>{plant?.commonName}</StyledCaption>
-            </StyledFigure>
-          </StyledLink>
-        </StyledListItem>
+          <StyledCaption>{plant?.commonName}</StyledCaption>
+        </StyledFigure>
+      </StyledLink>
+    </StyledListItem>
   );
 }
 
@@ -51,4 +50,3 @@ const StyledLink = styled(Link)`
   text-decoration: none;
   color: var(--color-black);
 `;
-

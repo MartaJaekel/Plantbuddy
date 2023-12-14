@@ -17,7 +17,7 @@ export default function HomePage({ onToggleFavorite, favorites, plants }) {
 }
 
 const StyledHeader = styled.h1`
-  z-index: 1;
+  z-index: 2;
   position: fixed;
   top: 0;
   background-color: white;
