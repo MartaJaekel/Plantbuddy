@@ -57,6 +57,7 @@ const StyledLink = styled(Link)`
 
 const NoMatches = styled.p`
   text-align: center;
-  margin-top: 1rem;
+  margin: 1rem auto;
   color: red;
+  max-width: 19rem;
 `;
