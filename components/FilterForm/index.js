@@ -88,7 +88,7 @@ const StyledSelect = styled.select`
 
 const StyledButton = styled.button`
   color: white;
-  background-color: green;
+  background-color: var(--color-green);
   border: none;
   border-radius: 8px;
   padding: .6rem .4rem;
