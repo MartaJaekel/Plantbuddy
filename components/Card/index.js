@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function PlantCard({plantsToDisplay}) {
   if (plantsToDisplay.length === 0) {
-    return <NoMatches>Apologies, but we couldn't find any plants in our database that align with your filter criteria.</NoMatches>
+    return <NoMatches>Apologies, but we couldn&apos;t find any plants in our database that align with your filter criteria.</NoMatches>
   }
   return (
     <StyledList>
