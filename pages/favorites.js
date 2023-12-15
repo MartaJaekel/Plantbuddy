@@ -15,8 +15,8 @@ export default function FavoritePage({ plants, favorites, onToggleFavorite }) {
       <main>
         {favoritePlants.length === 0 ? (
           <StyledArticle>
-            <p>You have not saved any favorite Plants.</p>
-            <p>Start adding your first favorite!</p>
+            <p>At the moment you don't have any favorite plants.</p>
+            <p>Start adding your <StyledSpan>first</StyledSpan> favorite!</p>
           </StyledArticle>
         ) : (
           <StyledPlantList>
@@ -69,3 +69,8 @@ const StyledPlantList = styled.ul`
   justify-content: center;
   gap: 1rem;
 `;
+
+const StyledSpan = styled.span`
+font-family: serif;
+font-style: italic;
+`

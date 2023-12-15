@@ -1,21 +1,45 @@
 import Link from "next/link";
 import Image from "next/image";
-import Favorites from "@/assets/HeartIconNav.svg?url";
-import Home from "@/assets/HomeIconNav.svg?url";
+import HomeActive from "@/assets/HomeActive.svg?url";
+import HomeInactive from "@/assets/HomeInactive.svg?url";
+import HeartActive from "@/assets/HeartActive.svg?url";
+import HeartInactive from "@/assets/HeartInactive.svg?url";
 import styled from "styled-components";
+import { useRouter } from "next/router";
+
 
 export default function Navigation() {
+  const router = useRouter();
+
+  const handleHomeClick = () => {
+    if (router.pathname === "/") {
+      router.reload();
+    } else {
+      router.push("/");
+    }
+  };
+
   return (
     <StyledNav>
       <StyledList>
         <li>
-          <Link href="/">
-            <Image src={Home} alt="Home Icon" width={40} height={40} />
+          <Link href="/" onClick={handleHomeClick}>
+            <Image
+              src={router.pathname === "/" ? HomeActive : HomeInactive}
+              alt="Home Icon"
+              width={40}
+              height={40}
+            />
           </Link>
         </li>
         <li>
           <Link href="/favorites">
-            <Image src={Favorites} alt="Favorite Icon" width={40} height={40} />
+            <Image
+              src={router.pathname === "/favorites" ? HeartActive : HeartInactive}
+              alt="Favorite Icon"
+              width={40}
+              height={40}
+            />
           </Link>
         </li>
       </StyledList>
