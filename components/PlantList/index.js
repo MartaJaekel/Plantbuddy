@@ -24,7 +24,7 @@ export default function PlantList({
     }
 
     setPlants(searchResult);
-  }, [search]);
+  }, [search, plantsData]);
 
   if (error) {
     return (

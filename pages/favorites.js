@@ -15,7 +15,7 @@ export default function FavoritePage({ plants, favorites, onToggleFavorite }) {
       <main>
         {favoritePlants.length === 0 ? (
           <StyledArticle>
-            <p>At the moment you don't have any favorite plants.</p>
+            <p>At the moment you do not have any favorite plants.</p>
             <p>Start adding your <StyledSpan>first</StyledSpan> favorite!</p>
           </StyledArticle>
         ) : (
