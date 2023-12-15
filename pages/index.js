@@ -1,16 +1,25 @@
+import React, { useState } from "react";
 import PlantCard from "@/components/Card";
+import FilterForm from "@/components/FilterForm";
 import SearchField from "@/components/SearchField";
-import { useState } from "react";
 import styled from "styled-components";
+import { plants } from "@/lib/data";
 
 export default function HomePage() {
   const [search, setSearch] = useState("");
+  const [filteredPlants, setFilteredPlants] = useState(plants);
+
+  const handleFilterUpdate = (newFilteredPlants) => {
+    setFilteredPlants(newFilteredPlants);
+  };
+
   return (
     <>
       <StyledHeader>PlantBuddy</StyledHeader>
       <HeaderSpacing />
       <SearchField onChange={setSearch} />
-      <PlantCard search={search} />
+      <FilterForm onFilterUpdate={handleFilterUpdate} />
+      <PlantCard search={search} plantsToDisplay={filteredPlants} />
     </>
   );
 }

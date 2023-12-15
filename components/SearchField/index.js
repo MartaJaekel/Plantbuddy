@@ -31,7 +31,7 @@ export default function SearchField({ onChange }) {
   return (
     <InputWrapper>
       <InputIcon
-        icon={icon}
+        $icon={icon}
         onClick={clearInput}
       >
         {icon === "search" ? SearchIcon : ClearSearchIcon}
@@ -49,7 +49,7 @@ export default function SearchField({ onChange }) {
 }
 
 const InputIcon = styled.span`
-  cursor: ${({icon}) => icon === "clear-search" ? "pointer" : ""};
+  cursor: ${({$icon}) => $icon === "clear-search" ? "pointer" : ""};
   position: absolute;
   right: 28px;
   top: 50%;
