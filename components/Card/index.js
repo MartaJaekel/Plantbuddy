@@ -30,6 +30,7 @@ const StyledListItem = styled.li`
   position: relative;
 `;
 
+
 const StyledFigure = styled.figure`
   margin: 0;
   width: 9rem;
@@ -49,4 +50,24 @@ const StyledLink = styled(Link)`
   position: relative;
   text-decoration: none;
   color: var(--color-black);
+`;
+
+const ErrorMessageContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50vh;
+`;
+
+const ErrorMessage = styled.p`
+  color: black;
+  font-weight: bold;
+  margin-top: 80px;
+`;
+
+const NoMatches = styled.p`
+  text-align: center;
+  margin: 1rem auto;
+  color: red;
+  max-width: 19rem;
 `;
