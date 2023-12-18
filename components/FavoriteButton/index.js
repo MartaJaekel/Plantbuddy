@@ -4,8 +4,6 @@ import Image from "next/image";
 import React from "react";
 import styled from "styled-components"
 
-
-
 export default function FavoriteButton({ onClick, isFavorite }) {
   return (
     <StyledButton type="button" onClick={onClick}>

@@ -7,13 +7,12 @@ export default function App({ Component, pageProps }) {
   const [favorites, setFavorites] = useLocalStorageState("favorites", {
     defaultValue: [],
   });
-  // leerer Array weil standardmäßig keine Pflanzen favorisiert sind
 
   function handleToggleFavorite(plantId) {
     if (favorites.includes(plantId)) {
-      setFavorites(favorites?.filter((favorite) => favorite !== plantId)); // aus Favoriten entfernen
+      setFavorites(favorites?.filter((favorite) => favorite !== plantId));
     } else {
-      setFavorites([...favorites, plantId]); // zu Favoriten hinzufügen
+      setFavorites([...favorites, plantId]);
     }
   }
 

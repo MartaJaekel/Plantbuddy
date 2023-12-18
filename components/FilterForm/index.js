@@ -8,24 +8,36 @@ export default function FilterForm({ onFilterUpdate, plants }) {
   const [optimalTemperature, setOptimalTemperature] = useState("");
   const [petFriendly, setPetFriendly] = useState("");
 
+  // Separate filter functions
+  const filterPlantSize = (plant, size) => !size || plant.size === size;
+  const filterSunlightRequirement = (plant, requirement) =>
+    !requirement || plant.sunlightRequirements === requirement;
+  const filterWaterNeeds = (plant, needs) =>
+    !needs || plant.waterNeeds === needs;
+  const filterOptimalTemperature = (plant, temperature) =>
+    !temperature || plant.optimalTemperature === temperature;
+  const filterPetFriendly = (plant, isPetFriendly) =>
+    !isPetFriendly || plant.petFriendly === (isPetFriendly === "true");
+
+  
   const handleFilter = (event) => {
     event.preventDefault();
 
     const newFilteredPlants = plants.filter(
       (plant) =>
-        (plantSize ? plant.size === plantSize : true) &&
-        (sunlightRequirement
-          ? plant.sunlightRequirements === sunlightRequirement
-          : true) &&
-        (waterNeeds ? plant.waterNeeds === waterNeeds : true) &&
-        (optimalTemperature
-          ? plant.optimalTemperature === optimalTemperature
-          : true) &&
-        (petFriendly ? plant.petFriendly === (petFriendly === "true") : true)
+        filterPlantSize(plant, plantSize) &&
+        filterSunlightRequirement(plant, sunlightRequirement) &&
+        filterWaterNeeds(plant, waterNeeds) &&
+        filterOptimalTemperature(plant, optimalTemperature) &&
+        filterPetFriendly(plant, petFriendly)
     );
 
     onFilterUpdate(newFilteredPlants);
   };
+
+  function handleReset() {
+    onFilterUpdate(plants);
+  }
 
   function handleReset() {
     onFilterUpdate(plants);

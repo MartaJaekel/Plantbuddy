@@ -5,8 +5,6 @@ import styled from "styled-components";
 export default function FavoritePage({ plants, favorites, onToggleFavorite }) {
   const favoritePlants = plants.filter((plant) => favorites.includes(plant.id));
 
-  console.log(favoritePlants);
-
   return (
     <>
       <StyledHeader>PlantBuddy</StyledHeader>
@@ -24,7 +22,7 @@ export default function FavoritePage({ plants, favorites, onToggleFavorite }) {
               <PlantCard
                 plant={plant}
                 key={plant.id}
-                favorites={favorites}
+                isFavorite={favorites?.includes(plant.id)}
                 onToggleFavorite={onToggleFavorite}
               />
             ))}

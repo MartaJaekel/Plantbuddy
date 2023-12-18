@@ -47,27 +47,25 @@ export default function PlantList({
   }
 
   return (
-    <>
-      <StyledPlantList>
-        {search.length === 0
-          ? plantsToDisplay.map((plant) => (
-              <PlantCard
-                key={plant.id}
-                plant={plant}
-                onToggleFavorite={onToggleFavorite}
-                favorites={favorites}
-              />
-            ))
-          : plants.map((plant) => (
-              <PlantCard
-                key={plant.id}
-                plant={plant}
-                onToggleFavorite={onToggleFavorite}
-                favorites={favorites}
-              />
-            ))}
-      </StyledPlantList>
-    </>
+    <StyledPlantList>
+      {search.length === 0
+        ? plantsToDisplay.map((plant) => (
+            <PlantCard
+              key={plant.id}
+              plant={plant}
+              onToggleFavorite={onToggleFavorite}
+              isFavorite={favorites?.includes(plant.id)}
+            />
+          ))
+        : plants.map((plant) => (
+            <PlantCard
+              key={plant.id}
+              plant={plant}
+              onToggleFavorite={onToggleFavorite}
+              isFavorite={favorites?.includes(plant.id)}
+            />
+          ))}
+    </StyledPlantList>
   );
 }
 

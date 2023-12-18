@@ -3,13 +3,13 @@ import styled from "styled-components";
 import Link from "next/link";
 import FavoriteButton from "../FavoriteButton";
 
-export default function PlantCard({ onToggleFavorite, favorites, plant }) {
-  console.log(plant);
+export default function PlantCard({ onToggleFavorite, isFavorite, plant }) {
+
   return (
     <StyledListItem>
         <FavoriteButton
-          onClick={() => onToggleFavorite(plant?.id)}
-          isFavorite={favorites?.includes(plant?.id)}
+          onClick={() => onToggleFavorite(plant.id)}
+          isFavorite={isFavorite}
         />
       <StyledLink href={`plants/${plant?.id}`}>
         <StyledFigure>
