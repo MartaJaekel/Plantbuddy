@@ -12,6 +12,11 @@ export default createGlobalStyle`
     font-family: system-ui;
   }
 
+  main {
+    padding: 0;
+    margin: 0 0 6rem 0;
+  }
+
 ul {
   list-style: none;
   padding: 0;
