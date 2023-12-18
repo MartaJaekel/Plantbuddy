@@ -22,7 +22,7 @@ export default function FavoritePage({ plants, favorites, onToggleFavorite }) {
               <PlantCard
                 plant={plant}
                 key={plant.id}
-                isFavorite={favorites?.includes(plant.id)}
+                isFavorite={favorites.includes(plant.id)}
                 onToggleFavorite={onToggleFavorite}
               />
             ))}
