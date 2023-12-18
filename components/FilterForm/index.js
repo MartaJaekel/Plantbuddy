@@ -19,7 +19,6 @@ export default function FilterForm({ onFilterUpdate, plants }) {
   const filterPetFriendly = (plant, isPetFriendly) =>
     !isPetFriendly || plant.petFriendly === (isPetFriendly === "true");
 
-  
   const handleFilter = (event) => {
     event.preventDefault();
 
