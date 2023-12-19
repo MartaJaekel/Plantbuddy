@@ -18,6 +18,7 @@ export default function HomePage({ onToggleFavorite, favorites, plants }) {
       <main>
         <SearchField onChange={setSearch} />
         <FilterForm onFilterUpdate={handleFilterUpdate} plants={plants} />
+        <p>Showing {filteredPlants.length} of {plants.length} plants.</p>
         <PlantList
           onToggleFavorite={onToggleFavorite}
           favorites={favorites}

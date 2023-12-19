@@ -8,8 +8,6 @@ export default function FilterForm({ onFilterUpdate, plants }) {
   const [optimalTemperature, setOptimalTemperature] = useState("");
   const [petFriendly, setPetFriendly] = useState("");
 
-  const [displayedPlantsCount, setDisplayedPlantsCount] = useState(0);
-
   // Separate filter functions
   const filterPlantSize = (plant, size) => !size || plant.size === size;
   const filterSunlightRequirement = (plant, requirement) =>
