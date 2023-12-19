@@ -9,22 +9,11 @@ export default function PlantList({
   search,
   plantsToDisplay,
 }) {
-  const [plants, setPlants] = useState([...plantsData]);
-  const [error, setError] = useState(false);
+  const searchResult = plantsData.filter((plant) => {
+    return plant.commonName.toLowerCase().startsWith(search.toLowerCase());
+  });
 
-  useEffect(() => {
-    setError(false);
-
-    const searchResult = plantsData.filter((plant) => {
-      return plant.commonName.toLowerCase().startsWith(search.toLowerCase());
-    });
-
-    if (search.length > 0 && searchResult.length === 0) {
-      setError(true);
-    }
-
-    setPlants(searchResult);
-  }, [search, plantsData]);
+  const error = search.length > 0 && searchResult.length === 0;
 
   if (error) {
     return (
@@ -57,7 +46,7 @@ export default function PlantList({
               isFavorite={favorites?.includes(plant.id)}
             />
           ))
-        : plants.map((plant) => (
+        : searchResult.map((plant) => (
             <PlantCard
               key={plant.id}
               plant={plant}
