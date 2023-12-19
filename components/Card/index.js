@@ -4,23 +4,21 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Link from "next/link";
 
-export default function PlantCard({ search, plantsToDisplay}) {
-  const [plants, setPlants] = useState([...plantsData]);
-  const [error, setError] = useState(false);
-  
-  useEffect(() => {
-    setError(false);
-    
+export default function PlantCard({ search, plantsToDisplay,sortedPlants}) {
+ 
+ 
     const searchResult = plantsData.filter((plant) => {
       return plant.commonName.toLowerCase().startsWith(search.toLowerCase());
     });
     
-    if (search.length > 0 && searchResult.length === 0) {
-      setError(true);
-    }
-    
-    setPlants(searchResult);
-  }, [search]);
+    const sortedAndFilteredPlants = sortedPlants.filter((plant) => 
+    plant.commonName.toLowerCase().startsWith(search.toLowerCase())
+    //sortedPlants.filter((plant) error message , the problem was that sorted plants was not an array so i had 
+    //to change ste useState in the homepage for sortPlants from "A-Z" to []
+  );
+    const error = search.length > 0 && searchResult.length === 0;
+   
+  
   
   if (error) {
     return (
@@ -40,7 +38,7 @@ export default function PlantCard({ search, plantsToDisplay}) {
   return (
     <StyledList>
       { search.length === 0  ? (
-      plantsToDisplay.map((plant) => (
+       sortedAndFilteredPlants.map((plant) => (
         <StyledLink key={plant.id} href={`plants/${plant.id}`}>
           <li>
             <StyledFigure>
@@ -56,7 +54,7 @@ export default function PlantCard({ search, plantsToDisplay}) {
         </StyledLink>
       ))
       ) : (
-        plants.map((plant) => (
+        searchResult.map((plant) => (
           <StyledLink key={plant.id} href={`plants/${plant.id}`}>
             <li>
               <StyledFigure>

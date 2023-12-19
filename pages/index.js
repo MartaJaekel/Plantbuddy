@@ -4,22 +4,28 @@ import FilterForm from "@/components/FilterForm";
 import SearchField from "@/components/SearchField";
 import styled from "styled-components";
 import { plants } from "@/lib/data";
+import SortPlants from "@/components/SortPlants";
 
 export default function HomePage() {
   const [search, setSearch] = useState("");
   const [filteredPlants, setFilteredPlants] = useState(plants);
+  const [sortPlants, setSortPlants] = useState([])
 
   const handleFilterUpdate = (newFilteredPlants) => {
     setFilteredPlants(newFilteredPlants);
   };
+  const handleSortUpdate = (newSortedPlants) => {
+    setSortPlants(newSortedPlants)
+  }
 
   return (
     <>
       <StyledHeader>PlantBuddy</StyledHeader>
       <HeaderSpacing />
       <SearchField onChange={setSearch} />
+      <SortPlants onSortUpdate={handleSortUpdate} defaultOption={sortPlants}/>
       <FilterForm onFilterUpdate={handleFilterUpdate} />
-      <PlantCard search={search} plantsToDisplay={filteredPlants} />
+      <PlantCard search={search} plantsToDisplay={filteredPlants} sortedPlants={sortPlants} />
     </>
   );
 }
