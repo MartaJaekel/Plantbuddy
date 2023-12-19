@@ -122,6 +122,6 @@ const StyledPlantCharacteristics = styled.article`
   gap: 1rem 3rem;
   flex-wrap: wrap;
   justify-content: center;
-  border-bottom: 2px solid #e6e6e6;
+  border-bottom: 2px solid var(--color-grey);
   padding: 1rem 0 1rem 0;
 `;

@@ -1,7 +1,10 @@
 import styled from "styled-components";
 import React, { useState } from "react";
 
-export default function FilterForm({ onFilterUpdate, plants }) {
+export default function FilterForm({
+  plants,
+  onAddPreference,
+}) {
   const [plantSize, setPlantSize] = useState("");
   const [sunlightRequirement, setSunlightRequirement] = useState("");
   const [waterNeeds, setWaterNeeds] = useState("");
@@ -19,35 +22,36 @@ export default function FilterForm({ onFilterUpdate, plants }) {
   const filterPetFriendly = (plant, isPetFriendly) =>
     !isPetFriendly || plant.petFriendly === (isPetFriendly === "true");
 
-  const handleFilter = (event) => {
+  function handleSubmit(event) {
     event.preventDefault();
 
-    const newFilteredPlants = plants.filter(
-      (plant) =>
-        filterPlantSize(plant, plantSize) &&
-        filterSunlightRequirement(plant, sunlightRequirement) &&
-        filterWaterNeeds(plant, waterNeeds) &&
-        filterOptimalTemperature(plant, optimalTemperature) &&
-        filterPetFriendly(plant, petFriendly)
-    );
+    const newPreference = {
+      preferenceTitle: event.target.elements.title.value,
+      preferencePlants: plants.filter(function (plant) {
+        return (
+          filterPlantSize(plant, plantSize) &&
+          filterSunlightRequirement(plant, sunlightRequirement) &&
+          filterWaterNeeds(plant, waterNeeds) &&
+          filterOptimalTemperature(plant, optimalTemperature) &&
+          filterPetFriendly(plant, petFriendly)
+        );
+      }),
+    };
 
-    onFilterUpdate(newFilteredPlants);
-  };
-
-  function handleReset() {
-    onFilterUpdate(plants);
+    onAddPreference(newPreference);
+    event.target.elements.title.focus();
+    event.target.reset();
   }
 
   function handleReset() {
-    onFilterUpdate(plants);
-  }
+    event.target.reset();
+    }
 
   return (
-    <StyledForm onSubmit={handleFilter} onReset={handleReset}>
-
+    <StyledForm onSubmit={handleSubmit} onReset={handleReset}>
       <StyledTitleLabel for="title">Your Preference Title</StyledTitleLabel>
-      <StyledTitleInput type="text" name="title" required/>
-      
+      <StyledTitleInput type="text" name="title" required />
+
       <StyledLabel for="plantSize">Select the plant size:</StyledLabel>
       <StyledSelect
         name="plantSize"
@@ -107,7 +111,7 @@ export default function FilterForm({ onFilterUpdate, plants }) {
       </StyledSelect>
       <StyledButtonContainer>
         <StyledButton type="reset">Cancel</StyledButton>
-        <StyledButton type="submit">Filter</StyledButton>
+        <StyledButton type="submit">Save</StyledButton>
       </StyledButtonContainer>
     </StyledForm>
   );
@@ -122,12 +126,14 @@ const StyledForm = styled.form`
   gap: 1rem;
   max-width: 19rem;
   margin: 1rem auto 1rem auto;
+  padding: 0rem 0 2rem 0;
+  border-bottom: 2px solid var(--color-grey);
 `;
 
 const StyledTitleLabel = styled.label`
   color: var(--color-green);
   font-weight: 600;
-`
+`;
 const StyledTitleInput = styled.input`
   background-color: var(--color-grey);
   padding: 0.6rem 1.5rem;
@@ -136,7 +142,7 @@ const StyledTitleInput = styled.input`
   border: none;
   font-weight: 600;
   cursor: pointer;
-  `;
+`;
 
 const StyledLabel = styled.label`
   border: 0;
