@@ -1,20 +1,23 @@
 import React from "react";
 import PlantCard from "@/components/Card";
 import styled from "styled-components";
+import Header from "@/components/Header";
 
 export default function FavoritePage({ plants, favorites, onToggleFavorite }) {
   const favoritePlants = plants.filter((plant) => favorites.includes(plant.id));
 
   return (
     <>
-      <StyledHeader>PlantBuddy</StyledHeader>
+      <Header />
       <StyledTitle>Your Favorite Plants</StyledTitle>
 
       <main>
         {favoritePlants.length === 0 ? (
           <StyledArticle>
             <p>At the moment you do not have any favorite plants.</p>
-            <p>Start adding your <StyledSpan>first</StyledSpan> favorite!</p>
+            <p>
+              Start adding your <StyledSpan>first</StyledSpan> favorite!
+            </p>
           </StyledArticle>
         ) : (
           <StyledPlantList>
@@ -33,19 +36,6 @@ export default function FavoritePage({ plants, favorites, onToggleFavorite }) {
   );
 }
 
-const StyledHeader = styled.h1`
-  z-index: 1;
-  position: fixed;
-  top: 0;
-  background-color: white;
-  width: 100%;
-  text-align: center;
-  color: var(--color-green);
-  font-family: serif;
-  font-size: 3rem;
-  margin: 0;
-  padding: 1rem;
-`;
 
 const StyledTitle = styled.h1`
   text-align: center;
@@ -69,6 +59,6 @@ const StyledPlantList = styled.ul`
 `;
 
 const StyledSpan = styled.span`
-font-family: serif;
-font-style: italic;
-`
+  font-family: serif;
+  font-style: italic;
+`;

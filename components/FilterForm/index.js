@@ -44,6 +44,10 @@ export default function FilterForm({ onFilterUpdate, plants }) {
 
   return (
     <StyledForm onSubmit={handleFilter} onReset={handleReset}>
+
+      <StyledTitleLabel for="title">Your Preference Title</StyledTitleLabel>
+      <StyledTitleInput type="text" name="title" required/>
+      
       <StyledLabel for="plantSize">Select the plant size:</StyledLabel>
       <StyledSelect
         name="plantSize"
@@ -102,7 +106,7 @@ export default function FilterForm({ onFilterUpdate, plants }) {
         <option value="false">No</option>
       </StyledSelect>
       <StyledButtonContainer>
-        <StyledButton type="reset">Reset</StyledButton>
+        <StyledButton type="reset">Cancel</StyledButton>
         <StyledButton type="submit">Filter</StyledButton>
       </StyledButtonContainer>
     </StyledForm>
@@ -119,6 +123,20 @@ const StyledForm = styled.form`
   max-width: 19rem;
   margin: 1rem auto 1rem auto;
 `;
+
+const StyledTitleLabel = styled.label`
+  color: var(--color-green);
+  font-weight: 600;
+`
+const StyledTitleInput = styled.input`
+  background-color: var(--color-grey);
+  padding: 0.6rem 1.5rem;
+  border-radius: 8px;
+  color: var(--color-green);
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  `;
 
 const StyledLabel = styled.label`
   border: 0;
