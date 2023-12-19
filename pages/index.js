@@ -12,13 +12,22 @@ export default function HomePage({ onToggleFavorite, favorites, plants }) {
     setFilteredPlants(newFilteredPlants);
   }
 
+let resultMessage = '';
+
+if (filteredPlants.length === plants.length) {
+  resultMessage = '';
+} else if (filteredPlants.length > 0) {
+  resultMessage = `Showing ${filteredPlants.length} of ${plants.length} plants.`;
+}
+
+
   return (
     <>
       <StyledHeader>PlantBuddy</StyledHeader>
       <main>
         <SearchField onChange={setSearch} />
         <FilterForm onFilterUpdate={handleFilterUpdate} plants={plants} />
-        <p>Showing {filteredPlants.length} of {plants.length} plants.</p>
+        <p>{resultMessage}</p>
         <PlantList
           onToggleFavorite={onToggleFavorite}
           favorites={favorites}
