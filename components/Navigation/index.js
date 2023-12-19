@@ -4,6 +4,8 @@ import HomeActive from "@/assets/HomeActive.svg?url";
 import HomeInactive from "@/assets/HomeInactive.svg?url";
 import HeartActive from "@/assets/HeartActive.svg?url";
 import HeartInactive from "@/assets/HeartInactive.svg?url";
+import PreferencesActive from "@/assets/PreferencesActive.svg?url";
+import PreferencesInactive from "@/assets/PreferencesInactive.svg?url";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 
@@ -36,6 +38,16 @@ export default function Navigation() {
             <Image
               src={router.pathname === "/favorites" ? HeartActive : HeartInactive}
               alt="Favorite Icon"
+              width={40}
+              height={40}
+            />
+          </Link>
+        </li>
+        <li>
+          <Link href="/preferences">
+            <Image
+              src={router.pathname === "/preferences" ? PreferencesActive : PreferencesInactive}
+              alt="Preference Icon"
               width={40}
               height={40}
             />
