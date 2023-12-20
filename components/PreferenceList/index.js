@@ -7,9 +7,9 @@ export default function PreferenceList({
   return (
     <>
       {preferences.length === 0 ? (
-        <StyledArticle>
+        <StyledCallText>
             Start adding your <StyledSpan>first</StyledSpan> preference!
-        </StyledArticle>
+        </StyledCallText>
       ) : (
         <StyledPreferenceList>
           {preferences.map((preference) => (
@@ -24,7 +24,7 @@ export default function PreferenceList({
   );
 }
 
-const StyledArticle = styled.article`
+const StyledCallText = styled.p`
   text-align: center;
 `;
 

@@ -3,13 +3,11 @@ import Link from "next/link";
 
 export default function PreferenceCard({ preference }) {
   return (
-    <li>
-      <StyledLink href={`preferences/${preference?.id}`}>
-        <StyledPreferenceCard>
-          {preference?.preferenceTitle}
-        </StyledPreferenceCard>
-      </StyledLink>
-    </li>
+    <StyledLink href={`preferences/${preference?.id}`}>
+      <StyledPreferenceCard>
+        {preference?.preferenceTitle}
+      </StyledPreferenceCard>
+    </StyledLink>
   );
 }
 
@@ -27,4 +25,5 @@ const StyledPreferenceCard = styled.div`
 
 const StyledLink = styled(Link)`
   text-decoration: none;
+  display: block;
 `;
