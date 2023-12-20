@@ -9,15 +9,16 @@ export default function FilterForm({ plants, onAddPreference }) {
   const [petFriendly, setPetFriendly] = useState("");
 
   // Separate filter functions
-  const filterPlantSize = (plant, size) => !size || plant.size === size;
-  const filterSunlightRequirement = (plant, requirement) =>
-    !requirement || plant.sunlightRequirements === requirement;
-  const filterWaterNeeds = (plant, needs) =>
-    !needs || plant.waterNeeds === needs;
-  const filterOptimalTemperature = (plant, temperature) =>
-    !temperature || plant.optimalTemperature === temperature;
-  const filterPetFriendly = (plant, isPetFriendly) =>
-    !isPetFriendly || plant.petFriendly === (isPetFriendly === "true");
+  const filterPlantSize = (plantId, size) =>
+  !size || plants.find((plant) => plant.id === plantId)?.size === size;
+  const filterSunlightRequirement = (plantId, requirement) =>
+    !requirement || plants.find((plant) => plant.id === plantId)?.sunlightRequirements === requirement;
+const filterWaterNeeds = (plantId, needs) =>
+    !needs || plants.find((plant) => plant.id === plantId)?.waterNeeds === needs;
+const filterOptimalTemperature = (plantId, temperature) =>
+    !temperature || plants.find((plant) => plant.id === plantId)?.optimalTemperature === temperature;
+const filterPetFriendly = (plant, isPetFriendly) =>
+    !isPetFriendly || plants.find((plant) => plant.id === plantId)?.petFriendly === (isPetFriendly === "true");
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -26,11 +27,11 @@ export default function FilterForm({ plants, onAddPreference }) {
       preferenceTitle: event.target.elements.title.value,
       preferencePlants: plants.filter(function (plant) {
         return (
-          filterPlantSize(plant, plantSize) &&
-          filterSunlightRequirement(plant, sunlightRequirement) &&
-          filterWaterNeeds(plant, waterNeeds) &&
-          filterOptimalTemperature(plant, optimalTemperature) &&
-          filterPetFriendly(plant, petFriendly)
+          filterPlantSize(plant.id, plantSize) &&
+          filterSunlightRequirement(plant.id, sunlightRequirement) &&
+          filterWaterNeeds(plant.id, waterNeeds) &&
+          filterOptimalTemperature(plant.id, optimalTemperature) &&
+          filterPetFriendly(plant.id, petFriendly)
         );
       }),
     };
