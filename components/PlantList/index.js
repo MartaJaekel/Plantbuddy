@@ -13,19 +13,7 @@ export default function PlantList({
   const searchResult = plantsData.filter((plant) => {
     return plant.commonName.toLowerCase().startsWith(search.toLowerCase());
   });
-
-  const sortedAndFilteredPlants = sortedPlants.filter((plant) => {
-    //plant.commonName.toLowerCase().startsWith(search.toLowerCase()));
-    const matchesSize = plant.size.toLowerCase() === selectedSize.toLowerCase();
-    const matchesName = plant.commonName.toLowerCase().startsWith(search.toLowerCase());
-
-    // Adjust the conditions as needed
-    return matchesSize && matchesName;
-});
-    
-   
-    
-
+  const plantsSorted = sortedPlants !== null ? sortedPlants : plantsToDisplay;
   const error = search.length > 0 && searchResult.length === 0;
 
   if (error) {
@@ -50,35 +38,40 @@ export default function PlantList({
 
   return (
     <StyledPlantList>
-      {search.length === 0
-        ? plantsToDisplay.map((plant) => (
-            <PlantCard
-              key={plant.id}
-              plant={plant}
-              onToggleFavorite={onToggleFavorite}
-              isFavorite={favorites?.includes(plant.id)}
-            />
-          ))
-        : searchResult.map((plant) => (
-            <PlantCard
-              key={plant.id}
-              plant={plant}
-              onToggleFavorite={onToggleFavorite}
-              isFavorite={favorites?.includes(plant.id)}
-            />
+    {search.length === 0 
+      ? (sortedPlants !== null ? sortedPlants : plantsToDisplay).map((plant) => (
+          <PlantCard
+            key={plant.id}
+            plant={plant}
+            onToggleFavorite={onToggleFavorite}
+            isFavorite={favorites?.includes(plant.id)}
+          />
+        ))
+      : searchResult.map((plant) => (
+          <PlantCard
+            key={plant.id}
+            plant={plant}
+            onToggleFavorite={onToggleFavorite}
+            isFavorite={favorites?.includes(plant.id)}
+          />
         ))}
-       {sortedAndFilteredPlants.map((plant) => (
-      <PlantCard
-        key={plant.id}
-        plant={plant}
-        onToggleFavorite={onToggleFavorite}
-        isFavorite={favorites?.includes(plant.id)}
-      />
-    ))}
          
+          
     </StyledPlantList>
   );
 }
+
+ /*{search.length === 0 
+        ? plantsToDisplay.map((plant) => (
+          <PlantCard
+            key={plant.id}
+            plant={plant}
+            onToggleFavorite={onToggleFavorite}
+            isFavorite={favorites?.includes(plant.id)}
+          />
+        ))*/
+          
+
 
 const StyledPlantList = styled.ul`
   display: flex;

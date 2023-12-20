@@ -9,7 +9,7 @@ import SortPlants from "@/components/SortPlants";
 export default function HomePage({ onToggleFavorite, favorites, plants }) {
   const [search, setSearch] = useState("");
   const [filteredPlants, setFilteredPlants] = useState(plants);
-  const [sortPlants, setSortPlants] = useState([]);
+  const [sortPlants, setSortPlants] = useState(null); //[]
 
   function handleFilterUpdate(newFilteredPlants) {
     setFilteredPlants(newFilteredPlants);
@@ -23,10 +23,7 @@ export default function HomePage({ onToggleFavorite, favorites, plants }) {
       <StyledHeader>PlantBuddy</StyledHeader>
       <main>
         <SearchField onChange={setSearch} />
-        <SortPlants
-          onSortUpdate={handleSortUpdate}
-          defaultOption={sortPlants}
-        />
+        <SortPlants onSortUpdate={handleSortUpdate} />
         <FilterForm onFilterUpdate={handleFilterUpdate} plants={plants} />
 
         <PlantList

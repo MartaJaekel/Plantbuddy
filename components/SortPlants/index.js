@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { plants as plantsData } from "@/lib/data";
 import { useState } from "react";
-export default function SortPlants({onSortUpdate, defaultOption }) {
-    const [selectedOption, setSelectedOption] = useState(defaultOption);
+export default function SortPlants({onSortUpdate}) {
+    const [selectedOption, setSelectedOption] = useState();
     
     const handleSortingChange = (option) => {
         
