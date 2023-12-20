@@ -14,8 +14,17 @@ export default function PlantList({
     return plant.commonName.toLowerCase().startsWith(search.toLowerCase());
   });
 
-  const sortedAndFilteredPlants = sortedPlants.filter((plant) => 
-    plant.commonName.toLowerCase().startsWith(search.toLowerCase()));
+  const sortedAndFilteredPlants = sortedPlants.filter((plant) => {
+    //plant.commonName.toLowerCase().startsWith(search.toLowerCase()));
+    const matchesSize = plant.size.toLowerCase() === selectedSize.toLowerCase();
+    const matchesName = plant.commonName.toLowerCase().startsWith(search.toLowerCase());
+
+    // Adjust the conditions as needed
+    return matchesSize && matchesName;
+});
+    
+   
+    
 
   const error = search.length > 0 && searchResult.length === 0;
 
@@ -57,16 +66,15 @@ export default function PlantList({
               onToggleFavorite={onToggleFavorite}
               isFavorite={favorites?.includes(plant.id)}
             />
-        ))
-          : sortedAndFilteredPlants.map((plant) => (
-            <PlantCard
-              key={plant.id}
-              plant={plant}
-              onToggleFavorite={onToggleFavorite}
-              isFavorite={favorites?.includes(plant.id)}
-            />
-          ))
-           }
+        ))}
+       {sortedAndFilteredPlants.map((plant) => (
+      <PlantCard
+        key={plant.id}
+        plant={plant}
+        onToggleFavorite={onToggleFavorite}
+        isFavorite={favorites?.includes(plant.id)}
+      />
+    ))}
          
     </StyledPlantList>
   );
