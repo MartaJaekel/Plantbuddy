@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import PlantCard from "@/components/Card";
-import Header from "@/components/Header";
+import { StyledHeadline } from "@/components/Headline/StyledHeadline";
 import Link from "next/link";
 import arrowURL from "@/assets/ArrowIcon.svg?url";
 import Image from "next/image";
@@ -18,7 +18,7 @@ export default function Preference({
 
   return (
     <>
-      <Header />
+      <StyledHeadline>PlantBuddy</StyledHeadline>
       <main />
       <StyledBackLink>
         <Link href="/preferences">

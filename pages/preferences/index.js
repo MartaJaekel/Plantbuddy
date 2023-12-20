@@ -1,4 +1,4 @@
-import Header from "@/components/Header";
+import { StyledHeadline } from "@/components/Headline/StyledHeadline";
 import styled from "styled-components";
 import PreferenceList from "@/components/PreferenceList";
 import FilterForm from "@/components/FilterForm";
@@ -10,7 +10,7 @@ export default function PreferencesPage({
 }) {
   return (
     <>
-      <Header />
+      <StyledHeadline>PlantBuddy</StyledHeadline>
       <main>
         <StyledTitle>Add your Preferences</StyledTitle>
         <FilterForm plants={plants} onAddPreference={handleAddPreference} />

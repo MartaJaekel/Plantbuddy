@@ -1,10 +1,6 @@
 import styled from "styled-components";
 
-export default function Header() {
-  return <StyledHeader>PlantBuddy</StyledHeader>;
-}
-
-const StyledHeader = styled.h1`
+export const StyledHeadline = styled.h1`
   z-index: 2;
   position: fixed;
   top: 0;

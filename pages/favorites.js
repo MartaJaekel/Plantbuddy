@@ -1,14 +1,14 @@
 import React from "react";
 import PlantCard from "@/components/Card";
 import styled from "styled-components";
-import Header from "@/components/Header";
+import { StyledHeadline } from "@/components/Headline/StyledHeadline";
 
 export default function FavoritePage({ plants, favorites, onToggleFavorite }) {
   const favoritePlants = plants.filter((plant) => favorites.includes(plant.id));
 
   return (
     <>
-      <Header />
+      <StyledHeadline>PlantBuddy</StyledHeadline>
       <main>
         <StyledTitle>Your Favorite Plants</StyledTitle>
         {favoritePlants.length === 0 ? (

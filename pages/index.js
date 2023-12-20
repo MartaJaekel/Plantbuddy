@@ -1,14 +1,14 @@
 import PlantList from "@/components/PlantList";
 import React, { useState } from "react";
 import SearchField from "@/components/SearchField";
-import Header from "@/components/Header";
+import { StyledHeadline } from "@/components/Headline/StyledHeadline";
 
 export default function HomePage({ onToggleFavorite, favorites, plants }) {
   const [search, setSearch] = useState("");
 
   return (
     <>
-      <Header />
+      <StyledHeadline>PlantBuddy</StyledHeadline>
       <main>
         <SearchField onChange={setSearch} />
         <PlantList
