@@ -79,7 +79,7 @@ export default function PlantDetail({ onToggleFavorite, favorites, plants }) {
 
 const StyledBackLink = styled.nav`
   position: absolute;
-  top: 1rem;
+  top: 1.75rem;
   left: 1rem;
   background-color: var(--color-green);
   border-radius: 50%;

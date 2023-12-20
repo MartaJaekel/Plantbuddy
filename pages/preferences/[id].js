@@ -15,7 +15,6 @@ export default function Preference({
   const { id } = router.query;
 
   const preference = preferences.find((preference) => preference.id === id);
-  console.log(preference);
 
   return (
     <>
@@ -45,6 +44,8 @@ const StyledTitle = styled.h1`
   text-align: center;
   font-size: 1.25rem;
   color: var(--color-green);
+  word-wrap: break-word;
+  padding: 0 2rem 0 2rem;
 `;
 
 const StyledPlantList = styled.ul`
@@ -56,7 +57,7 @@ const StyledPlantList = styled.ul`
 
 const StyledBackLink = styled.nav`
   position: fixed;
-  top: 6rem;
+  top: 1.75rem;
   left: 1rem;
   background-color: var(--color-green);
   border-radius: 50%;
