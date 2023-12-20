@@ -12,13 +12,24 @@ export default function HomePage({ onToggleFavorite, favorites, plants }) {
     setFilteredPlants(newFilteredPlants);
   }
 
-let resultMessage = '';
+let counterMessage = '';
 
 if (filteredPlants.length === plants.length) {
-  resultMessage = '';
+  counterMessage = '';
 } else if (filteredPlants.length > 0) {
-  resultMessage = `Showing ${filteredPlants.length} of ${plants.length} plants.`;
+  counterMessage = `Showing ${filteredPlants.length} of ${plants.length} plants:`;
 }
+
+// const searchResults = plants.filter(plant => plant.commonName.includes(search));
+// const numSearchResults = searchResults.length;
+
+// let counterMessage = '';
+
+// if (numSearchResults.length === plants.length) {
+//   counterMessage = '';
+// } else if (numSearchResults.length > 0) {
+//   counterMessage = `Showing ${numSearchResults.length} of ${plants.length} plants.`;
+// }
 
 
   return (
@@ -27,7 +38,7 @@ if (filteredPlants.length === plants.length) {
       <main>
         <SearchField onChange={setSearch} />
         <FilterForm onFilterUpdate={handleFilterUpdate} plants={plants} />
-        <p>{resultMessage}</p>
+        <CounterMessage>{counterMessage}</CounterMessage>
         <PlantList
           onToggleFavorite={onToggleFavorite}
           favorites={favorites}
@@ -52,4 +63,11 @@ const StyledHeader = styled.h1`
   font-size: 3rem;
   margin: 0;
   padding: 1rem;
+`;
+
+const CounterMessage = styled.p`
+  margin: 1rem auto;
+  max-width: 19rem;
+  color: var(--color-green);
+  font-weight: 600;
 `;
