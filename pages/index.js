@@ -1,5 +1,5 @@
 import PlantList from "@/components/PlantList";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import FilterForm from "@/components/FilterForm";
 import SearchField from "@/components/SearchField";
 import styled from "styled-components";
@@ -7,36 +7,35 @@ import styled from "styled-components";
 export default function HomePage({ onToggleFavorite, favorites, plants }) {
   const [search, setSearch] = useState("");
   const [filteredPlants, setFilteredPlants] = useState(plants);
+  const [counterMessage, setCounterMessage] = useState('');
 
   function handleFilterUpdate(newFilteredPlants) {
     setFilteredPlants(newFilteredPlants);
   }
 
-let counterMessage = '';
-
 const searchResult = plants.filter((plant) => {
   return plant.commonName.toLowerCase().startsWith(search.toLowerCase());
 });
 
+useEffect(() => {
+  if (searchResult.length > 0 && searchResult.length < plants.length) {
+    setCounterMessage(
+      `Showing ${searchResult.length} of ${plants.length} plants:`
+    );
+  } else if (filteredPlants.length === plants.length && searchResult.length === plants.length) {
+    setCounterMessage('');
+  }
+}, [searchResult]);
 
-if (filteredPlants.length === plants.length || searchResult.length  === plants.length) {
-  counterMessage = '';
-} else if (filteredPlants.length > 0 || searchResult.length > 0 ) {
-  counterMessage = `Showing ${filteredPlants.length || searchResult.length} of ${plants.length} plants:`;
-}
-
-// if (filteredPlants.length === plants.length) {
-//   counterMessage = '';
-// } else if (filteredPlants.length > 0) {
-//   counterMessage = `Showing ${filteredPlants.length} of ${plants.length} plants:`;
-// }
-
-// if (searchResult.length === plants.length) {
-//   counterMessage = '';
-// } else if (searchResult.length > 0) {
-//   counterMessage = `Showing ${searchResult.length} of ${plants.length} plants.`;
-// }
-
+useEffect(() => {
+  if (filteredPlants.length > 0 && filteredPlants.length < plants.length) {
+    setCounterMessage(
+      `Showing ${filteredPlants.length} of ${plants.length} plants:`
+    );
+  } else if (filteredPlants.length === plants.length && searchResult.length === plants.length) {
+    setCounterMessage('');
+  }
+}, [filteredPlants]);
 
   return (
     <>
