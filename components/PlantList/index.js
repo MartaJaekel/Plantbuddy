@@ -13,7 +13,7 @@ export default function PlantList({
   const searchResult = plantsData.filter((plant) => {
     return plant.commonName.toLowerCase().startsWith(search.toLowerCase());
   });
-  const plantsSorted = sortedPlants !== null ? sortedPlants : plantsToDisplay;
+   sortedPlants !== null ? sortedPlants : plantsToDisplay;
   const error = search.length > 0 && searchResult.length === 0;
 
   if (error) {

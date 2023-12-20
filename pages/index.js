@@ -9,7 +9,7 @@ import SortPlants from "@/components/SortPlants";
 export default function HomePage({ onToggleFavorite, favorites, plants }) {
   const [search, setSearch] = useState("");
   const [filteredPlants, setFilteredPlants] = useState(plants);
-  const [sortPlants, setSortPlants] = useState(null); //[]
+  const [sortPlants, setSortPlants] = useState(null); 
 
   function handleFilterUpdate(newFilteredPlants) {
     setFilteredPlants(newFilteredPlants);
