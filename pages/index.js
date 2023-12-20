@@ -14,21 +14,27 @@ export default function HomePage({ onToggleFavorite, favorites, plants }) {
 
 let counterMessage = '';
 
-if (filteredPlants.length === plants.length) {
+const searchResult = plants.filter((plant) => {
+  return plant.commonName.toLowerCase().startsWith(search.toLowerCase());
+});
+
+
+if (filteredPlants.length === plants.length || searchResult.length  === plants.length) {
   counterMessage = '';
-} else if (filteredPlants.length > 0) {
-  counterMessage = `Showing ${filteredPlants.length} of ${plants.length} plants:`;
+} else if (filteredPlants.length > 0 || searchResult.length > 0 ) {
+  counterMessage = `Showing ${filteredPlants.length || searchResult.length} of ${plants.length} plants:`;
 }
 
-// const searchResults = plants.filter(plant => plant.commonName.includes(search));
-// const numSearchResults = searchResults.length;
-
-// let counterMessage = '';
-
-// if (numSearchResults.length === plants.length) {
+// if (filteredPlants.length === plants.length) {
 //   counterMessage = '';
-// } else if (numSearchResults.length > 0) {
-//   counterMessage = `Showing ${numSearchResults.length} of ${plants.length} plants.`;
+// } else if (filteredPlants.length > 0) {
+//   counterMessage = `Showing ${filteredPlants.length} of ${plants.length} plants:`;
+// }
+
+// if (searchResult.length === plants.length) {
+//   counterMessage = '';
+// } else if (searchResult.length > 0) {
+//   counterMessage = `Showing ${searchResult.length} of ${plants.length} plants.`;
 // }
 
 
@@ -45,6 +51,7 @@ if (filteredPlants.length === plants.length) {
           plants={plants}
           search={search}
           plantsToDisplay={filteredPlants}
+          searchResult={searchResult}
         />
       </main>
     </>
