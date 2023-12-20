@@ -9,8 +9,9 @@ import sunlightURL from "@/assets/SunlightIcon.svg?url";
 import waterURL from "@/assets/WaterIcon.svg?url";
 import temperatureURL from "@/assets/TemperatureIcon.svg?url";
 import PlantCharacteristics from "@/components/PlantCharacteristics";
+import FavoriteButton from "@/components/FavoriteButton";
 
-export default function PlantDetail() {
+export default function PlantDetail({ onToggleFavorite, favorites }) {
   const router = useRouter();
   const { id } = router.query;
 
@@ -30,6 +31,10 @@ export default function PlantDetail() {
         </Link>
       </StyledBackLink>
       <main>
+      <FavoriteButton
+            onClick={() => onToggleFavorite(plant.id)}
+            isFavorite={favorites?.includes(plant.id)}
+          />
         <StyledImage
           src={plant.image}
           width={200}

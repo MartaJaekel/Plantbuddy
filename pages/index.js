@@ -1,40 +1,49 @@
+import PlantList from "@/components/PlantList";
 import React, { useState } from "react";
-import PlantCard from "@/components/Card";
 import FilterForm from "@/components/FilterForm";
 import SearchField from "@/components/SearchField";
 import styled from "styled-components";
 import { plants } from "@/lib/data";
 import SortPlants from "@/components/SortPlants";
 
-export default function HomePage() {
+export default function HomePage({ onToggleFavorite, favorites, plants }) {
   const [search, setSearch] = useState("");
   const [filteredPlants, setFilteredPlants] = useState(plants);
-  const [sortPlants, setSortPlants] = useState([])
+  const [sortPlants, setSortPlants] = useState([]);
 
-  const handleFilterUpdate = (newFilteredPlants) => {
+  function handleFilterUpdate(newFilteredPlants) {
     setFilteredPlants(newFilteredPlants);
-  };
-  const handleSortUpdate = (newSortedPlants) => {
-    setSortPlants(newSortedPlants)
   }
+  const handleSortUpdate = (newSortedPlants) => {
+    setSortPlants(newSortedPlants);
+  };
 
   return (
     <>
       <StyledHeader>PlantBuddy</StyledHeader>
-      <HeaderSpacing />
-      <SearchField onChange={setSearch} />
-      <SortPlants onSortUpdate={handleSortUpdate} defaultOption={sortPlants}/>
-      <FilterForm onFilterUpdate={handleFilterUpdate} />
-      <PlantCard search={search} plantsToDisplay={filteredPlants} sortedPlants={sortPlants} />
+      <main>
+        <SearchField onChange={setSearch} />
+        <SortPlants
+          onSortUpdate={handleSortUpdate}
+          defaultOption={sortPlants}
+        />
+        <FilterForm onFilterUpdate={handleFilterUpdate} plants={plants} />
+
+        <PlantList
+          onToggleFavorite={onToggleFavorite}
+          favorites={favorites}
+          plants={plants}
+          search={search}
+          plantsToDisplay={filteredPlants}
+          sortedPlants={sortPlants}
+        />
+      </main>
     </>
   );
 }
 
-const HeaderSpacing = styled.div`
-  margin-top: 6rem;
-`;
-
 const StyledHeader = styled.h1`
+  z-index: 2;
   position: fixed;
   top: 0;
   background-color: white;
@@ -45,5 +54,4 @@ const StyledHeader = styled.h1`
   font-size: 3rem;
   margin: 0;
   padding: 1rem;
-  z-index: 1;
 `;

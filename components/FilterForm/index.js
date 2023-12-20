@@ -1,72 +1,116 @@
 import styled from "styled-components";
 import React, { useState } from "react";
-import { plants } from "@/lib/data";
 
-export default function FilterForm({ onFilterUpdate }) {
+export default function FilterForm({ onFilterUpdate, plants }) {
   const [plantSize, setPlantSize] = useState("");
-  const [sunlightRequirement, setsunlightRequirement] = useState("");
-  const [waterNeeds, setwaterNeeds] = useState("");
-  const [optimalTemperature, setoptimalTemperature] = useState("");
-  const [petFriendly, setpetFriendly] = useState("");
+  const [sunlightRequirement, setSunlightRequirement] = useState("");
+  const [waterNeeds, setWaterNeeds] = useState("");
+  const [optimalTemperature, setOptimalTemperature] = useState("");
+  const [petFriendly, setPetFriendly] = useState("");
+
+  // Separate filter functions
+  const filterPlantSize = (plant, size) => !size || plant.size === size;
+  const filterSunlightRequirement = (plant, requirement) =>
+    !requirement || plant.sunlightRequirements === requirement;
+  const filterWaterNeeds = (plant, needs) =>
+    !needs || plant.waterNeeds === needs;
+  const filterOptimalTemperature = (plant, temperature) =>
+    !temperature || plant.optimalTemperature === temperature;
+  const filterPetFriendly = (plant, isPetFriendly) =>
+    !isPetFriendly || plant.petFriendly === (isPetFriendly === "true");
 
   const handleFilter = (event) => {
     event.preventDefault();
 
-    const newFilteredPlants = plants.filter(plant => 
-      (plantSize ? plant.size === plantSize : true) &&
-      (sunlightRequirement ? plant.sunlightRequirements === sunlightRequirement : true) &&
-      (waterNeeds ? plant.waterNeeds === waterNeeds : true) &&
-      (optimalTemperature ? plant.optimalTemperature === optimalTemperature : true) &&
-      (petFriendly ? plant.petFriendly === (petFriendly === "true") : true)
-      );
+    const newFilteredPlants = plants.filter(
+      (plant) =>
+        filterPlantSize(plant, plantSize) &&
+        filterSunlightRequirement(plant, sunlightRequirement) &&
+        filterWaterNeeds(plant, waterNeeds) &&
+        filterOptimalTemperature(plant, optimalTemperature) &&
+        filterPetFriendly(plant, petFriendly)
+    );
 
-      onFilterUpdate(newFilteredPlants);
+    onFilterUpdate(newFilteredPlants);
+  };
+
+  function handleReset() {
+    onFilterUpdate(plants);
+  }
+
+  function handleReset() {
+    onFilterUpdate(plants);
   }
 
   return (
-    <StyledForm onSubmit={handleFilter}>
-      <StyledSelect name="plantSize" onChange={e => setPlantSize(e.target.value)}>
+    <StyledForm onSubmit={handleFilter} onReset={handleReset}>
+      <StyledLabel for="plantSize">Select the plant size:</StyledLabel>
+      <StyledSelect
+        name="plantSize"
+        onChange={(event) => setPlantSize(event.target.value)}
+      >
         <option value="">Select Size</option>
-        <option value="Small to Medium">Small to Medium</option>
-        <option value="Medium">Medium</option>
-        <option value="Medium to Large">Medium to Large</option>
-        <option value="Large">Large</option>
+        <option value="small">Small (15cm-50cm)</option>
+        <option value="medium">Medium (50cm-90cm)</option>
+        <option value="large">Large (90cm+)</option>
       </StyledSelect>
-      <StyledSelect name="sunlightRequirement" onChange={e => setsunlightRequirement(e.target.value)}>
+
+      <StyledLabel for="sunlightRequirement">
+        Select the sunlight Requirement:
+      </StyledLabel>
+      <StyledSelect
+        name="sunlightRequirement"
+        onChange={(event) => setSunlightRequirement(event.target.value)}
+      >
         <option value="">Select Sunlight Requirement</option>
-        <option value="Low to Medium Light">Low to Medium Light</option>
-        <option value="Low to Bright Light">Low to Bright Light</option>
-        <option value="Bright Indirect Light">Bright Indirect Light</option>
-        <option value="Bright Direct Light">Bright Direct Light</option>
-        <option value="Full Sun">Full Sun</option>
+        <option value="full sun">Full Sun</option>
+        <option value="indirect light">Indirect Light</option>
+        <option value="half-shade">Half-Shade</option>
       </StyledSelect>
-      <StyledSelect name="waterNeeds" onChange={e => setwaterNeeds(e.target.value)}>
+
+      <StyledLabel for="waterNeeds">Select the water needs:</StyledLabel>
+      <StyledSelect
+        name="waterNeeds"
+        onChange={(event) => setWaterNeeds(event.target.value)}
+      >
         <option value="">Select Water Needs</option>
-        <option value="Low">Low</option>
-        <option value="Low to Medium">Low to Medium</option>
-        <option value="Medium">Medium</option>
-        <option value="Medium to High">Medium to High</option>
-        <option value="High">High</option>
+        <option value="weekly">Weekly</option>
+        <option value="every other week">Every other week</option>
+        <option value="monthly">Monthly</option>
       </StyledSelect>
-      <StyledSelect name="optimalTemperature" onChange={e => setoptimalTemperature(e.target.value)}>
+
+      <StyledLabel for="optimalTemperature">
+        Select the optimal temperature:
+      </StyledLabel>
+      <StyledSelect
+        name="optimalTemperature"
+        onChange={(event) => setOptimalTemperature(event.target.value)}
+      >
         <option value="">Select Temperature</option>
-        <option value="15-27°C">15-27°C</option>
-        <option value="18-25°C">18-25°C</option>
-        <option value="18-24°C">18-24°C</option>
-        <option value="20-30°C">20-30°C</option>
-        <option value="15-30°C">15-30°C</option>
+        <option value="low">15-20°C</option>
+        <option value="average">18-25°C</option>
+        <option value="high">20-30°C</option>
       </StyledSelect>
-      <StyledSelect name="petFriendly" onChange={e => setpetFriendly(e.target.value)}>
+
+      <StyledLabel for="petFriendly">Select the pet compatibility:</StyledLabel>
+      <StyledSelect
+        name="petFriendly"
+        onChange={(event) => setPetFriendly(event.target.value)}
+      >
         <option value="">Select Pet Compatibility</option>
         <option value="true">Yes</option>
         <option value="false">No</option>
       </StyledSelect>
-      <StyledButton type="submit">Filter</StyledButton>
+      <StyledButtonContainer>
+        <StyledButton type="reset">Reset</StyledButton>
+        <StyledButton type="submit">Filter</StyledButton>
+      </StyledButtonContainer>
     </StyledForm>
   );
 }
 
 const StyledForm = styled.form`
+  position: relative;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
@@ -76,9 +120,22 @@ const StyledForm = styled.form`
   margin: 1rem auto 1rem auto;
 `;
 
+const StyledLabel = styled.label`
+  border: 0;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+  white-space: nowrap;
+`;
+
 const StyledSelect = styled.select`
   background-color: var(--color-grey);
-  padding: .6rem 1.5rem;
+  padding: 0.6rem 1.5rem;
   border-radius: 8px;
   color: var(--color-green);
   border: none;
@@ -86,12 +143,18 @@ const StyledSelect = styled.select`
   cursor: pointer;
 `;
 
+const StyledButtonContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
 const StyledButton = styled.button`
   color: white;
   background-color: var(--color-green);
   border: none;
   border-radius: 8px;
-  padding: .6rem .4rem;
+  padding: 0.6rem 0.4rem;
   font-weight: 600;
   cursor: pointer;
+  width: 9rem;
 `;

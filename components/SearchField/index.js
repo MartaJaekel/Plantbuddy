@@ -1,14 +1,14 @@
 import styled from "styled-components";
 import MagnifyingGlass from "../../assets/magnifying-glass.svg";
 import XMark from "../../assets/x-mark.svg";
-import { useRef, useState } from "react";
+import { useState } from "react";
 
 export default function SearchField({ onChange }) {
   const SearchIcon = <MagnifyingGlass />;
   const ClearSearchIcon = <XMark />;
 
   const [icon, setIcon] = useState("search");
-  
+
   function handleOnChange(event) {
     const searchValue = event.target.value;
     onChange(searchValue);
@@ -21,7 +21,6 @@ export default function SearchField({ onChange }) {
 
   function clearInput() {
     if (icon === "clear-search") {
-     
       onChange("");
       setIcon("search");
       document.getElementById("search").value = "";
@@ -30,15 +29,11 @@ export default function SearchField({ onChange }) {
 
   return (
     <InputWrapper>
-      <InputIcon
-        $icon={icon}
-        onClick={clearInput}
-      >
+      <InputIcon $icon={icon} onClick={clearInput}>
         {icon === "search" ? SearchIcon : ClearSearchIcon}
       </InputIcon>
 
       <SearchFieldInput
-       
         type="search"
         id="search"
         placeholder="Search for plants"
@@ -49,7 +44,7 @@ export default function SearchField({ onChange }) {
 }
 
 const InputIcon = styled.span`
-  cursor: ${({$icon}) => $icon === "clear-search" ? "pointer" : ""};
+  cursor: ${({ $icon }) => ($icon === "clear-search" ? "pointer" : "")};
   position: absolute;
   right: 28px;
   top: 50%;
@@ -69,7 +64,7 @@ const InputWrapper = styled.div`
   flex-flow: column;
   padding: 1rem;
   max-width: 21rem;
-  margin: 0 auto;
+  margin: 6rem auto 0 auto;
 `;
 
 const SearchFieldInput = styled.input`
