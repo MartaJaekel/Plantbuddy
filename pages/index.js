@@ -3,11 +3,7 @@ import React, { useState } from "react";
 import SearchField from "@/components/SearchField";
 import Header from "@/components/Header";
 
-export default function HomePage({
-  onToggleFavorite,
-  favorites,
-  plants,
-}) {
+export default function HomePage({ onToggleFavorite, favorites, plants }) {
   const [search, setSearch] = useState("");
 
   return (

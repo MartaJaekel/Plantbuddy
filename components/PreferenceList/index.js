@@ -1,19 +1,22 @@
 import styled from "styled-components";
 import PreferenceCard from "../PreferenceCard";
 
-export default function PreferenceList({ preferences }) {
+export default function PreferenceList({
+  preferences
+}) {
   return (
     <>
       {preferences.length === 0 ? (
         <StyledArticle>
-          <p>
             Start adding your <StyledSpan>first</StyledSpan> preference!
-          </p>
         </StyledArticle>
       ) : (
         <StyledPreferenceList>
           {preferences.map((preference) => (
-            <PreferenceCard key={preference.id} preference={preference} />
+            <PreferenceCard
+              key={preference.id}
+              preference={preference}
+            />
           ))}
         </StyledPreferenceList>
       )}

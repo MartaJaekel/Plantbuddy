@@ -17,7 +17,6 @@ export default function PlantList({
     return (
       <ErrorMessageContainer>
         <p>
-          {" "}
           Sorry, we could not find <br />
           anything with the name <br />
           <StyledSpan>{search}</StyledSpan>

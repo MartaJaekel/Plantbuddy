@@ -10,7 +10,7 @@ export default function FavoritePage({ plants, favorites, onToggleFavorite }) {
     <>
       <Header />
       <main>
-      <StyledTitle>Your Favorite Plants</StyledTitle>
+        <StyledTitle>Your Favorite Plants</StyledTitle>
         {favoritePlants.length === 0 ? (
           <StyledArticle>
             <p>At the moment you do not have any favorite plants.</p>
@@ -34,7 +34,6 @@ export default function FavoritePage({ plants, favorites, onToggleFavorite }) {
     </>
   );
 }
-
 
 const StyledTitle = styled.h1`
   text-align: center;
