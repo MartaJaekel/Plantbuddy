@@ -35,7 +35,7 @@ export default function FavoritePage({ plants, favorites, onToggleFavorite }) {
   );
 }
 
-const StyledTitle = styled.h1`
+const StyledTitle = styled.h2`
   text-align: center;
   margin-top: 6rem;
   font-size: 1.25rem;

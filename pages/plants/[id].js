@@ -22,11 +22,9 @@ export default function PlantDetail({ onToggleFavorite, favorites, plants }) {
 
   return (
     <>
-      <StyledBackLink>
-        <Link href="/">
+        <StyledBackLink href="/">
           <Image src={arrowURL} alt="Back Link" width={25} height={20} />
-        </Link>
-      </StyledBackLink>
+        </StyledBackLink>
       <main>
         <FavoriteButton
           onClick={() => onToggleFavorite(plant.id)}
@@ -77,7 +75,7 @@ export default function PlantDetail({ onToggleFavorite, favorites, plants }) {
   );
 }
 
-const StyledBackLink = styled.nav`
+const StyledBackLink = styled(Link)`
   position: absolute;
   top: 1.75rem;
   left: 1rem;

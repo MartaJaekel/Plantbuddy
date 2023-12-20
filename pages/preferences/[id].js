@@ -20,11 +20,9 @@ export default function Preference({
     <>
       <StyledHeadline>PlantBuddy</StyledHeadline>
       <main />
-      <StyledBackLink>
-        <Link href="/preferences">
+        <StyledBackLink href="/preferences">
           <Image src={arrowURL} alt="Back Link" width={25} height={20} />
-        </Link>
-      </StyledBackLink>
+        </StyledBackLink>
       <StyledTitle>{preference?.preferenceTitle}</StyledTitle>
       <StyledPlantList>
         {preference?.preferencePlants.map((plant) => (
@@ -40,7 +38,7 @@ export default function Preference({
   );
 }
 
-const StyledTitle = styled.h1`
+const StyledTitle = styled.h2`
   text-align: center;
   font-size: 1.25rem;
   color: var(--color-green);
@@ -55,7 +53,7 @@ const StyledPlantList = styled.ul`
   gap: 1rem;
 `;
 
-const StyledBackLink = styled.nav`
+const StyledBackLink = styled(Link)`
   position: fixed;
   top: 1.75rem;
   left: 1rem;

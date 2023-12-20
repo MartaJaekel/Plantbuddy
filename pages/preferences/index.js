@@ -20,7 +20,7 @@ export default function PreferencesPage({
   );
 }
 
-const StyledTitle = styled.h1`
+const StyledTitle = styled.h2`
   text-align: center;
   margin: 6rem 0 2rem 0;
   font-size: 1.25rem;
