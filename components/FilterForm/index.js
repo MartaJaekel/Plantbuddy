@@ -1,10 +1,7 @@
 import styled from "styled-components";
 import React, { useState } from "react";
 
-export default function FilterForm({
-  plants,
-  onAddPreference,
-}) {
+export default function FilterForm({ plants, onAddPreference }) {
   const [plantSize, setPlantSize] = useState("");
   const [sunlightRequirement, setSunlightRequirement] = useState("");
   const [waterNeeds, setWaterNeeds] = useState("");
@@ -45,14 +42,20 @@ export default function FilterForm({
 
   function handleReset() {
     event.target.reset();
-    }
+  }
+
 
   return (
     <StyledForm onSubmit={handleSubmit} onReset={handleReset}>
-      <StyledTitleLabel for="title">Your Preference Title</StyledTitleLabel>
-      <StyledTitleInput type="text" name="title" required />
+      <StyledLabel htmlFor="title">Add your preference title</StyledLabel>
+      <StyledTitleInput
+        type="text"
+        name="title"
+        placeholder="Add here your Preference Title"
+        required
+      />
 
-      <StyledLabel for="plantSize">Select the plant size:</StyledLabel>
+      <StyledLabel htmlFor="plantSize">Select the plant size:</StyledLabel>
       <StyledSelect
         name="plantSize"
         onChange={(event) => setPlantSize(event.target.value)}
@@ -63,7 +66,7 @@ export default function FilterForm({
         <option value="large">Large (90cm+)</option>
       </StyledSelect>
 
-      <StyledLabel for="sunlightRequirement">
+      <StyledLabel htmlFor="sunlightRequirement">
         Select the sunlight Requirement:
       </StyledLabel>
       <StyledSelect
@@ -76,7 +79,7 @@ export default function FilterForm({
         <option value="half-shade">Half-Shade</option>
       </StyledSelect>
 
-      <StyledLabel for="waterNeeds">Select the water needs:</StyledLabel>
+      <StyledLabel htmlFor="waterNeeds">Select the water needs:</StyledLabel>
       <StyledSelect
         name="waterNeeds"
         onChange={(event) => setWaterNeeds(event.target.value)}
@@ -87,7 +90,7 @@ export default function FilterForm({
         <option value="monthly">Monthly</option>
       </StyledSelect>
 
-      <StyledLabel for="optimalTemperature">
+      <StyledLabel htmlFor="optimalTemperature">
         Select the optimal temperature:
       </StyledLabel>
       <StyledSelect
@@ -100,7 +103,7 @@ export default function FilterForm({
         <option value="high">20-30°C</option>
       </StyledSelect>
 
-      <StyledLabel for="petFriendly">Select the pet compatibility:</StyledLabel>
+      <StyledLabel htmlFor="petFriendly">Select the pet compatibility:</StyledLabel>
       <StyledSelect
         name="petFriendly"
         onChange={(event) => setPetFriendly(event.target.value)}
@@ -126,14 +129,10 @@ const StyledForm = styled.form`
   gap: 1rem;
   max-width: 19rem;
   margin: 1rem auto 1rem auto;
-  padding: 0rem 0 2rem 0;
+  padding: 0rem 0rem 2rem 0;
   border-bottom: 2px solid var(--color-grey);
 `;
 
-const StyledTitleLabel = styled.label`
-  color: var(--color-green);
-  font-weight: 600;
-`;
 const StyledTitleInput = styled.input`
   background-color: var(--color-grey);
   padding: 0.6rem 1.5rem;
@@ -142,6 +141,11 @@ const StyledTitleInput = styled.input`
   border: none;
   font-weight: 600;
   cursor: pointer;
+
+  &::placeholder {
+    color: var(--color-lightGreen);
+    font-weight: 600;
+  }
 `;
 
 const StyledLabel = styled.label`

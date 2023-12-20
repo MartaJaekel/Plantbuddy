@@ -4,7 +4,6 @@ import SearchField from "@/components/SearchField";
 import Header from "@/components/Header";
 
 export default function HomePage({
-  filteredPlants,
   onToggleFavorite,
   favorites,
   plants,
@@ -21,7 +20,6 @@ export default function HomePage({
           favorites={favorites}
           plants={plants}
           search={search}
-          plantsToDisplay={filteredPlants}
         />
       </main>
     </>

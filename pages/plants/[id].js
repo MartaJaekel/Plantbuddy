@@ -1,5 +1,4 @@
 import { useRouter } from "next/router";
-import { plants } from "@/lib/data";
 import Link from "next/link";
 import Image from "next/image";
 import styled from "styled-components";
@@ -11,13 +10,11 @@ import temperatureURL from "@/assets/TemperatureIcon.svg?url";
 import PlantCharacteristics from "@/components/PlantCharacteristics";
 import FavoriteButton from "@/components/FavoriteButton";
 
-export default function PlantDetail({ onToggleFavorite, favorites }) {
+export default function PlantDetail({ onToggleFavorite, favorites, plants }) {
   const router = useRouter();
   const { id } = router.query;
 
   const plant = plants.find((plant) => plant.id === id);
-
-  console.log(plant);
 
   if (!plant) {
     return <h2>Plant not found!</h2>;
@@ -27,14 +24,14 @@ export default function PlantDetail({ onToggleFavorite, favorites }) {
     <>
       <StyledBackLink>
         <Link href="/">
-          <Image src={arrowURL} alt="Back Link" width={30} height={25} />
+          <Image src={arrowURL} alt="Back Link" width={25} height={20} />
         </Link>
       </StyledBackLink>
       <main>
-      <FavoriteButton
-            onClick={() => onToggleFavorite(plant.id)}
-            isFavorite={favorites?.includes(plant.id)}
-          />
+        <FavoriteButton
+          onClick={() => onToggleFavorite(plant.id)}
+          isFavorite={favorites?.includes(plant.id)}
+        />
         <StyledImage
           src={plant.image}
           width={200}
@@ -82,12 +79,12 @@ export default function PlantDetail({ onToggleFavorite, favorites }) {
 
 const StyledBackLink = styled.nav`
   position: absolute;
-  top: 2rem;
+  top: 1rem;
   left: 1rem;
   background-color: var(--color-green);
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   display: flex;
   align-items: center;
 `;

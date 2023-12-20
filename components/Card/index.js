@@ -4,14 +4,13 @@ import Link from "next/link";
 import FavoriteButton from "../FavoriteButton";
 
 export default function PlantCard({ onToggleFavorite, isFavorite, plant }) {
-
   return (
     <StyledListItem>
-        <FavoriteButton
-          onClick={() => onToggleFavorite(plant.id)}
-          isFavorite={isFavorite}
-        />
-      <StyledLink href={`plants/${plant?.id}`}>
+      <FavoriteButton
+        onClick={() => onToggleFavorite(plant.id)}
+        isFavorite={isFavorite}
+      />
+      <StyledLink href={`/plants/${plant?.id}`}>
         <StyledFigure>
           <Image
             src={plant?.image}
@@ -29,7 +28,6 @@ export default function PlantCard({ onToggleFavorite, isFavorite, plant }) {
 const StyledListItem = styled.li`
   position: relative;
 `;
-
 
 const StyledFigure = styled.figure`
   margin: 0;
