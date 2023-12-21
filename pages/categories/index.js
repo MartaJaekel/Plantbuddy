@@ -12,8 +12,8 @@ export default function CategoriesOverview() {
       <main>
         <StyledPlantList>
           {categories.map((category) => (
-            <StyledLink href={`/categories/${category.category}`}>
-              <CategoryCard key={category.id} bgColor={category.bgColor}>
+            <StyledLink key={category.id} href={`/categories/${category.category}`}>
+              <CategoryCard bgColor={category.bgColor}>
                 <p>{category.title}</p>
               </CategoryCard>
             </StyledLink>
