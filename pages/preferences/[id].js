@@ -13,15 +13,19 @@ export default function Preference({
   const router = useRouter();
   const { id } = router.query;
 
+  const goBack = () => {
+    router.back();
+  };
+
   const preference = preferences.find((preference) => preference.id === id);
 
   return (
     <>
       <StyledHeadline>PlantBuddy</StyledHeadline>
       <main />
-        <StyledBackLink href="/preferences">
+        <StyledBackButton onClick={goBack}>
           <Image src="/assets/ArrowIcon.svg" alt="Back Link" width={25} height={20} />
-        </StyledBackLink>
+        </StyledBackButton>
       <StyledTitle>{preference?.preferenceTitle}</StyledTitle>
       <StyledPlantList>
         {preference?.preferencePlants.map((plant) => (
@@ -52,7 +56,7 @@ const StyledPlantList = styled.ul`
   gap: 1rem;
 `;
 
-const StyledBackLink = styled(Link)`
+const StyledBackButton = styled.button`
   position: fixed;
   top: 1.75rem;
   left: 1rem;
@@ -63,4 +67,5 @@ const StyledBackLink = styled(Link)`
   display: flex;
   align-items: center;
   z-index: 2;
+  border: none;
 `;

@@ -9,6 +9,10 @@ export default function PlantDetail({ onToggleFavorite, favorites, plants }) {
   const router = useRouter();
   const { id } = router.query;
 
+  const goBack = () => {
+    router.back();
+  };
+
   const plant = plants.find((plant) => plant.id === id);
 
   if (!plant) {
@@ -17,9 +21,9 @@ export default function PlantDetail({ onToggleFavorite, favorites, plants }) {
 
   return (
     <>
-        <StyledBackLink href="/">
+        <StyledBackButton onClick={goBack}>
           <Image src="/assets/ArrowIcon.svg" alt="Back Link" width={25} height={20} />
-        </StyledBackLink>
+        </StyledBackButton>
       <main>
         <FavoriteButton
           onClick={() => onToggleFavorite(plant.id)}
@@ -70,7 +74,7 @@ export default function PlantDetail({ onToggleFavorite, favorites, plants }) {
   );
 }
 
-const StyledBackLink = styled(Link)`
+const StyledBackButton = styled.button`
   position: absolute;
   top: 1.75rem;
   left: 1rem;
@@ -80,6 +84,7 @@ const StyledBackLink = styled(Link)`
   height: 30px;
   display: flex;
   align-items: center;
+  border: none;
 `;
 
 const StyledImage = styled(Image)`
