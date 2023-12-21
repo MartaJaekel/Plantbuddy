@@ -2,7 +2,6 @@ import { useRouter } from "next/router";
 import styled from "styled-components";
 import PlantCard from "@/components/Card";
 import { StyledHeadline } from "@/components/Headline/StyledHeadline";
-import Link from "next/link";
 import Image from "next/image";
 
 export default function Preference({
@@ -23,7 +22,7 @@ export default function Preference({
     <>
       <StyledHeadline>PlantBuddy</StyledHeadline>
       <main />
-        <StyledBackButton onClick={goBack}>
+        <StyledBackButton type="button" aria-label="Go Back" onClick={goBack}>
           <Image src="/assets/ArrowIcon.svg" alt="Back Link" width={25} height={20} />
         </StyledBackButton>
       <StyledTitle>{preference?.preferenceTitle}</StyledTitle>

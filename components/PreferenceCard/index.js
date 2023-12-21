@@ -4,14 +4,12 @@ import Link from "next/link";
 export default function PreferenceCard({ preference }) {
   return (
     <StyledLink href={`preferences/${preference?.id}`}>
-      <StyledPreferenceCard>
         {preference?.preferenceTitle}
-      </StyledPreferenceCard>
     </StyledLink>
   );
 }
 
-const StyledPreferenceCard = styled.div`
+const StyledLink = styled(Link)`
   background-color: var(--color-green);
   padding: 0.6rem 1.5rem;
   border-radius: 8px;
@@ -21,9 +19,6 @@ const StyledPreferenceCard = styled.div`
   font-size: 0.8rem;
   cursor: pointer;
   max-width: 19rem;
-`;
-
-const StyledLink = styled(Link)`
   text-decoration: none;
   display: block;
 `;

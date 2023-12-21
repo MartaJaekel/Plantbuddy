@@ -1,5 +1,4 @@
 import { useRouter } from "next/router";
-import Link from "next/link";
 import Image from "next/image";
 import styled from "styled-components";
 import PlantCharacteristics from "@/components/PlantCharacteristics";
@@ -21,7 +20,7 @@ export default function PlantDetail({ onToggleFavorite, favorites, plants }) {
 
   return (
     <>
-        <StyledBackButton onClick={goBack}>
+        <StyledBackButton type="button" aria-label="Go Back" onClick={goBack}>
           <Image src="/assets/ArrowIcon.svg" alt="Back Link" width={25} height={20} />
         </StyledBackButton>
       <main>
