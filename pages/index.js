@@ -20,7 +20,7 @@ export default function HomePage({ onToggleFavorite, favorites, plants }) {
     } else if (searchResult.length === plants.length) {
       setCounterMessage("");
     }
-  }, [searchResult]);
+  }, [searchResult, plants.length]);
 
   return (
     <>
