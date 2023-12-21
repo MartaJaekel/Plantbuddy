@@ -2,11 +2,6 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import Image from "next/image";
 import styled from "styled-components";
-import arrowURL from "@/assets/ArrowIcon.svg?url";
-import sizeURL from "@/assets/SizeIcon.svg?url";
-import sunlightURL from "@/assets/SunlightIcon.svg?url";
-import waterURL from "@/assets/WaterIcon.svg?url";
-import temperatureURL from "@/assets/TemperatureIcon.svg?url";
 import PlantCharacteristics from "@/components/PlantCharacteristics";
 import FavoriteButton from "@/components/FavoriteButton";
 
@@ -23,7 +18,7 @@ export default function PlantDetail({ onToggleFavorite, favorites, plants }) {
   return (
     <>
         <StyledBackLink href="/">
-          <Image src={arrowURL} alt="Back Link" width={25} height={20} />
+          <Image src="/assets/ArrowIcon.svg" alt="Back Link" width={25} height={20} />
         </StyledBackLink>
       <main>
         <FavoriteButton
@@ -43,25 +38,25 @@ export default function PlantDetail({ onToggleFavorite, favorites, plants }) {
             <PlantCharacteristics
               headline="Size"
               imageAlt="Size Icon"
-              imageSrc={sizeURL}
+              imageSrc="/assets/SizeIcon.svg"
               info={plant.size}
             />
             <PlantCharacteristics
               headline="Sunlight"
               imageAlt="Sunlight Icon"
-              imageSrc={sunlightURL}
+              imageSrc="/assets/SunlightIcon.svg"
               info={plant.sunlightRequirements}
             />
             <PlantCharacteristics
               headline="Temperature"
               imageAlt="Temperature Icon"
-              imageSrc={temperatureURL}
+              imageSrc="/assets/TemperatureIcon.svg"
               info={plant.optimalTemperature}
             />
             <PlantCharacteristics
               headline="Water"
               imageAlt="Water Icon"
-              imageSrc={waterURL}
+              imageSrc="/assets/WaterIcon.svg"
               info={plant.waterNeeds}
             />
           </StyledPlantCharacteristics>

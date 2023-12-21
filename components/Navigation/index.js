@@ -1,11 +1,5 @@
 import Link from "next/link";
 import Image from "next/image";
-import HomeActive from "@/assets/HomeActive.svg?url";
-import HomeInactive from "@/assets/HomeInactive.svg?url";
-import HeartActive from "@/assets/HeartActive.svg?url";
-import HeartInactive from "@/assets/HeartInactive.svg?url";
-import PreferencesActive from "@/assets/PreferencesActive.svg?url";
-import PreferencesInactive from "@/assets/PreferencesInactive.svg?url";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 
@@ -26,7 +20,7 @@ export default function Navigation() {
         <li>
           <Link href="/" onClick={handleHomeClick}>
             <Image
-              src={router.pathname === "/" ? HomeActive : HomeInactive}
+              src={router.pathname === "/" ? "/assets/HomeActive.svg" : "/assets/HomeInactive.svg"}
               alt="Home Icon"
               width={40}
               height={40}
@@ -36,7 +30,7 @@ export default function Navigation() {
         <li>
           <Link href="/favorites">
             <Image
-              src={router.pathname === "/favorites" ? HeartActive : HeartInactive}
+              src={router.pathname === "/favorites" ?"/assets/HeartActive.svg" : "/assets/HeartInactive.svg"}
               alt="Favorite Icon"
               width={40}
               height={40}
@@ -46,7 +40,7 @@ export default function Navigation() {
         <li>
           <Link href="/preferences">
             <Image
-              src={router.pathname === "/preferences" ? PreferencesActive : PreferencesInactive}
+              src={router.pathname === "/preferences" ? "/assets/PreferencesActive.svg" : "/assets/PreferencesInactive.svg"}
               alt="Preference Icon"
               width={40}
               height={40}

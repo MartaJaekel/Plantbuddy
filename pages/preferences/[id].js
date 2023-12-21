@@ -3,7 +3,6 @@ import styled from "styled-components";
 import PlantCard from "@/components/Card";
 import { StyledHeadline } from "@/components/Headline/StyledHeadline";
 import Link from "next/link";
-import arrowURL from "@/assets/ArrowIcon.svg?url";
 import Image from "next/image";
 
 export default function Preference({
@@ -21,7 +20,7 @@ export default function Preference({
       <StyledHeadline>PlantBuddy</StyledHeadline>
       <main />
         <StyledBackLink href="/preferences">
-          <Image src={arrowURL} alt="Back Link" width={25} height={20} />
+          <Image src="/assets/ArrowIcon.svg" alt="Back Link" width={25} height={20} />
         </StyledBackLink>
       <StyledTitle>{preference?.preferenceTitle}</StyledTitle>
       <StyledPlantList>
