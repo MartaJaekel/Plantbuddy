@@ -1,27 +1,25 @@
 import React from "react";
 import Link from "next/link";
-import { plants } from "@/lib/data";
+import { categories } from "@/lib/data-categories";
 import styled from "styled-components";
 
 export default function CategoriesOverview() {
-  const categories = [...new Set(plants.map((plant) => plant.category))];
 
   return (
     <>
       <StyledHeader>PlantBuddy</StyledHeader>
       <StyledTitle>Categories</StyledTitle>
-
       <main>
-          <StyledPlantList>
-            {categories.map((category) => (
-              <li key={category}>
-                <Link href={`/categories/${category}`}>
-                  <p>{category}</p>
-                </Link>
-              </li>
-            ))}
-          </StyledPlantList>
-          </main>
+        <StyledPlantList>
+          {categories.map((category) => (
+            <StyledLink href={`/categories/${category.category}`}>
+              <CategoryCard key={category.id} bgColor={category.bgColor}>
+                <p>{category.title}</p>
+              </CategoryCard>
+            </StyledLink>
+          ))}
+        </StyledPlantList>
+      </main>
     </>
   );
 }
@@ -40,7 +38,7 @@ const StyledHeader = styled.h1`
   padding: 1rem;
 `;
 
-const StyledTitle = styled.h1`
+const StyledTitle = styled.h2`
   text-align: center;
   margin-top: 6rem;
   font-size: 1.25rem;
@@ -52,4 +50,21 @@ const StyledPlantList = styled.ul`
   flex-wrap: wrap;
   justify-content: center;
   gap: 1rem;
+`;
+
+const CategoryCard = styled.li`
+  width: 9rem;
+  height: 9rem;
+  border-radius: 1rem;
+  border: 2px solid #e6e6e6;
+  padding: 1rem;
+  text-align: center;
+  background-color: ${(props) => props.bgColor};
+`;
+
+const StyledLink = styled(Link)`
+  position: relative;
+  text-decoration: none;
+  color: var(--color-black);
+  font-weight: 600;
 `;
