@@ -3,15 +3,12 @@ import PlantCard from "../Card";
 import { useEffect, useState } from "react";
 
 export default function PlantList({
-  plants: plantsData,
   favorites,
   onToggleFavorite,
   search,
   plantsToDisplay,
+  searchResult
 }) {
-  const searchResult = plantsData.filter((plant) => {
-    return plant.commonName.toLowerCase().startsWith(search.toLowerCase());
-  });
 
   const error = search.length > 0 && searchResult.length === 0;
 
