@@ -22,7 +22,7 @@ export default function FilterForm({ plants, onAddPreference }) {
     !temperature ||
     plants.find((plant) => plant.id === plantId)?.optimalTemperature ===
       temperature;
-  const filterPetFriendly = (plant, isPetFriendly) =>
+  const filterPetFriendly = (plantId, isPetFriendly) =>
     !isPetFriendly ||
     plants.find((plant) => plant.id === plantId)?.petFriendly ===
       (isPetFriendly === "true");

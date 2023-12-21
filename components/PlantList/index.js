@@ -2,15 +2,11 @@ import styled from "styled-components";
 import PlantCard from "../Card";
 
 export default function PlantList({
-  plants: plantsData,
   favorites,
   onToggleFavorite,
   search,
+  searchResult,
 }) {
-  const searchResult = plantsData.filter((plant) => {
-    return plant.commonName.toLowerCase().startsWith(search.toLowerCase());
-  });
-
   const error = search.length > 0 && searchResult.length === 0;
 
   if (error) {
