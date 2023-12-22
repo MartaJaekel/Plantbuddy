@@ -38,6 +38,16 @@ export default function Navigation() {
           </Link>
         </li>
         <li>
+          <Link href="/categories">
+            <Image
+              src={router.pathname === "/categories" ? "/assets/CategoryActive.svg" : "/assets/CategoryInactive.svg"}
+              alt="Categories Icon"
+              width={40}
+              height={40}
+            />
+          </Link>
+        </li>
+        <li>
           <Link href="/preferences">
             <Image
               src={router.pathname === "/preferences" ? "/assets/PreferencesActive.svg" : "/assets/PreferencesInactive.svg"}
