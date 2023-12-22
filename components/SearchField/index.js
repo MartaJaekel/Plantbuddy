@@ -1,12 +1,8 @@
 import styled from "styled-components";
-import MagnifyingGlass from "../../assets/magnifying-glass.svg";
-import XMark from "../../assets/x-mark.svg";
 import { useState } from "react";
+import Image from "next/image";
 
 export default function SearchField({ onChange }) {
-  const SearchIcon = <MagnifyingGlass />;
-  const ClearSearchIcon = <XMark />;
-
   const [icon, setIcon] = useState("search");
 
   function handleOnChange(event) {
@@ -29,9 +25,18 @@ export default function SearchField({ onChange }) {
 
   return (
     <InputWrapper>
-      <InputIcon $icon={icon} onClick={clearInput}>
-        {icon === "search" ? SearchIcon : ClearSearchIcon}
-      </InputIcon>
+        <StyledImage
+          $icon={icon}
+          onClick={clearInput}
+          src={
+            icon === "search"
+              ? "/assets/magnifyingGlass.svg"
+              : "/assets/x-mark.svg"
+          }
+          alt="Search Icon"
+          width={30}
+          height={30}
+        />
 
       <SearchFieldInput
         type="search"
@@ -43,7 +48,7 @@ export default function SearchField({ onChange }) {
   );
 }
 
-const InputIcon = styled.span`
+const StyledImage = styled(Image)`
   cursor: ${({ $icon }) => ($icon === "clear-search" ? "pointer" : "")};
   position: absolute;
   right: 28px;

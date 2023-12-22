@@ -1,37 +1,54 @@
 import styled from "styled-components";
 import { plants as plantsData } from "@/lib/data";
 import { useState } from "react";
-export default function SortPlants({onSortUpdate}) {
-    const [selectedOption, setSelectedOption] = useState();
-    
-    const handleSortingChange = (option) => {
-        
-        let sortedPlants;
-        if (option === 'Z to A') {
-            
-            sortedPlants = [...plantsData].sort((a, b) => (b.commonName > a.commonName ? 1 : -1));
-            
-          }  else if (option === 'S to L') {
-            sortedPlants = [...plantsData].sort((a, b) => { return b.size > a.size ? 1 : b.size < a.size ? -1 : 0;
+export default function SortPlants({ onSortUpdate }) {
+  const [selectedOption, setSelectedOption] = useState("A to Z");
 
-           
-          })}
-          else if (option === 'L to S') {
-            sortedPlants = [...plantsData].sort((a, b) => { return a.size > b.size ? 1 : a.size < b.size ? -1 : 0;
-          })}
-          else {
-            // If none of the specific cases match, use the default case
-            // Keep the original order of the plant data
-            sortedPlants = [...plantsData];
-          }
-          setSelectedOption(option);
-onSortUpdate(sortedPlants);
+  const handleSortingChange = (option) => {
+    setSelectedOption(option);
+
+    let sortedPlants;
+    const lowerCaseCommonName = (plant) => plant.commonName.toLowerCase();
+    const sizeOrder = { small: 0, medium: 1, large: 2 };
+
+    if (option === "Z to A") {
+      sortedPlants = [...plantsData].sort((a, b) =>
+        lowerCaseCommonName(a) < lowerCaseCommonName(b)
+          ? 1
+          : lowerCaseCommonName(a) > lowerCaseCommonName(b)
+          ? -1
+          : 0
+      );
+    } else if (option === "S to L") {
+      sortedPlants = [...plantsData].sort(
+        (a, b) => sizeOrder[a.size] - sizeOrder[b.size]
+      );
+    } else if (option === "L to S") {
+      sortedPlants = [...plantsData].sort(
+        (a, b) => sizeOrder[b.size] - sizeOrder[a.size]
+      );
+    } else {
+      sortedPlants = [...plantsData].sort((a, b) =>
+        lowerCaseCommonName(a) > lowerCaseCommonName(b)
+          ? 1
+          : lowerCaseCommonName(a) < lowerCaseCommonName(b)
+          ? -1
+          : 0
+      );
     }
-  
+
+    onSortUpdate(sortedPlants);
+  };
+
   return (
     <Form>
       <label htmlFor="sort">Sort</label>
-      <select name="sort" id="sort" onChange={(event) => handleSortingChange(event.target.value)} value={selectedOption}>
+      <select
+        name="sort"
+        id="sort"
+        onChange={(event) => handleSortingChange(event.target.value)}
+        value={selectedOption}
+      >
         <option value="A to Z">Name: A-Z</option>
         <option value="Z to A">Name: Z-A</option>
         <option value="S to L">Size: S-L</option>

@@ -1,54 +1,59 @@
 import PlantList from "@/components/PlantList";
-import React, { useState } from "react";
-import FilterForm from "@/components/FilterForm";
+import React, { useEffect, useState } from "react";
 import SearchField from "@/components/SearchField";
+import { StyledHeadline } from "@/components/Headline/StyledHeadline";
 import styled from "styled-components";
 import { plants } from "@/lib/data";
 import SortPlants from "@/components/SortPlants";
 
 export default function HomePage({ onToggleFavorite, favorites, plants }) {
   const [search, setSearch] = useState("");
-  const [filteredPlants, setFilteredPlants] = useState(plants);
-  const [sortPlants, setSortPlants] = useState(null); 
+  const [counterMessage, setCounterMessage] = useState("");
+  const [sortPlants, setSortPlants] = useState(plants); 
 
-  function handleFilterUpdate(newFilteredPlants) {
-    setFilteredPlants(newFilteredPlants);
-  }
+  const searchResult = plants.filter((plant) => {
+    return plant.commonName.toLowerCase().startsWith(search.toLowerCase());
+  });
+  useEffect(() => {
+    if (searchResult.length > 0 && searchResult.length < plants.length) {
+      setCounterMessage(
+        `Showing ${searchResult.length} of ${plants.length} plants:`
+      );
+    } else if (searchResult.length === plants.length) {
+      setCounterMessage("");
+    }
+  }, [searchResult, plants.length]);
+
   function handleSortUpdate (newSortedPlants) {
     setSortPlants(newSortedPlants);
   };
 
   return (
     <>
-      <StyledHeader>PlantBuddy</StyledHeader>
+      <StyledHeadline>PlantBuddy</StyledHeadline>
       <main>
         <SearchField onChange={setSearch} />
         <SortPlants onSortUpdate={handleSortUpdate} />
-        <FilterForm onFilterUpdate={handleFilterUpdate} plants={plants} />
+        <StyledCounterMessage>{counterMessage}</StyledCounterMessage>
+
 
         <PlantList
           onToggleFavorite={onToggleFavorite}
           favorites={favorites}
           plants={plants}
           search={search}
-          plantsToDisplay={filteredPlants}
+          searchResult={searchResult}
           sortedPlants={sortPlants}
+        
         />
       </main>
     </>
   );
 }
 
-const StyledHeader = styled.h1`
-  z-index: 2;
-  position: fixed;
-  top: 0;
-  background-color: white;
-  width: 100%;
-  text-align: center;
+const StyledCounterMessage = styled.p`
+  margin: 1rem auto;
+  max-width: 19rem;
   color: var(--color-green);
-  font-family: serif;
-  font-size: 3rem;
-  margin: 0;
-  padding: 1rem;
+  font-weight: 600;
 `;
