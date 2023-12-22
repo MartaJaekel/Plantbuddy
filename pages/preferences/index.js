@@ -7,6 +7,7 @@ export default function PreferencesPage({
   plants,
   preferences,
   handleAddPreference,
+  handleDeletePreference
 }) {
   return (
     <>
@@ -14,12 +15,12 @@ export default function PreferencesPage({
       <main>
         <StyledTitle>Add your Preferences</StyledTitle>
         <FilterForm plants={plants} onAddPreference={handleAddPreference} />
-        <PreferenceList preferences={preferences} />
+        <PreferenceList preferences={preferences} handleDeletePreference={handleDeletePreference} />
       </main>
     </>
   );
 }
-
+  
 const StyledTitle = styled.h2`
   text-align: center;
   margin: 6rem 0 2rem 0;

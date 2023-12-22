@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import PreferenceCard from "../PreferenceCard";
 
-export default function PreferenceList({ preferences }) {
+export default function PreferenceList({ preferences, handleDeletePreference }) {
   return (
     <>
       {preferences.length === 0 ? (
@@ -12,7 +12,7 @@ export default function PreferenceList({ preferences }) {
         <StyledPreferenceList>
           {preferences.map((preference) => (
             <li key={preference.id}>
-              <PreferenceCard preference={preference} />
+              <PreferenceCard preference={preference} onDeletePreference={handleDeletePreference}/>
             </li>
           ))}
         </StyledPreferenceList>
