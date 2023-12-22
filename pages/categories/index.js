@@ -53,12 +53,15 @@ const StyledPlantList = styled.ul`
 `;
 
 const CategoryCard = styled.li`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
   width: 9rem;
   height: 9rem;
   border-radius: 1rem;
   border: 2px solid #e6e6e6;
   padding: 1rem;
-  text-align: center;
   background-color: ${(props) => props.bgColor};
 `;
 
