@@ -34,7 +34,7 @@ export default function PlantDetail({ onToggleFavorite, favorites, plants }) {
           height={200}
           alt={plant.commonName}
         />
-        <StyledSection>
+        <StyledSection $categoryColor={plant.categoryColor}>
           <StyledName>{plant.commonName}</StyledName>
           <StyledSpecies>{plant.species}</StyledSpecies>
           <StyledPlantCharacteristics>
@@ -92,7 +92,8 @@ const StyledImage = styled(Image)`
 `;
 
 const StyledSection = styled.section`
-  margin: 1rem 2rem 2rem 2rem;
+  padding: 1rem 2rem 2rem 2rem;
+  background-color: ${(props) => props.$categoryColor};
 `;
 
 const StyledName = styled.h1`

@@ -36,7 +36,7 @@ const StyledFigure = styled.figure`
   border-radius: 1rem;
   border: 2px solid var(--color-grey);
   overflow: hidden;
-  background-color: ${(props) => props.$categoryColor};;
+  background-color: ${(props) => props.$categoryColor};
 `;
 
 const StyledCaption = styled.figcaption`
