@@ -20,13 +20,12 @@ export default function CategoryDetail() {
   }
 
   return (
-    <>
-      <StyledBackLink>
+      <StyledDiv>
+      <StyledNav>
         <Link href="/categories">
           <Image src="/assets/ArrowIcon.svg" alt="Back Link" width={30} height={25} />
         </Link>
-      </StyledBackLink>
-      <main>
+      </StyledNav>
         <StyledImage
           src={category.image}
           width={200}
@@ -40,12 +39,15 @@ export default function CategoryDetail() {
             <p>{category.description}</p>
           </article>
         </StyledSection>
-      </main>
-    </>
+      </StyledDiv>
   )
 }
 
-const StyledBackLink = styled.nav`
+const StyledDiv = styled.div`
+  position: relative;
+`;
+
+const StyledNav = styled.nav`
   position: absolute;
   top: 2rem;
   left: 1rem;
