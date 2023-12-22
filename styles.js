@@ -28,5 +28,6 @@ ul {
 --color-beige: #FAFAF5;
 --color-black: #010101;
 --color-grey: #E6E6E6;
+--color-lightGreen: #53A00A;
   }
 `;

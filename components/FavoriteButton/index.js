@@ -1,14 +1,11 @@
-import Disliked from "@/assets/HeartIconDisliked.svg?url";
-import Liked from "@/assets/HeartIconLiked.svg?url";
 import Image from "next/image";
-import React from "react";
 import styled from "styled-components"
 
 export default function FavoriteButton({ onClick, isFavorite }) {
   return (
     <StyledButton type="button" onClick={onClick}>
       <Image
-        src={isFavorite ? Liked : Disliked}
+        src={isFavorite ? "/assets/HeartIconLiked.svg" : "/assets/HeartIconDisliked.svg"}
         alt="Favorite Icon"
         width={30}
         height={30}
