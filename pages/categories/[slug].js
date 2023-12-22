@@ -11,11 +11,9 @@ export default function CategoryDetail() {
 
   if (!category) {
     return (
-      <>
         <StyledSection>
           <StyledName>Category not found!</StyledName>
         </StyledSection>
-      </>
     );
   }
 
