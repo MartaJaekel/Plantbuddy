@@ -2,7 +2,6 @@ import { categories } from "@/lib/data-categories";
 import styled from "styled-components";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import arrowURL from "@/assets/ArrowIcon.svg?url";
 import Image from "next/image";
 
 export default function CategoryDetail() {
@@ -24,7 +23,7 @@ export default function CategoryDetail() {
     <>
       <StyledBackLink>
         <Link href="/categories">
-          <Image src={arrowURL} alt="Back Link" width={30} height={25} />
+          <Image src="/assets/ArrowIcon.svg" alt="Back Link" width={30} height={25} />
         </Link>
       </StyledBackLink>
       <main>

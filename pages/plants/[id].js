@@ -1,23 +1,18 @@
 import { useRouter } from "next/router";
-import { plants } from "@/lib/data";
-import Link from "next/link";
 import Image from "next/image";
 import styled from "styled-components";
-import arrowURL from "@/assets/ArrowIcon.svg?url";
-import sizeURL from "@/assets/SizeIcon.svg?url";
-import sunlightURL from "@/assets/SunlightIcon.svg?url";
-import waterURL from "@/assets/WaterIcon.svg?url";
-import temperatureURL from "@/assets/TemperatureIcon.svg?url";
 import PlantCharacteristics from "@/components/PlantCharacteristics";
 import FavoriteButton from "@/components/FavoriteButton";
 
-export default function PlantDetail({ onToggleFavorite, favorites }) {
+export default function PlantDetail({ onToggleFavorite, favorites, plants }) {
   const router = useRouter();
   const { id } = router.query;
 
-  const plant = plants.find((plant) => plant.id === id);
+  const goBack = () => {
+    router.back();
+  };
 
-  console.log(plant);
+  const plant = plants.find((plant) => plant.id === id);
 
   if (!plant) {
     return <h2>Plant not found!</h2>;
@@ -25,16 +20,14 @@ export default function PlantDetail({ onToggleFavorite, favorites }) {
 
   return (
     <>
-      <StyledBackLink>
-        <Link href="/">
-          <Image src={arrowURL} alt="Back Link" width={30} height={25} />
-        </Link>
-      </StyledBackLink>
+        <StyledBackButton type="button" aria-label="Go Back" onClick={goBack}>
+          <Image src="/assets/ArrowIcon.svg" alt="Back Link" width={25} height={20} />
+        </StyledBackButton>
       <main>
-      <FavoriteButton
-            onClick={() => onToggleFavorite(plant.id)}
-            isFavorite={favorites?.includes(plant.id)}
-          />
+        <FavoriteButton
+          onClick={() => onToggleFavorite(plant.id)}
+          isFavorite={favorites?.includes(plant.id)}
+        />
         <StyledImage
           src={plant.image}
           width={200}
@@ -48,25 +41,25 @@ export default function PlantDetail({ onToggleFavorite, favorites }) {
             <PlantCharacteristics
               headline="Size"
               imageAlt="Size Icon"
-              imageSrc={sizeURL}
+              imageSrc="/assets/SizeIcon.svg"
               info={plant.size}
             />
             <PlantCharacteristics
               headline="Sunlight"
               imageAlt="Sunlight Icon"
-              imageSrc={sunlightURL}
+              imageSrc="/assets/SunlightIcon.svg"
               info={plant.sunlightRequirements}
             />
             <PlantCharacteristics
               headline="Temperature"
               imageAlt="Temperature Icon"
-              imageSrc={temperatureURL}
+              imageSrc="/assets/TemperatureIcon.svg"
               info={plant.optimalTemperature}
             />
             <PlantCharacteristics
               headline="Water"
               imageAlt="Water Icon"
-              imageSrc={waterURL}
+              imageSrc="/assets/WaterIcon.svg"
               info={plant.waterNeeds}
             />
           </StyledPlantCharacteristics>
@@ -80,16 +73,17 @@ export default function PlantDetail({ onToggleFavorite, favorites }) {
   );
 }
 
-const StyledBackLink = styled.nav`
+const StyledBackButton = styled.button`
   position: absolute;
-  top: 2rem;
+  top: 1.75rem;
   left: 1rem;
   background-color: var(--color-green);
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   display: flex;
   align-items: center;
+  border: none;
 `;
 
 const StyledImage = styled(Image)`
@@ -122,6 +116,6 @@ const StyledPlantCharacteristics = styled.article`
   gap: 1rem 3rem;
   flex-wrap: wrap;
   justify-content: center;
-  border-bottom: 2px solid #e6e6e6;
+  border-bottom: 2px solid var(--color-grey);
   padding: 1rem 0 1rem 0;
 `;
