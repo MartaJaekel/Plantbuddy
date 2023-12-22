@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import arrowURL from "@/assets/ArrowIcon.svg?url";
 import Image from "next/image";
 
-export default function categoryDetail() {
+export default function CategoryDetail() {
   const router = useRouter();
   const { slug } = router.query;
   const category = categories.find(cat => cat.slug === slug);
