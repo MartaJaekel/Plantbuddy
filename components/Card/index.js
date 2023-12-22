@@ -11,7 +11,7 @@ export default function PlantCard({ onToggleFavorite, isFavorite, plant }) {
         isFavorite={isFavorite}
       />
       <StyledLink href={`/plants/${plant?.id}`}>
-        <StyledFigure>
+        <StyledFigure $categoryColor={plant?.categoryColor}>
           <Image
             src={plant?.image}
             width={150}
@@ -36,7 +36,7 @@ const StyledFigure = styled.figure`
   border-radius: 1rem;
   border: 2px solid var(--color-grey);
   overflow: hidden;
-  background-color: var(--color-beige);
+  background-color: ${(props) => props.$categoryColor};;
 `;
 
 const StyledCaption = styled.figcaption`
