@@ -1,20 +1,25 @@
 import styled from "styled-components";
 import Link from "next/link";
 import Image from "next/image";
-import { useRouter } from "next/router";
+import { useState } from "react";
+import DeletePopup from "../DeletePopup";
 
 export default function PreferenceCard({ preference, onDeletePreference }) {
-  const router = useRouter();
+  const [showPopup, setShowPopup] = useState(false);
 
   const confirmDelete = () => {
-    const confirmed = window.confirm(
-      "Are you sure you want to delete this Preference?"
-    );
-    if (confirmed) {
-      onDeletePreference(preference.id);
-      router.push("/preferences");
-    }
+    setShowPopup(true);
   };
+
+  const handleConfirm = () => {
+    onDeletePreference(preference.id);
+    setShowPopup(false);
+  };
+
+  const handleCancel = () => {
+    setShowPopup(false);
+  };
+
 
   return (
     <StyledPreferenceCard>
@@ -33,6 +38,12 @@ export default function PreferenceCard({ preference, onDeletePreference }) {
           height={20}
         />
       </StyledDeleteButton>
+      {showPopup && (
+        <DeletePopup
+          onConfirm={handleConfirm}
+          onCancel={handleCancel}
+        />
+      )}
     </StyledPreferenceCard>
   );
 }
