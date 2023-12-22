@@ -12,38 +12,41 @@ export default function PreferenceCard({ preference, onDeletePreference }) {
     );
     if (confirmed) {
       onDeletePreference(preference.id);
-      router.push("/");
+      router.push("/preferences");
     }
   };
 
   return (
-    <>
+    <StyledPreferenceCard>
       <StyledLink href={`preferences/${preference?.id}`}>
         {preference?.preferenceTitle}
-        <StyledDeleteButton
-          type="button"
-          aria-label="Delete Preference"
-          onClick={confirmDelete}
-        >
-          <Image
-            src="/assets/x-mark.svg"
-            alt="Delete Icon"
-            width={20}
-            height={20}
-          />
-        </StyledDeleteButton>
       </StyledLink>
-    </>
+      <StyledDeleteButton
+        type="button"
+        aria-label="Delete Preference"
+        onClick={confirmDelete}
+      >
+        <Image
+          src="/assets/x-mark.svg"
+          alt="Delete Icon"
+          width={20}
+          height={20}
+        />
+      </StyledDeleteButton>
+    </StyledPreferenceCard>
   );
 }
 
-const StyledLink = styled(Link)`
+const StyledPreferenceCard = styled.div`
   position: relative;
   background-color: var(--color-green);
   padding: 0.6rem 1.5rem;
   border-radius: 8px;
-  color: var(--color-beige);
   border: none;
+`;
+
+const StyledLink = styled(Link)`
+  color: var(--color-beige);
   font-weight: 600;
   font-size: 0.8rem;
   cursor: pointer;
