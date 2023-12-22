@@ -12,8 +12,8 @@ export default function CategoriesOverview() {
       <main>
         <StyledPlantList>
           {categories.map((category) => (
-            <StyledLink key={category.id} href={`/categories/${category.category}`}>
-              <CategoryCard bgColor={category.bgColor}>
+            <StyledLink key={category.id} href={`/categories/${category.slug}`}>
+              <CategoryCard $bgcolor={category.bgcolor}>
                 <p>{category.title}</p>
               </CategoryCard>
             </StyledLink>
@@ -62,7 +62,7 @@ const CategoryCard = styled.li`
   border-radius: 1rem;
   border: 2px solid #e6e6e6;
   padding: 1rem;
-  background-color: ${(props) => props.bgColor};
+  background-color: ${(props) => props.$bgcolor};
 `;
 
 const StyledLink = styled(Link)`
