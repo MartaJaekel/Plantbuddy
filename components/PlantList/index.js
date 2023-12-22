@@ -61,16 +61,7 @@ export default function PlantList({
   );
 }
 
- /*{search.length === 0 
-        ? plantsToDisplay.map((plant) => (
-          <PlantCard
-            key={plant.id}
-            plant={plant}
-            onToggleFavorite={onToggleFavorite}
-            isFavorite={favorites?.includes(plant.id)}
-          />
-        ))*/
-          
+ 
 
 
 const StyledPlantList = styled.ul`

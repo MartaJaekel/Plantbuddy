@@ -9,7 +9,7 @@ export default function SortPlants({onSortUpdate}) {
         let sortedPlants;
         if (option === 'Z to A') {
             
-            sortedPlants = [...plantsData].sort((a, b) => (b.name > a.name ? 1 : -1));
+            sortedPlants = [...plantsData].sort((a, b) => (b.commonName > a.commonName ? 1 : -1));
             
           }  else if (option === 'S to L') {
             sortedPlants = [...plantsData].sort((a, b) => { return b.size > a.size ? 1 : b.size < a.size ? -1 : 0;
@@ -31,7 +31,7 @@ onSortUpdate(sortedPlants);
   return (
     <Form>
       <label htmlFor="sort">Sort</label>
-      <select name="sort" onChange={(event) => handleSortingChange(event.target.value)} value={selectedOption}>
+      <select name="sort" id="sort" onChange={(event) => handleSortingChange(event.target.value)} value={selectedOption}>
         <option value="A to Z">Name: A-Z</option>
         <option value="Z to A">Name: Z-A</option>
         <option value="S to L">Size: S-L</option>

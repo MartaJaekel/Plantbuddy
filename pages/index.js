@@ -14,7 +14,7 @@ export default function HomePage({ onToggleFavorite, favorites, plants }) {
   function handleFilterUpdate(newFilteredPlants) {
     setFilteredPlants(newFilteredPlants);
   }
-  const handleSortUpdate = (newSortedPlants) => {
+  function handleSortUpdate (newSortedPlants) {
     setSortPlants(newSortedPlants);
   };
 
