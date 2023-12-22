@@ -62,7 +62,7 @@ export default function FilterForm({ plants, onAddPreference }) {
         name="title"
         placeholder="Add here your Preference Title"
         minlength="3"
-        maxlength="35"
+        maxlength="25"
         required
       />
 
