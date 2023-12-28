@@ -34,7 +34,6 @@ export default function Preference({
     counterMessage = "";
   }
 
-  console.log(preferencePlants);
   return (
     <>
       <StyledHeadline>PlantBuddy</StyledHeadline>
