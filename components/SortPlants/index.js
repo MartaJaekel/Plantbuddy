@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { plants as plantsData } from "@/lib/data";
 import { useState } from "react";
-export default function SortPlants({ onSortUpdate }) {
+
+export default function SortPlants({ onSortUpdate, plants }) {
   const [selectedOption, setSelectedOption] = useState("A to Z");
 
   const handleSortingChange = (option) => {
@@ -12,7 +12,7 @@ export default function SortPlants({ onSortUpdate }) {
     const sizeOrder = { small: 0, medium: 1, large: 2 };
 
     if (option === "Z to A") {
-      sortedPlants = [...plantsData].sort((a, b) =>
+      sortedPlants = [...plants].sort((a, b) =>
         lowerCaseCommonName(a) < lowerCaseCommonName(b)
           ? 1
           : lowerCaseCommonName(a) > lowerCaseCommonName(b)
@@ -20,15 +20,15 @@ export default function SortPlants({ onSortUpdate }) {
           : 0
       );
     } else if (option === "S to L") {
-      sortedPlants = [...plantsData].sort(
+      sortedPlants = [...plants].sort(
         (a, b) => sizeOrder[a.size] - sizeOrder[b.size]
       );
     } else if (option === "L to S") {
-      sortedPlants = [...plantsData].sort(
+      sortedPlants = [...plants].sort(
         (a, b) => sizeOrder[b.size] - sizeOrder[a.size]
       );
     } else {
-      sortedPlants = [...plantsData].sort((a, b) =>
+      sortedPlants = [...plants].sort((a, b) =>
         lowerCaseCommonName(a) > lowerCaseCommonName(b)
           ? 1
           : lowerCaseCommonName(a) < lowerCaseCommonName(b)
@@ -65,5 +65,5 @@ const Form = styled.form`
   justify-content: center;
   gap: 1rem;
   max-width: 19rem;
-  margin: 1rem auto 1rem auto;
+  margin: 1rem auto;
 `;

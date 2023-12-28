@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import SearchField from "@/components/SearchField";
 import { StyledHeadline } from "@/components/Headline/StyledHeadline";
 import styled from "styled-components";
-import { plants } from "@/lib/data";
 import SortPlants from "@/components/SortPlants";
 
 export default function HomePage({ onToggleFavorite, favorites, plants }) {
@@ -33,7 +32,7 @@ export default function HomePage({ onToggleFavorite, favorites, plants }) {
       <StyledHeadline>PlantBuddy</StyledHeadline>
       <main>
         <SearchField onChange={setSearch} />
-        <SortPlants onSortUpdate={handleSortUpdate} />
+        <SortPlants onSortUpdate={handleSortUpdate} plants={plants} />
         <StyledCounterMessage>{counterMessage}</StyledCounterMessage>
 
 
