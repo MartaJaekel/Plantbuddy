@@ -1,12 +1,26 @@
 import styled from "styled-components";
 import React, { useState } from "react";
 
-export default function FilterForm({ plants, onAddPreference }) {
-  const [plantSize, setPlantSize] = useState("");
-  const [sunlightRequirement, setSunlightRequirement] = useState("");
-  const [waterNeeds, setWaterNeeds] = useState("");
-  const [optimalTemperature, setOptimalTemperature] = useState("");
-  const [petFriendly, setPetFriendly] = useState("");
+export default function FilterForm({
+  plants,
+  onAddPreference,
+  initialFilterSettings,
+}) {
+  const [plantSize, setPlantSize] = useState(
+    initialFilterSettings?.plantSize || ""
+  );
+  const [sunlightRequirement, setSunlightRequirement] = useState(
+    initialFilterSettings?.sunlightRequirement || ""
+  );
+  const [waterNeeds, setWaterNeeds] = useState(
+    initialFilterSettings?.waterNeeds || ""
+  );
+  const [optimalTemperature, setOptimalTemperature] = useState(
+    initialFilterSettings?.optimalTemperature || ""
+  );
+  const [petFriendly, setPetFriendly] = useState(
+    initialFilterSettings?.petFriendly || ""
+  );
 
   // Separate filter functions
   const filterPlantSize = (plantId, size) =>
@@ -30,10 +44,18 @@ export default function FilterForm({ plants, onAddPreference }) {
   function handleSubmit(event) {
     event.preventDefault();
 
+    const filterSettings = {
+      plantSize,
+      sunlightRequirement,
+      waterNeeds,
+      optimalTemperature,
+      petFriendly,
+    };
+
     const newPreference = {
       preferenceTitle: event.target.elements.title.value,
       preferencePlants: plants
-        .filter(
+        ?.filter(
           (plant) =>
             filterPlantSize(plant.id, plantSize) &&
             filterSunlightRequirement(plant.id, sunlightRequirement) &&
@@ -42,7 +64,9 @@ export default function FilterForm({ plants, onAddPreference }) {
             filterPetFriendly(plant.id, petFriendly)
         )
         .map((plant) => plant.id),
+      filterSettings,
     };
+    console.log(newPreference);
 
     onAddPreference(newPreference);
     event.target.elements.title.focus();
@@ -71,6 +95,7 @@ export default function FilterForm({ plants, onAddPreference }) {
         name="plantSize"
         id="plantSize"
         onChange={(event) => setPlantSize(event.target.value)}
+        defaultValue={plantSize}
       >
         <option value="">Select Size</option>
         <option value="small">Small (15cm-50cm)</option>
@@ -85,6 +110,7 @@ export default function FilterForm({ plants, onAddPreference }) {
         name="sunlightRequirement"
         id="sunlightRequirement"
         onChange={(event) => setSunlightRequirement(event.target.value)}
+        defaultValue={sunlightRequirement}
       >
         <option value="">Select Sunlight Requirement</option>
         <option value="full sun">Full Sun</option>
@@ -97,6 +123,7 @@ export default function FilterForm({ plants, onAddPreference }) {
         name="waterNeeds"
         id="waterNeeds"
         onChange={(event) => setWaterNeeds(event.target.value)}
+        defaultValue={waterNeeds}
       >
         <option value="">Select Water Needs</option>
         <option value="weekly">Weekly</option>
@@ -111,6 +138,7 @@ export default function FilterForm({ plants, onAddPreference }) {
         name="optimalTemperature"
         id="optimalTemperature"
         onChange={(event) => setOptimalTemperature(event.target.value)}
+        defaultValue={optimalTemperature}
       >
         <option value="">Select Temperature</option>
         <option value="low">15-20°C</option>
@@ -125,6 +153,7 @@ export default function FilterForm({ plants, onAddPreference }) {
         name="petFriendly"
         id="petFriendly"
         onChange={(event) => setPetFriendly(event.target.value)}
+        defaultValue={petFriendly}
       >
         <option value="">Select Pet Compatibility</option>
         <option value="true">Yes</option>

@@ -14,7 +14,7 @@ export default function PreferenceList({ preferences, handleDeletePreference }) 
           {preferences.map((preference) => (
             <StyledPreferenceContainer key={preference.id}>
               <PreferenceCard preference={preference} onDeletePreference={handleDeletePreference}/>
-              <StyledEditLink href={`/preferences/edit/`}>Edit</StyledEditLink>
+              <StyledEditLink href={`/preferences/edit/${preference.id}`}>Edit</StyledEditLink>
             </StyledPreferenceContainer>
           ))}
         </StyledPreferenceList>
