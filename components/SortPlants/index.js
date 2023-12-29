@@ -43,7 +43,7 @@ export default function SortPlants({ onSortUpdate, plants }) {
   return (
     <Form>
       <label htmlFor="sort">Sort</label>
-      <select
+      <StyledSelect
         name="sort"
         id="sort"
         onChange={(event) => handleSortingChange(event.target.value)}
@@ -53,7 +53,7 @@ export default function SortPlants({ onSortUpdate, plants }) {
         <option value="Z to A">Name: Z-A</option>
         <option value="S to L">Size: S-L</option>
         <option value="L to S">Size: L-S</option>
-      </select>
+      </StyledSelect>
     </Form>
   );
 }
@@ -66,4 +66,20 @@ const Form = styled.form`
   gap: 1rem;
   max-width: 19rem;
   margin: 1rem auto;
+  .form-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
 `;
+
+const StyledSelect = styled.select`
+background-color: var(--color-grey);
+  padding: 0.4rem 1.5rem;
+  border-radius: 8px;
+  color: #a9c52f;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+
+`
