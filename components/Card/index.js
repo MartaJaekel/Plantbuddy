@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Link from "next/link";
 import FavoriteButton from "../FavoriteButton";
 
+
 export default function PlantCard({ onToggleFavorite, isFavorite, plant }) {
   return (
     <StyledListItem>
