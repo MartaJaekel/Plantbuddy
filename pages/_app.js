@@ -25,6 +25,14 @@ export default function App({ Component, pageProps }) {
     setPreferences([...preferences, { id: uid(), ...newPreference }]);
   }
 
+  function handleEditPreference(editedPreference) {
+    setPreferences(
+      preferences.map((preference) =>
+        preference.id === editedPreference.id ? editedPreference : preference
+      )
+    );
+  }
+
   function handleDeletePreference(id) {
     setPreferences(preferences.filter((preference) => preference.id !== id));
   }
@@ -40,6 +48,7 @@ export default function App({ Component, pageProps }) {
           plants={plants}
           preferences={preferences}
           handleAddPreference={handleAddPreference}
+          handleEditPreference={handleEditPreference}
           handleDeletePreference={handleDeletePreference}
         />
       </Layout>

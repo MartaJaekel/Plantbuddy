@@ -20,7 +20,7 @@ export default function PreferenceCard({ preference, onDeletePreference }) {
     setShowPopup(false);
   };
 
-
+console.log(preference);
   return (
     <StyledPreferenceCard>
       <StyledLink href={`preferences/${preference?.id}`}>

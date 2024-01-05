@@ -5,7 +5,13 @@ export default function FilterForm({
   plants,
   onAddPreference,
   initialFilterSettings,
+  initialFilterTitle,
+  onEditPreference,
+  preferenceId
 }) {
+  const [preferenceTitle, setPreferenceTitle] = useState(
+    initialFilterTitle || ""
+  );
   const [plantSize, setPlantSize] = useState(
     initialFilterSettings?.plantSize || ""
   );
@@ -52,8 +58,8 @@ export default function FilterForm({
       petFriendly,
     };
 
-    const newPreference = {
-      preferenceTitle: event.target.elements.title.value,
+    const preferenceData = {
+      preferenceTitle: preferenceTitle,
       preferencePlants: plants
         ?.filter(
           (plant) =>
@@ -66,9 +72,16 @@ export default function FilterForm({
         .map((plant) => plant.id),
       filterSettings,
     };
-    console.log(newPreference);
+console.log(preferenceData);
 
-    onAddPreference(newPreference);
+    if (preferenceId) {
+      // Editing an existing preference
+      onEditPreference(preferenceData);
+    } else {
+      // Adding a new preference
+      onAddPreference(preferenceData);
+    }
+
     event.target.elements.title.focus();
     event.target.reset();
   }
@@ -88,6 +101,8 @@ export default function FilterForm({
         minlength="3"
         maxlength="25"
         required
+        value={preferenceTitle}
+        onChange={(event) => setPreferenceTitle(event.target.value)}
       />
 
       <StyledLabel htmlFor="plantSize">Select the plant size:</StyledLabel>
