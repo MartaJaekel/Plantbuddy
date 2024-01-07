@@ -6,6 +6,7 @@ export default function PlantList({
   onToggleFavorite,
   search,
   searchResult,
+  sortedPlants,
 }) {
   const error = search.length > 0 && searchResult.length === 0;
 
@@ -21,16 +22,27 @@ export default function PlantList({
     );
   }
 
+  
+
   return (
     <StyledPlantList>
-      {searchResult.map((plant) => (
-        <PlantCard
-          key={plant.id}
-          plant={plant}
-          onToggleFavorite={onToggleFavorite}
-          isFavorite={favorites?.includes(plant.id)}
-        />
-      ))}
+      {search.length === 0
+        ? sortedPlants.map((plant) => (
+            <PlantCard
+              key={plant.id}
+              plant={plant}
+              onToggleFavorite={onToggleFavorite}
+              isFavorite={favorites?.includes(plant.id)}
+            />
+          ))
+        : searchResult.map((plant) => (
+            <PlantCard
+              key={plant.id}
+              plant={plant}
+              onToggleFavorite={onToggleFavorite}
+              isFavorite={favorites?.includes(plant.id)}
+            />
+          ))}
     </StyledPlantList>
   );
 }
