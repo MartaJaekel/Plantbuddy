@@ -8,7 +8,7 @@ import SortPlants from "@/components/SortPlants";
 export default function HomePage({ onToggleFavorite, favorites, plants }) {
   const [search, setSearch] = useState("");
   const [counterMessage, setCounterMessage] = useState("");
-  const [sortPlants, setSortPlants] = useState(plants); 
+  const [sortPlants, setSortPlants] = useState(plants);
 
   const searchResult = plants.filter((plant) => {
     return plant.commonName.toLowerCase().startsWith(search.toLowerCase());
@@ -23,18 +23,19 @@ export default function HomePage({ onToggleFavorite, favorites, plants }) {
     }
   }, [searchResult, plants.length]);
 
-  function handleSortUpdate (newSortedPlants) {
+  function handleSortUpdate(newSortedPlants) {
     setSortPlants(newSortedPlants);
-  };
+  }
 
   return (
     <>
       <StyledHeadline>PlantBuddy</StyledHeadline>
       <main>
         <SearchField onChange={setSearch} />
-        <SortPlants onSortUpdate={handleSortUpdate} plants={plants} />
+        {search === "" && (
+          <SortPlants onSortUpdate={handleSortUpdate} plants={plants} />
+        )}
         <StyledCounterMessage>{counterMessage}</StyledCounterMessage>
-
 
         <PlantList
           onToggleFavorite={onToggleFavorite}
@@ -43,7 +44,6 @@ export default function HomePage({ onToggleFavorite, favorites, plants }) {
           search={search}
           searchResult={searchResult}
           sortedPlants={sortPlants}
-        
         />
       </main>
     </>
