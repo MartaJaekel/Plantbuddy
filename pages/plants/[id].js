@@ -3,7 +3,11 @@ import Image from "next/image";
 import styled from "styled-components";
 import PlantCharacteristics from "@/components/PlantCharacteristics";
 import FavoriteButton from "@/components/FavoriteButton";
+<<<<<<< HEAD
 import Link from "next/link";
+=======
+import { categories } from "@/lib/data-categories";
+>>>>>>> main
 
 export default function PlantDetail({ onToggleFavorite, favorites, plants, categories }) {
   const router = useRouter();
@@ -19,15 +23,12 @@ export default function PlantDetail({ onToggleFavorite, favorites, plants, categ
     return <h2>Plant not found!</h2>;
   }
 
+  const categoryColor =  categories.find((category) => category.slug === plant.categorySlug).bgcolor;
+
   return (
     <>
       <StyledBackButton type="button" aria-label="Go Back" onClick={goBack}>
-        <Image
-          src="/assets/ArrowIcon.svg"
-          alt="Back Link"
-          width={25}
-          height={20}
-        />
+        <Image src="/assets/ArrowIcon.svg" alt="Back Link" width={25} height={20} />
       </StyledBackButton>
       <main>
         <FavoriteButton
@@ -40,7 +41,7 @@ export default function PlantDetail({ onToggleFavorite, favorites, plants, categ
           height={200}
           alt={plant.commonName}
         />
-        <StyledSection>
+        <StyledSection $categoryColor={categoryColor}>
           <StyledName>{plant.commonName}</StyledName>
           <StyledSpecies>{plant.species}</StyledSpecies>
           <StyledPlantCharacteristics>
@@ -109,10 +110,12 @@ const StyledBackButton = styled.button`
 const StyledImage = styled(Image)`
   width: 100%;
   height: auto;
+  display: block;
 `;
 
 const StyledSection = styled.section`
-  margin: 1rem 2rem 2rem 2rem;
+  padding: 1rem 2rem 2rem 2rem;
+  background-color: ${(props) => props.$categoryColor};
 `;
 
 const StyledName = styled.h1`
