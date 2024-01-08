@@ -3,8 +3,16 @@ import GlobalStyle from "../styles";
 import useLocalStorageState from "use-local-storage-state";
 import { plants } from "@/lib/data";
 import { uid } from "uid";
+import { ThemeProvider } from "styled-components";
 
 export default function App({ Component, pageProps }) {
+
+  const [theme, setTheme] = useLocalStorageState("light");
+
+  function toggleTheme() {
+    theme === "light" ? setTheme("dark") : setTheme("light");
+  }
+
   const [favorites, setFavorites] = useLocalStorageState("favorites", {
     defaultValue: [],
   });
@@ -41,6 +49,8 @@ export default function App({ Component, pageProps }) {
           preferences={preferences}
           handleAddPreference={handleAddPreference}
           handleDeletePreference={handleDeletePreference}
+          theme={theme}
+          toggleTheme={toggleTheme}
         />
       </Layout>
     </>
