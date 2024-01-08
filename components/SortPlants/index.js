@@ -42,7 +42,7 @@ export default function SortPlants({ onSortUpdate, plants }) {
 
   return (
     <Form>
-      <label htmlFor="sort">Sort</label>
+      <StyledLabel htmlFor="sort">Sort</StyledLabel>
       <StyledSelect
         name="sort"
         id="sort"
@@ -63,9 +63,8 @@ const Form = styled.form`
   flex-direction: column;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 1rem;
   max-width: 19rem;
-  margin: 1rem auto;
+  margin: 1rem auto 2rem auto;
   .form-row {
     display: flex;
     align-items: center;
@@ -73,11 +72,24 @@ const Form = styled.form`
   }
 `;
 
+const StyledLabel = styled.label`
+  border: 0;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+  white-space: nowrap;
+`;
+
 const StyledSelect = styled.select`
-background-color: var(--color-grey);
-  padding: 0.4rem 1.5rem;
-  border-radius: 8px;
-  color: #a9c52f;
+  background-color: var(--color-grey);
+  padding: 0.8rem 2rem;
+  border-radius: 0.4rem;
+  color: var(--color-green);
   border: none;
   font-weight: 600;
   cursor: pointer;

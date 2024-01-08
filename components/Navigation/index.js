@@ -67,7 +67,7 @@ const StyledNav = styled.nav`
   position: fixed;
   bottom: 0;
   width: 100%;
-  background-color: var(--color-beige);
+  background-color: ${({ theme }) => theme.navigation};
 `;
 
 const StyledList = styled.ul`

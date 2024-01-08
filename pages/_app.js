@@ -4,9 +4,9 @@ import useLocalStorageState from "use-local-storage-state";
 import { plants } from "@/lib/data";
 import { uid } from "uid";
 import { ThemeProvider } from "styled-components";
+import { lightTheme, darkTheme } from "@/components/Theme";
 
 export default function App({ Component, pageProps }) {
-
   const [theme, setTheme] = useLocalStorageState("light");
 
   function toggleTheme() {
@@ -39,20 +39,22 @@ export default function App({ Component, pageProps }) {
 
   return (
     <>
-      <Layout>
-        <GlobalStyle />
-        <Component
-          {...pageProps}
-          onToggleFavorite={handleToggleFavorite}
-          favorites={favorites}
-          plants={plants}
-          preferences={preferences}
-          handleAddPreference={handleAddPreference}
-          handleDeletePreference={handleDeletePreference}
-          theme={theme}
-          toggleTheme={toggleTheme}
-        />
-      </Layout>
+      <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
+        <Layout>
+          <GlobalStyle />
+          <Component
+            {...pageProps}
+            onToggleFavorite={handleToggleFavorite}
+            favorites={favorites}
+            plants={plants}
+            preferences={preferences}
+            handleAddPreference={handleAddPreference}
+            handleDeletePreference={handleDeletePreference}
+            theme={theme}
+            toggleTheme={toggleTheme}
+          />
+        </Layout>
+      </ThemeProvider>
     </>
   );
 }

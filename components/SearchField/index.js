@@ -57,7 +57,7 @@ const StyledImage = styled(Image)`
   width: 30px;
   height: 39px;
   overflow: hidden;
-  background-color: #426b1f;
+  background-color: none;
   border-radius: 0.4rem;
   display: flex;
   align-items: center;
@@ -67,7 +67,7 @@ const InputWrapper = styled.div`
   position: relative;
   display: flex;
   flex-flow: column;
-  padding: 1rem;
+  padding: 0 1rem;
   max-width: 21rem;
   margin: 6rem auto 0 auto;
 `;
@@ -75,7 +75,7 @@ const InputWrapper = styled.div`
 const SearchFieldInput = styled.input`
   border-radius: 0.4rem;
   padding: 0.8rem;
-  background-color: var(--color-green);
+  background-color: ${({ theme }) => theme.primaryGreen};
   border: none;
   padding-left: 40px;
   color: white;

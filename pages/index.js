@@ -83,7 +83,7 @@ const StyledCounterMessage = styled.p`
 `;
 
 const StyledThemeToggler = styled.button`
-  position: absolute;
+  position: fixed;
   top: 0.5rem;
   right: 0.5rem;
   z-index: 2;
