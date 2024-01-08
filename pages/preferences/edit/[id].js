@@ -3,12 +3,11 @@ import { StyledHeadline } from "@/components/Headline/StyledHeadline";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 
-export default function EditPreferencePage({preferences, handleEditPreference, plants}) {
+export default function EditPreferencePage({preferences, onEditPreference, plants}) {
   const router = useRouter();
   const { id } = router.query;
 
   const thisPreference = preferences?.find(preference => preference.id === id);
-console.log(thisPreference);
 
   if (!thisPreference) {
     return <div>Preference not found</div>;
@@ -19,7 +18,7 @@ console.log(thisPreference);
       <StyledHeadline>PlantBuddy</StyledHeadline>;
       <main>
         <StyledTitle>Edit your Preference</StyledTitle>
-        <FilterForm plants={plants} initialFilterSettings={thisPreference?.filterSettings} preferenceId={thisPreference.id} initialFilterTitle={thisPreference?.preferenceTitle} onEditPreference={handleEditPreference}/>
+        <FilterForm plants={plants} initialFilterSettings={thisPreference?.filterSettings} preferenceId={thisPreference.id} initialFilterTitle={thisPreference?.preferenceTitle} onEditPreference={onEditPreference}/>
       </main>
     </>
   );

@@ -6,16 +6,13 @@ export default function FilterForm({
   plants,
   onAddPreference,
   initialFilterSettings,
-  initialFilterTitle,
+  initialFilterTitle = "",
   onEditPreference,
   preferenceId,
-}) 
-{
+}) {
   const router = useRouter();
 
-  const [preferenceTitle, setPreferenceTitle] = useState(
-    initialFilterTitle || ""
-  );
+  const [preferenceTitle, setPreferenceTitle] = useState(initialFilterTitle);
   const [plantSize, setPlantSize] = useState(
     initialFilterSettings?.plantSize || ""
   );
@@ -76,7 +73,6 @@ export default function FilterForm({
         .map((plant) => plant.id),
       filterSettings,
     };
-    console.log(preferenceData);
 
     if (preferenceId) {
       // Editing an existing preference
@@ -91,12 +87,8 @@ export default function FilterForm({
     event.target.elements.title.focus();
   }
 
-  function handleReset(event) {
-    event.target.reset();
-  }
-
   return (
-    <StyledForm onSubmit={handleSubmit} onReset={handleReset}>
+    <StyledForm onSubmit={handleSubmit}>
       <StyledLabel htmlFor="title">Add your preference title</StyledLabel>
       <StyledTitleInput
         type="text"

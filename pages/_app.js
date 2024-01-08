@@ -48,7 +48,7 @@ export default function App({ Component, pageProps }) {
           plants={plants}
           preferences={preferences}
           handleAddPreference={handleAddPreference}
-          handleEditPreference={handleEditPreference}
+          onEditPreference={handleEditPreference}
           handleDeletePreference={handleDeletePreference}
         />
       </Layout>
