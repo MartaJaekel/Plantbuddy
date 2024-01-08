@@ -19,6 +19,8 @@ export default function PlantDetail({ onToggleFavorite, favorites, plants }) {
     return <h2>Plant not found!</h2>;
   }
 
+  const categoryColor =  categories.find((category) => category.slug === plant.categorySlug).bgcolor;
+
   return (
     <>
       <StyledBackButton type="button" aria-label="Go Back" onClick={goBack}>
@@ -35,11 +37,7 @@ export default function PlantDetail({ onToggleFavorite, favorites, plants }) {
           height={200}
           alt={plant.commonName}
         />
-        <StyledSection $categoryColor={
-          categories.find(
-            (category) => category.slug === plant.categorySlug
-          ).bgcolor
-        }>
+        <StyledSection $categoryColor={categoryColor}>
           <StyledName>{plant.commonName}</StyledName>
           <StyledSpecies>{plant.species}</StyledSpecies>
           <StyledPlantCharacteristics>

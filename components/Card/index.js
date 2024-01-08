@@ -6,6 +6,7 @@ import { categories } from "@/lib/data-categories";
 
 
 export default function PlantCard({ onToggleFavorite, isFavorite, plant }) {
+  const categoryColor =  categories.find((category) => category.slug === plant.categorySlug).bgcolor;
   return (
     <StyledListItem>
       <FavoriteButton
@@ -13,11 +14,7 @@ export default function PlantCard({ onToggleFavorite, isFavorite, plant }) {
         isFavorite={isFavorite}
       />
       <StyledLink href={`/plants/${plant?.id}`}>
-        <StyledFigure $categoryColor={  
-            categories.find(  
-              (category) => category.slug === plant.categorySlug  
-            ).bgcolor  
-          }>
+        <StyledFigure $categoryColor={categoryColor}>
           <Image
             src={plant?.image}
             width={150}
