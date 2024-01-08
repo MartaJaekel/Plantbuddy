@@ -29,6 +29,10 @@ export default function FilterForm({
     initialFilterSettings?.petFriendly || ""
   );
 
+  if (!plants) {
+    return null;
+  }
+
   // Separate filter functions
   const filterPlantSize = (plantId, size) =>
     !size || plants.find((plant) => plant.id === plantId)?.size === size;
