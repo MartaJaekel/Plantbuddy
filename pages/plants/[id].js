@@ -3,8 +3,9 @@ import Image from "next/image";
 import styled from "styled-components";
 import PlantCharacteristics from "@/components/PlantCharacteristics";
 import FavoriteButton from "@/components/FavoriteButton";
+import Link from "next/link";
 
-export default function PlantDetail({ onToggleFavorite, favorites, plants }) {
+export default function PlantDetail({ onToggleFavorite, favorites, plants, categories }) {
   const router = useRouter();
   const { id } = router.query;
 
@@ -20,9 +21,14 @@ export default function PlantDetail({ onToggleFavorite, favorites, plants }) {
 
   return (
     <>
-        <StyledBackButton type="button" aria-label="Go Back" onClick={goBack}>
-          <Image src="/assets/ArrowIcon.svg" alt="Back Link" width={25} height={20} />
-        </StyledBackButton>
+      <StyledBackButton type="button" aria-label="Go Back" onClick={goBack}>
+        <Image
+          src="/assets/ArrowIcon.svg"
+          alt="Back Link"
+          width={25}
+          height={20}
+        />
+      </StyledBackButton>
       <main>
         <FavoriteButton
           onClick={() => onToggleFavorite(plant.id)}
@@ -51,7 +57,7 @@ export default function PlantDetail({ onToggleFavorite, favorites, plants }) {
               info={plant.sunlightRequirements}
             />
             <PlantCharacteristics
-              headline="Temperature"
+              headline="Warmth"
               imageAlt="Temperature Icon"
               imageSrc="/assets/TemperatureIcon.svg"
               info={plant.optimalTemperature}
@@ -62,6 +68,20 @@ export default function PlantDetail({ onToggleFavorite, favorites, plants }) {
               imageSrc="/assets/WaterIcon.svg"
               info={plant.waterNeeds}
             />
+            <PlantCharacteristics
+              headline="Pet-Friendly"
+              imageAlt="Paw Icon"
+              imageSrc="/assets/PawIcon.svg"
+              info={plant.petFriendly === true ? "yes" : "no"}
+            />
+            <Link href={`/categories/${plants.category}`}>
+            <PlantCharacteristics
+              headline="Category"
+              imageAlt="Leaf Icons"
+              imageSrc="/assets/CategoryInactive.svg"
+              info={plant.category}
+            />
+            </Link>
           </StyledPlantCharacteristics>
           <article>
             <h3>Description</h3>
@@ -113,7 +133,7 @@ const StyledSpecies = styled.h2`
 
 const StyledPlantCharacteristics = styled.article`
   display: flex;
-  gap: 1rem 3rem;
+  gap: 1rem 2rem;
   flex-wrap: wrap;
   justify-content: center;
   border-bottom: 2px solid var(--color-grey);
