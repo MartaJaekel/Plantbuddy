@@ -86,7 +86,7 @@ console.log(preferenceData);
     event.target.reset();
   }
 
-  function handleReset() {
+  function handleReset(event) {
     event.target.reset();
   }
 
@@ -98,8 +98,8 @@ console.log(preferenceData);
         id="title"
         name="title"
         placeholder="Add here your Preference Title"
-        minlength="3"
-        maxlength="25"
+        minLength="3"
+        maxLength="25"
         required
         value={preferenceTitle}
         onChange={(event) => setPreferenceTitle(event.target.value)}
