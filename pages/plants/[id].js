@@ -3,11 +3,7 @@ import Image from "next/image";
 import styled from "styled-components";
 import PlantCharacteristics from "@/components/PlantCharacteristics";
 import FavoriteButton from "@/components/FavoriteButton";
-<<<<<<< HEAD
 import Link from "next/link";
-=======
-import { categories } from "@/lib/data-categories";
->>>>>>> main
 
 export default function PlantDetail({ onToggleFavorite, favorites, plants, categories }) {
   const router = useRouter();
@@ -75,14 +71,14 @@ export default function PlantDetail({ onToggleFavorite, favorites, plants, categ
               imageSrc="/assets/PawIcon.svg"
               info={plant.petFriendly === true ? "yes" : "no"}
             />
-            <Link href={`/categories/${plants.category}`}>
+            <StyledLink href={`/categories/${plant.categorySlug}`}>
             <PlantCharacteristics
               headline="Category"
               imageAlt="Leaf Icons"
               imageSrc="/assets/CategoryInactive.svg"
-              info={plant.category}
+              info={plant.categorySlug}
             />
-            </Link>
+            </StyledLink>
           </StyledPlantCharacteristics>
           <article>
             <h3>Description</h3>
@@ -114,7 +110,7 @@ const StyledImage = styled(Image)`
 `;
 
 const StyledSection = styled.section`
-  padding: 1rem 2rem 2rem 2rem;
+  padding: 1rem 2rem 6rem 2rem;
   background-color: ${(props) => props.$categoryColor};
 `;
 
@@ -141,4 +137,8 @@ const StyledPlantCharacteristics = styled.article`
   justify-content: center;
   border-bottom: 2px solid var(--color-grey);
   padding: 1rem 0 1rem 0;
+`;
+
+const StyledLink = styled(Link)`
+color: var(--color-black);
 `;
