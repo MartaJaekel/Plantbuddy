@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import React, { useState } from "react";
+import { useRouter } from "next/router";
 
 export default function FilterForm({
   plants,
@@ -7,8 +8,11 @@ export default function FilterForm({
   initialFilterSettings,
   initialFilterTitle,
   onEditPreference,
-  preferenceId
-}) {
+  preferenceId,
+}) 
+{
+  const router = useRouter();
+
   const [preferenceTitle, setPreferenceTitle] = useState(
     initialFilterTitle || ""
   );
@@ -72,18 +76,19 @@ export default function FilterForm({
         .map((plant) => plant.id),
       filterSettings,
     };
-console.log(preferenceData);
+    console.log(preferenceData);
 
     if (preferenceId) {
       // Editing an existing preference
-      onEditPreference(preferenceData);
+      onEditPreference({ ...preferenceData, id: preferenceId });
+      router.push("/preferences");
     } else {
       // Adding a new preference
       onAddPreference(preferenceData);
+      event.target.reset();
     }
 
     event.target.elements.title.focus();
-    event.target.reset();
   }
 
   function handleReset(event) {

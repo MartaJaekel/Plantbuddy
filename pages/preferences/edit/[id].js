@@ -3,7 +3,7 @@ import { StyledHeadline } from "@/components/Headline/StyledHeadline";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 
-export default function EditPreferencePage({preferences, handleEditPreference}) {
+export default function EditPreferencePage({preferences, handleEditPreference, plants}) {
   const router = useRouter();
   const { id } = router.query;
 
@@ -19,7 +19,7 @@ console.log(thisPreference);
       <StyledHeadline>PlantBuddy</StyledHeadline>;
       <main>
         <StyledTitle>Edit your Preference</StyledTitle>
-        <FilterForm initialFilterSettings={thisPreference?.filterSettings} preferenceId={thisPreference.id} initialFilterTitle={thisPreference?.preferenceTitle} onEditPreference={handleEditPreference}/>
+        <FilterForm plants={plants} initialFilterSettings={thisPreference?.filterSettings} preferenceId={thisPreference.id} initialFilterTitle={thisPreference?.preferenceTitle} onEditPreference={handleEditPreference}/>
       </main>
     </>
   );
