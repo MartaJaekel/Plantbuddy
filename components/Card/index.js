@@ -2,9 +2,11 @@ import Image from "next/image";
 import styled from "styled-components";
 import Link from "next/link";
 import FavoriteButton from "../FavoriteButton";
+import { categories } from "@/lib/data-categories";
 
 
 export default function PlantCard({ onToggleFavorite, isFavorite, plant }) {
+  const categoryColor =  categories.find((category) => category.slug === plant.categorySlug).bgcolor;
   return (
     <StyledListItem>
       <FavoriteButton
@@ -12,7 +14,7 @@ export default function PlantCard({ onToggleFavorite, isFavorite, plant }) {
         isFavorite={isFavorite}
       />
       <StyledLink href={`/plants/${plant?.id}`}>
-        <StyledFigure>
+        <StyledFigure $categoryColor={categoryColor}>
           <Image
             src={plant?.image}
             width={150}
@@ -37,7 +39,7 @@ const StyledFigure = styled.figure`
   border-radius: 1rem;
   border: 2px solid var(--color-grey);
   overflow: hidden;
-  background-color: var(--color-beige);
+  background-color: ${(props) => props.$categoryColor};
 `;
 
 const StyledCaption = styled.figcaption`
