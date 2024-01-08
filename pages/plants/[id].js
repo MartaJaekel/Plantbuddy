@@ -3,6 +3,7 @@ import Image from "next/image";
 import styled from "styled-components";
 import PlantCharacteristics from "@/components/PlantCharacteristics";
 import FavoriteButton from "@/components/FavoriteButton";
+import { categories } from "@/lib/data-categories";
 
 export default function PlantDetail({ onToggleFavorite, favorites, plants }) {
   const router = useRouter();
@@ -20,9 +21,9 @@ export default function PlantDetail({ onToggleFavorite, favorites, plants }) {
 
   return (
     <>
-        <StyledBackButton type="button" aria-label="Go Back" onClick={goBack}>
-          <Image src="/assets/ArrowIcon.svg" alt="Back Link" width={25} height={20} />
-        </StyledBackButton>
+      <StyledBackButton type="button" aria-label="Go Back" onClick={goBack}>
+        <Image src="/assets/ArrowIcon.svg" alt="Back Link" width={25} height={20} />
+      </StyledBackButton>
       <main>
         <FavoriteButton
           onClick={() => onToggleFavorite(plant.id)}
@@ -34,7 +35,11 @@ export default function PlantDetail({ onToggleFavorite, favorites, plants }) {
           height={200}
           alt={plant.commonName}
         />
-        <StyledSection $categoryColor={plant.categoryColor}>
+        <StyledSection $categoryColor={
+          categories.find(
+            (category) => category.slug === plant.categorySlug
+          ).bgcolor
+        }>
           <StyledName>{plant.commonName}</StyledName>
           <StyledSpecies>{plant.species}</StyledSpecies>
           <StyledPlantCharacteristics>
