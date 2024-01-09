@@ -5,6 +5,7 @@ import { plants } from "@/lib/data";
 import { uid } from "uid";
 import { ThemeProvider } from "styled-components";
 import { lightTheme, darkTheme } from "@/components/Theme";
+import { categories } from "@/lib/data-categories";
 
 export default function App({ Component, pageProps }) {
   const [theme, setTheme] = useLocalStorageState("light");
@@ -47,6 +48,7 @@ export default function App({ Component, pageProps }) {
             onToggleFavorite={handleToggleFavorite}
             favorites={favorites}
             plants={plants}
+            categories={categories}
             preferences={preferences}
             handleAddPreference={handleAddPreference}
             handleDeletePreference={handleDeletePreference}

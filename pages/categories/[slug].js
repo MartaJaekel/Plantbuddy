@@ -30,7 +30,7 @@ export default function CategoryDetail() {
           height={200}
           alt={category.title}
         />
-        <StyledSection>
+        <StyledSection $categoryColor={category.bgcolor}>
           <StyledName>{category.title}</StyledName>
           <article>
             <h3>Description</h3>
@@ -60,10 +60,12 @@ const StyledNav = styled.nav`
 const StyledImage = styled(Image)`
   width: 100%;
   height: auto;
+  display: block;
 `;
 
 const StyledSection = styled.section`
-  margin: 1rem 2rem 2rem 2rem;
+  padding: 1rem 2rem 2rem 2rem;
+  background-color: ${(props) => props.$categoryColor};
 `;
 
 const StyledName = styled.h1`
