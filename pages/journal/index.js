@@ -6,23 +6,27 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 
 export default function JournalPage() {
-    const router = useRouter();
-    const goBack = () => {
-        router.back();
-      };
+  const router = useRouter();
+  const goBack = () => {
+    router.back();
+  };
 
   return (
     <>
       <StyledHeadline>PlantBuddy</StyledHeadline>
       <StyledBackButton type="button" aria-label="Go Back" onClick={goBack}>
-          <Image src="/assets/ArrowIcon.svg" alt="Back Link" width={25} height={20} />
-        </StyledBackButton>
+        <Image
+          src="/assets/ArrowIcon.svg"
+          alt="Back Link"
+          width={25}
+          height={20}
+        />
+      </StyledBackButton>
       <main>
         <StyledTitle>Plant Journal </StyledTitle>
-        <Link href="/journal/entry" passHref>
-        <StyledButton>Create a new Entry</StyledButton>
-        </Link>
-        
+        <StyledLink href="/journal/entry" passHref>
+          <StyledButton>Create a new Entry</StyledButton>
+        </StyledLink>
       </main>
     </>
   );
@@ -36,14 +40,17 @@ const StyledTitle = styled.h2`
   color: var(--color-green);
 `;
 const StyledButton = styled.button`
-display: block;
+  display: block;
   margin: 0 auto;
-  margin-top: 3rem; 
+  margin-top: 3rem;
   color: green;
-  font-size: 1.1rem; 
+  font-size: 1.1rem;
   padding: 1rem 2rem;
-  background-color:#abc32f;
-`
+  background-color: #abc32f;
+`;
+const StyledLink = styled.a`
+  text-decoration: none;
+`;
 const StyledBackButton = styled.button`
   position: absolute;
   top: 1.75rem;
@@ -58,4 +65,3 @@ const StyledBackButton = styled.button`
   border: none;
   z-index: 2;
 `;
-
