@@ -44,7 +44,7 @@ const StyledButton = styled.button`
   margin: 0 auto;
   margin-top: 3rem;
   color: green;
-  font-size: 1.1rem;
+  font-size: 0.5;
   padding: 1rem 2rem;
   background-color: #abc32f;
 `;
