@@ -1,9 +1,22 @@
 import React from "react";
 import Link from "next/link";
-import { categories } from "@/lib/data-categories";
 import styled from "styled-components";
+import dbConnect from "@/db/connect";
+import Category from "@/db/models/categories";
 
-export default function CategoriesOverview() {
+export async function getServerSideProps() {
+  await dbConnect();
+
+  const categories = await Category.find({}).lean();
+
+  return {
+    props: {
+      categories: categories.map(category => ({ ...category, _id: category._id.toString() })),
+    },
+  };
+}
+
+export default function CategoriesOverview({ categories }) {
 
   return (
     <>
@@ -12,7 +25,7 @@ export default function CategoriesOverview() {
       <main>
         <StyledPlantList>
           {categories.map((category) => (
-            <StyledLink key={category.id} href={`/categories/${category.slug}`}>
+            <StyledLink key={category._id} href={`/categories/${category.slug}`}>
               <CategoryCard $bgcolor={category.bgcolor}>
                 <p>{category.title}</p>
               </CategoryCard>
