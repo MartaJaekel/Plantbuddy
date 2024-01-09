@@ -136,7 +136,7 @@ const StyledPlantCharacteristics = styled.article`
   flex-wrap: wrap;
   justify-content: center;
   border-bottom: 2px solid var(--color-grey);
-  padding: 1rem 0 1rem 0;
+  padding: 1rem 0 2rem 0;
 `;
 
 const StyledLink = styled(Link)`
