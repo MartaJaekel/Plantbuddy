@@ -3,7 +3,7 @@ import Image from "next/image";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 
-export default function Navigation() {
+export default function Navigation({ theme }) {
   const router = useRouter();
 
   const handleHomeClick = () => {
@@ -16,48 +16,125 @@ export default function Navigation() {
 
   return (
     <StyledNav>
-      <StyledList>
-        <li>
-          <Link href="/" onClick={handleHomeClick}>
-            <Image
-              src={router.pathname === "/" ? "/assets/HomeActive.svg" : "/assets/HomeInactive.svg"}
-              alt="Home Icon"
-              width={40}
-              height={40}
-            />
-          </Link>
-        </li>
-        <li>
-          <Link href="/favorites">
-            <Image
-              src={router.pathname === "/favorites" ?"/assets/HeartActive.svg" : "/assets/HeartInactive.svg"}
-              alt="Favorite Icon"
-              width={40}
-              height={40}
-            />
-          </Link>
-        </li>
-        <li>
-          <Link href="/categories">
-            <Image
-              src={router.pathname === "/categories" ? "/assets/CategoryActive.svg" : "/assets/CategoryInactive.svg"}
-              alt="Categories Icon"
-              width={40}
-              height={40}
-            />
-          </Link>
-        </li>
-        <li>
-          <Link href="/preferences">
-            <Image
-              src={router.pathname === "/preferences" ? "/assets/PreferencesActive.svg" : "/assets/PreferencesInactive.svg"}
-              alt="Preference Icon"
-              width={40}
-              height={40}
-            />
-          </Link>
-        </li>
-      </StyledList>
+      {theme === "light" ? (
+        <StyledList>
+          <li>
+            <Link href="/" onClick={handleHomeClick}>
+              <Image
+                src={
+                  router.pathname === "/"
+                    ? "/assets/HomeActive.svg"
+                    : "/assets/HomeInactive.svg"
+                }
+                alt="Home Icon"
+                width={40}
+                height={40}
+              />
+            </Link>
+          </li>
+          <li>
+            <Link href="/favorites">
+              <Image
+                src={
+                  router.pathname === "/favorites"
+                    ? "/assets/HeartActive.svg"
+                    : "/assets/HeartInactive.svg"
+                }
+                alt="Favorite Icon"
+                width={40}
+                height={40}
+              />
+            </Link>
+          </li>
+          <li>
+            <Link href="/categories">
+              <Image
+                src={
+                  router.pathname === "/categories"
+                    ? "/assets/CategoryActive.svg"
+                    : "/assets/CategoryInactive.svg"
+                }
+                alt="Categories Icon"
+                width={40}
+                height={40}
+              />
+            </Link>
+          </li>
+          <li>
+            <Link href="/preferences">
+              <Image
+                src={
+                  router.pathname === "/preferences"
+                    ? "/assets/PreferenceActive"
+                    : "/assets/PreferenceInactive.svg"
+                }
+                alt="Preference Icon"
+                width={40}
+                height={40}
+              />
+            </Link>
+          </li>
+        </StyledList>
+      ) : (
+        <StyledList>
+          <li>
+            <Link href="/" onClick={handleHomeClick}>
+              <Image
+                src={
+                  router.pathname === "/"
+                    ? "/assets/HomeDarkmode.svg"
+                    : "/assets/HomeActive.svg"
+                }
+                alt="Home Icon"
+                width={40}
+                height={40}
+              />
+            </Link>
+          </li>
+          <li>
+            <Link href="/favorites">
+              <Image
+                src={
+                  router.pathname === "/favorites"
+                    ? "/assets/HeartDarkmode.svg"
+                    : "/assets/HeartActive.svg"
+                }
+                alt="Favorite Icon"
+                width={40}
+                height={40}
+              />
+            </Link>
+          </li>
+          <li>
+            <Link href="/categories">
+              <Image
+                src={
+                  router.pathname === "/categories"
+                    ? "/assets/CategoryDarkmode.svg"
+                    : "/assets/CategoryActive.svg"
+                }
+                alt="Categories Icon"
+                width={40}
+                height={40}
+              />
+            </Link>
+          </li>
+          <li>
+            <Link href="/preferences">
+              <Image
+                src={
+                  router.pathname === "/preferences"
+                    ? "/assets/PreferenceDarkmode.svg"
+                    : "/assets/PreferenceActive.svg"
+                }
+                alt="Preference Icon"
+                width={40}
+                height={40}
+              />
+            </Link>
+          </li>
+        </StyledList>
+      )}
     </StyledNav>
   );
 }

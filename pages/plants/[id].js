@@ -65,10 +65,10 @@ export default function PlantDetail({ onToggleFavorite, favorites, plants, categ
               info={plant.waterNeeds}
             />
           </StyledPlantCharacteristics>
-          <article>
+          <StyledDescription>
             <h3>Description</h3>
             <p>{plant.description}</p>
-          </article>
+          </StyledDescription>
         </StyledSection>
       </main>
     </>
@@ -79,7 +79,7 @@ const StyledBackButton = styled.button`
   position: absolute;
   top: 1.75rem;
   left: 1rem;
-  background-color: var(--color-green);
+  background-color: ${({ theme }) => theme.primaryGreen};
   border-radius: 50%;
   width: 30px;
   height: 30px;
@@ -103,12 +103,13 @@ const StyledName = styled.h1`
   font-family: serif;
   font-size: 2rem;
   line-height: 2rem;
-  color: var(--color-green);
+  color: ${({ theme }) => theme.primaryGreen};
   margin: 0;
 `;
 
 const StyledSpecies = styled.h2`
   text-transform: uppercase;
+  color: ${({ theme }) => theme.infoText};
   padding-top: 0.5rem;
   font-weight: 300;
   font-size: 1.25rem;
@@ -120,6 +121,10 @@ const StyledPlantCharacteristics = styled.article`
   gap: 1rem 3rem;
   flex-wrap: wrap;
   justify-content: center;
-  border-bottom: 2px solid var(--color-grey);
+  border-bottom: 2px solid ${({ theme }) => theme.divider};;
   padding: 1rem 0 1rem 0;
 `;
+
+const StyledDescription = styled.article`
+color: ${({ theme }) => theme.infoText}
+`

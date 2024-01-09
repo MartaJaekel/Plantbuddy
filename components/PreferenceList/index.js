@@ -23,6 +23,7 @@ export default function PreferenceList({ preferences, handleDeletePreference }) 
 
 const StyledCallText = styled.p`
   text-align: center;
+  color: ${({ theme }) => theme.primaryGreen};
 `;
 
 const StyledSpan = styled.span`

@@ -20,16 +20,7 @@ export default function HomePage({
   const searchResult = plants.filter((plant) => {
     return plant.commonName.toLowerCase().startsWith(search.toLowerCase());
   });
-  useEffect(() => {
-    if (searchResult.length > 0 && searchResult.length < plants.length) {
-      setCounterMessage(
-        `Showing ${searchResult.length} of ${plants.length} plants:`
-      );
-    } else if (searchResult.length === plants.length) {
-      setCounterMessage("");
-    }
-  }, [searchResult, plants.length]);
-
+ 
   function handleSortUpdate(newSortedPlants) {
     setSortPlants(newSortedPlants);
   }
@@ -60,8 +51,6 @@ export default function HomePage({
         {search === "" && (
           <SortPlants onSortUpdate={handleSortUpdate} plants={plants} />
         )}
-        <StyledCounterMessage>{counterMessage}</StyledCounterMessage>
-
         <PlantList
           onToggleFavorite={onToggleFavorite}
           favorites={favorites}
@@ -74,13 +63,6 @@ export default function HomePage({
     </>
   );
 }
-
-const StyledCounterMessage = styled.p`
-  margin: 1rem auto;
-  max-width: 19rem;
-  color: var(--color-green);
-  font-weight: 600;
-`;
 
 const StyledThemeToggler = styled.button`
   position: fixed;

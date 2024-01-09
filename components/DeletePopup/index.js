@@ -20,14 +20,14 @@ const StyledPopupContainer = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(255, 255, 255, 0.7);
+  background: ${({ theme }) => theme.popUpBackground};
   display: flex;
   align-items: center;
   justify-content: center;
 `;
 
 const StyledPopupContent = styled.div`
-  background: var(--color-green);
+  background: ${({ theme }) => theme.popUpField};
   padding: 20px;
   margin: 0 1rem;
   border-radius: 8px;
@@ -51,8 +51,8 @@ const StyledButtonContainer = styled.div`
 `;
 
 const StyledButton = styled.button`
-  color: var(--color-green);
-  background-color: var(--color-beige);
+  color: ${({ theme }) => theme.formText};
+  background-color: ${({ theme }) => theme.popUpFieldButton};
   border: none;
   border-radius: 8px;
   padding: 0.6rem 0.4rem;

@@ -86,12 +86,11 @@ const StyledLabel = styled.label`
 `;
 
 const StyledSelect = styled.select`
-  background-color: var(--color-grey);
+  background-color: ${({ theme }) => theme.formField};
   padding: 0.8rem 2rem;
   border-radius: 0.4rem;
-  color: var(--color-green);
-  border: none;
-  font-weight: 600;
+  color: ${({ theme }) => theme.formText};
+  border: solid 0.8px var(--color-beige);
   cursor: pointer;
 
 `

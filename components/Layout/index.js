@@ -1,11 +1,11 @@
 import Navigation from "../Navigation";
 import styled from "styled-components";
 
-export default function Layout({ children}) {
+export default function Layout({ children, theme }) {
   return (
     <>
       <main>{children}</main>
-      <Navigation />
+      <Navigation theme = {theme}/>
     </>
   );
 }

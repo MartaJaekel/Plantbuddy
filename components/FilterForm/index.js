@@ -148,21 +148,19 @@ const StyledForm = styled.form`
   max-width: 19rem;
   margin: 1rem auto 1rem auto;
   padding: 0rem 0rem 2rem 0;
-  border-bottom: 2px solid var(--color-grey);
+  border-bottom: 2px solid ${({ theme }) => theme.divider};
 `;
 
 const StyledTitleInput = styled.input`
-  background-color: var(--color-grey);
+  background-color: ${({ theme }) => theme.formField};
   padding: 0.6rem 1.5rem;
   border-radius: 8px;
-  color: var(--color-green);
-  border: none;
-  font-weight: 600;
+  color: ${({ theme }) => theme.formText};
+  border: solid 0.8px var(--color-beige);
   cursor: pointer;
 
   &::placeholder {
-    color: var(--color-lightGreen);
-    font-weight: 600;
+    color: ${({ theme }) => theme.formText};
   }
 `;
 
@@ -180,12 +178,11 @@ const StyledLabel = styled.label`
 `;
 
 const StyledSelect = styled.select`
-  background-color: var(--color-grey);
+  background-color: ${({ theme }) => theme.formField};
   padding: 0.6rem 1.5rem;
   border-radius: 8px;
-  color: var(--color-green);
-  border: none;
-  font-weight: 600;
+  color: ${({ theme }) => theme.formText};
+  border: solid 0.8px var(--color-beige);
   cursor: pointer;
 `;
 
@@ -195,8 +192,8 @@ const StyledButtonContainer = styled.div`
 `;
 
 const StyledButton = styled.button`
-  color: white;
-  background-color: var(--color-green);
+  color: var(--color-beige);
+  background-color: ${({ theme }) => theme.button};
   border: none;
   border-radius: 8px;
   padding: 0.6rem 0.4rem;

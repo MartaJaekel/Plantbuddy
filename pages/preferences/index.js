@@ -13,7 +13,7 @@ export default function PreferencesPage({
     <>
       <StyledHeadline>PlantBuddy</StyledHeadline>
       <main>
-        <StyledTitle>Add your Preferences</StyledTitle>
+        <StyledTitle>Add your Plant Preferences</StyledTitle>
         <FilterForm plants={plants} onAddPreference={handleAddPreference} />
         <PreferenceList preferences={preferences} handleDeletePreference={handleDeletePreference} />
       </main>
@@ -23,7 +23,7 @@ export default function PreferencesPage({
   
 const StyledTitle = styled.h2`
   text-align: center;
-  margin: 6rem 0 2rem 0;
   font-size: 1.25rem;
-  color: var(--color-green);
+  color: ${({ theme }) => theme.primaryGreen};
+  margin: 6rem 0 2rem 0;
 `;

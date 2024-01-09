@@ -2,13 +2,25 @@ export const lightTheme = {
   background: "white",
   primaryGreen: "var(--color-green)",
   navigation: "var(--color-beige)",
-  black: "var(--color-black)",
-  grey: "var(--color-grey)",
-  lightGreen: "var(--color-lightGreen)",
-  red: "var(--color-red)"
+  formText: "var(--color-green)",
+  formField: "var(--color-grey)",
+  button: "var(--color-green)",
+  divider: "var(--color-grey)",
+  infoText: "var(--color-black)",
+  popUpBackground: "rgba(255, 255, 255, 0.7)",
+  popUpField: "var(--color-green)",
+  popUpFieldButton: "var(--color-beige)",
 };
 export const darkTheme = {
-    background: "var(--color-blackGreen)",
-    primaryGreen: "var(--color-lightGreen)",
-    navigation: "var(--color-darkGreen)"
+  background: "var(--color-blackGreen)",
+  primaryGreen: "var(--color-lightGreen)",
+  navigation: "var(--color-darkGreen)",
+  formText: "var(--color-beige)",
+  formField: "var(--color-blackGreen)",
+  button: "var(--color-darkGreen)",
+  divider: "var(--color-darkGreen)",
+  infoText: "var(--color-beige)",
+  popUpBackground: "rgba(45, 45, 40, 0.9)",
+  popUpField: "var(--color-darkGreen)",
+  popUpFieldButton: "var(--color-green)",
 };

@@ -4,9 +4,10 @@ import Link from "next/link";
 import FavoriteButton from "../FavoriteButton";
 import { categories } from "@/lib/data-categories";
 
-
 export default function PlantCard({ onToggleFavorite, isFavorite, plant }) {
-  const categoryColor =  categories.find((category) => category.slug === plant.categorySlug).bgcolor;
+  const categoryColor = categories.find(
+    (category) => category.slug === plant.categorySlug
+  ).bgcolor;
   return (
     <StyledListItem>
       <FavoriteButton
@@ -43,12 +44,13 @@ const StyledFigure = styled.figure`
 `;
 
 const StyledCaption = styled.figcaption`
+  color: ${({ theme }) => theme.infoText};
   text-align: center;
+  justify-content: center;
   margin: 0.25rem;
 `;
 
 const StyledLink = styled(Link)`
   position: relative;
   text-decoration: none;
-  color: var(--color-black);
 `;

@@ -22,8 +22,6 @@ export default function PlantList({
     );
   }
 
-  
-
   return (
     <StyledPlantList>
       {search.length === 0
