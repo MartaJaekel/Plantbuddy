@@ -123,4 +123,5 @@ const StyledPlantCharacteristics = styled.article`
   justify-content: center;
   border-bottom: 2px solid var(--color-grey);
   padding: 1rem 0 1rem 0;
+  
 `;
