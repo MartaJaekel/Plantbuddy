@@ -1,18 +1,36 @@
-import { categories } from "@/lib/data-categories";
+import dbConnect from "@/db/connect";
+import Category from "@/db/models/categories";
 import styled from "styled-components";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Image from "next/image";
 
-export default function CategoryDetail() {
-  const router = useRouter();
-  const { slug } = router.query;
-  const category = categories.find(cat => cat.slug === slug);
+export async function getServerSideProps(context) {
+  await dbConnect();
+
+  const category = await Category.findOne({ slug: context.params.slug}).lean();
 
   if (!category) {
+    return {
+      notFound: true,
+    };
+  }
+
+  return {
+    props: {
+      category: { ...category, _id: category._id.toString() },
+    },
+  };
+}
+
+
+export default function CategoryDetail({ category }) {
+  const router = useRouter();
+
+  if (router.isFallback) {
     return (
         <StyledSection>
-          <StyledName>Category not found!</StyledName>
+          <StyledName>Loading...</StyledName>
         </StyledSection>
     );
   }
