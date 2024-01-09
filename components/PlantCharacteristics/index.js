@@ -26,7 +26,7 @@ const StyledCharacteristic = styled.div`
   align-items: center;
 `;
 const StyledCharacterHeadline = styled.h3`
-  font-size: 1rem;
+  font-size: 0.9rem;
   margin: 0;
 `;
 

@@ -3,9 +3,9 @@ import Image from "next/image";
 import styled from "styled-components";
 import PlantCharacteristics from "@/components/PlantCharacteristics";
 import FavoriteButton from "@/components/FavoriteButton";
-import { categories } from "@/lib/data-categories";
+import Link from "next/link";
 
-export default function PlantDetail({ onToggleFavorite, favorites, plants }) {
+export default function PlantDetail({ onToggleFavorite, favorites, plants, categories }) {
   const router = useRouter();
   const { id } = router.query;
 
@@ -54,7 +54,7 @@ export default function PlantDetail({ onToggleFavorite, favorites, plants }) {
               info={plant.sunlightRequirements}
             />
             <PlantCharacteristics
-              headline="Temperature"
+              headline="Warmth"
               imageAlt="Temperature Icon"
               imageSrc="/assets/TemperatureIcon.svg"
               info={plant.optimalTemperature}
@@ -65,6 +65,20 @@ export default function PlantDetail({ onToggleFavorite, favorites, plants }) {
               imageSrc="/assets/WaterIcon.svg"
               info={plant.waterNeeds}
             />
+            <PlantCharacteristics
+              headline="Pet-Friendly"
+              imageAlt="Paw Icon"
+              imageSrc="/assets/PawIcon.svg"
+              info={plant.petFriendly === true ? "yes" : "no"}
+            />
+            <StyledLink href={`/categories/${plant.categorySlug}`}>
+            <PlantCharacteristics
+              headline="Category"
+              imageAlt="Leaf Icons"
+              imageSrc="/assets/CategoryInactive.svg"
+              info={plant.categorySlug}
+            />
+            </StyledLink>
           </StyledPlantCharacteristics>
           <article>
             <h3>Description</h3>
@@ -96,7 +110,7 @@ const StyledImage = styled(Image)`
 `;
 
 const StyledSection = styled.section`
-  padding: 1rem 2rem 2rem 2rem;
+  padding: 1rem 2rem 6rem 2rem;
   background-color: ${(props) => props.$categoryColor};
 `;
 
@@ -118,9 +132,13 @@ const StyledSpecies = styled.h2`
 
 const StyledPlantCharacteristics = styled.article`
   display: flex;
-  gap: 1rem 3rem;
+  gap: 1rem 2rem;
   flex-wrap: wrap;
   justify-content: center;
   border-bottom: 2px solid var(--color-grey);
-  padding: 1rem 0 1rem 0;
+  padding: 1rem 0 2rem 0;
+`;
+
+const StyledLink = styled(Link)`
+color: var(--color-black);
 `;
