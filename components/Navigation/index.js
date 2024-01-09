@@ -20,7 +20,11 @@ export default function Navigation() {
         <li>
           <Link href="/" onClick={handleHomeClick}>
             <Image
-              src={router.pathname === "/" ? "/assets/HomeActive.svg" : "/assets/HomeInactive.svg"}
+              src={
+                router.pathname === "/"
+                  ? "/assets/HomeActive.svg"
+                  : "/assets/HomeInactive.svg"
+              }
               alt="Home Icon"
               width={40}
               height={40}
@@ -30,7 +34,11 @@ export default function Navigation() {
         <li>
           <Link href="/favorites">
             <Image
-              src={router.pathname === "/favorites" ?"/assets/HeartActive.svg" : "/assets/HeartInactive.svg"}
+              src={
+                router.pathname === "/favorites"
+                  ? "/assets/HeartActive.svg"
+                  : "/assets/HeartInactive.svg"
+              }
               alt="Favorite Icon"
               width={40}
               height={40}
@@ -40,7 +48,11 @@ export default function Navigation() {
         <li>
           <Link href="/categories">
             <Image
-              src={router.pathname === "/categories" ? "/assets/CategoryActive.svg" : "/assets/CategoryInactive.svg"}
+              src={
+                router.pathname === "/categories"
+                  ? "/assets/CategoryActive.svg"
+                  : "/assets/CategoryInactive.svg"
+              }
               alt="Categories Icon"
               width={40}
               height={40}
@@ -50,8 +62,26 @@ export default function Navigation() {
         <li>
           <Link href="/preferences">
             <Image
-              src={router.pathname === "/preferences" ? "/assets/PreferencesActive.svg" : "/assets/PreferencesInactive.svg"}
+              src={
+                router.pathname === "/preferences"
+                  ? "/assets/PreferencesActive.svg"
+                  : "/assets/PreferencesInactive.svg"
+              }
               alt="Preference Icon"
+              width={40}
+              height={40}
+            />
+          </Link>
+        </li>
+        <li>
+          <Link href="/journal">
+            <Image
+              src={
+                router.pathname === "/journal"
+                  ? "/assets/JournalActive.svg"
+                  : "/assets/JournalInactive.svg"
+              }
+              alt="Journal Icon"
               width={40}
               height={40}
             />
