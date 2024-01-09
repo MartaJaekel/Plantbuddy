@@ -1,12 +1,31 @@
 import styled from "styled-components";
 import React, { useState } from "react";
+import { useRouter } from "next/router";
 
-export default function FilterForm({ plants, onAddPreference }) {
-  const [plantSize, setPlantSize] = useState("");
-  const [sunlightRequirement, setSunlightRequirement] = useState("");
-  const [waterNeeds, setWaterNeeds] = useState("");
-  const [optimalTemperature, setOptimalTemperature] = useState("");
-  const [petFriendly, setPetFriendly] = useState("");
+export default function FilterForm({
+  plants,
+  onAddPreference,
+  initialFilterSettings = {},
+  initialFilterTitle = "",
+  onEditPreference,
+  preferenceId,
+}) {
+  const router = useRouter();
+
+  const initialState = {
+    preferenceTitle: initialFilterTitle,
+    plantSize: initialFilterSettings.plantSize || "",
+    sunlightRequirement: initialFilterSettings.sunlightRequirement || "",
+    waterNeeds: initialFilterSettings.waterNeeds || "",
+    optimalTemperature: initialFilterSettings.optimalTemperature || "",
+    petFriendly: initialFilterSettings.petFriendly || "",
+  };
+
+  const [state, setState] = useState(initialState);
+
+  if (!plants) {
+    return null;
+  }
 
   // Separate filter functions
   const filterPlantSize = (plantId, size) =>
@@ -30,31 +49,46 @@ export default function FilterForm({ plants, onAddPreference }) {
   function handleSubmit(event) {
     event.preventDefault();
 
-    const newPreference = {
-      preferenceTitle: event.target.elements.title.value,
+    const { plantSize, sunlightRequirement, waterNeeds, optimalTemperature, petFriendly } = state;
+
+    const filterSettings = {
+      plantSize,
+      sunlightRequirement,
+      waterNeeds,
+      optimalTemperature,
+      petFriendly,
+    };
+
+    const preferenceData = {
+      preferenceTitle: state.preferenceTitle,
       preferencePlants: plants
         .filter(
           (plant) =>
-            filterPlantSize(plant.id, plantSize) &&
-            filterSunlightRequirement(plant.id, sunlightRequirement) &&
-            filterWaterNeeds(plant.id, waterNeeds) &&
-            filterOptimalTemperature(plant.id, optimalTemperature) &&
-            filterPetFriendly(plant.id, petFriendly)
+            filterPlantSize(plant.id, state.plantSize) &&
+            filterSunlightRequirement(plant.id, state.sunlightRequirement) &&
+            filterWaterNeeds(plant.id, state.waterNeeds) &&
+            filterOptimalTemperature(plant.id, state.optimalTemperature) &&
+            filterPetFriendly(plant.id,state.petFriendly)
         )
         .map((plant) => plant.id),
+      filterSettings,
     };
 
-    onAddPreference(newPreference);
-    event.target.elements.title.focus();
-    event.target.reset();
-  }
+    if (preferenceId) {
+      // Editing an existing preference
+      onEditPreference({ ...preferenceData, id: preferenceId });
+      router.push("/preferences");
+    } else {
+      // Adding a new preference
+      onAddPreference(preferenceData);
+      event.target.reset();
+    }
 
-  function handleReset() {
-    event.target.reset();
+    event.target.elements.title.focus();
   }
 
   return (
-    <StyledForm onSubmit={handleSubmit} onReset={handleReset}>
+    <StyledForm onSubmit={handleSubmit}>
       <StyledLabel htmlFor="title">Add your preference title</StyledLabel>
       <StyledTitleInput
         type="text"
@@ -62,15 +96,18 @@ export default function FilterForm({ plants, onAddPreference }) {
         name="title"
         placeholder="Add here your Preference Title"
         minLength="3"
-        maxLength="35"
+        maxLength="25"
         required
+        value={state.preferenceTitle}
+        onChange={(event) => setState({ ...state, preferenceTitle: event.target.value })}
       />
 
       <StyledLabel htmlFor="plantSize">Select the plant size:</StyledLabel>
       <StyledSelect
         name="plantSize"
         id="plantSize"
-        onChange={(event) => setPlantSize(event.target.value)}
+        onChange={(event) => setState({ ...state, plantSize: event.target.value })}
+        defaultValue={state.plantSize}
       >
         <option value="">Select Size</option>
         <option value="small">Small (15cm-50cm)</option>
@@ -84,7 +121,8 @@ export default function FilterForm({ plants, onAddPreference }) {
       <StyledSelect
         name="sunlightRequirement"
         id="sunlightRequirement"
-        onChange={(event) => setSunlightRequirement(event.target.value)}
+        onChange={(event) => setState({ ...state, sunlightRequirement: event.target.value })}
+        defaultValue={state.sunlightRequirement}
       >
         <option value="">Select Sunlight Requirement</option>
         <option value="full sun">Full Sun</option>
@@ -96,7 +134,8 @@ export default function FilterForm({ plants, onAddPreference }) {
       <StyledSelect
         name="waterNeeds"
         id="waterNeeds"
-        onChange={(event) => setWaterNeeds(event.target.value)}
+        onChange={(event) => setState({ ...state, waterNeeds: event.target.value })}
+        defaultValue={state.waterNeeds}
       >
         <option value="">Select Water Needs</option>
         <option value="weekly">Weekly</option>
@@ -110,7 +149,8 @@ export default function FilterForm({ plants, onAddPreference }) {
       <StyledSelect
         name="optimalTemperature"
         id="optimalTemperature"
-        onChange={(event) => setOptimalTemperature(event.target.value)}
+        onChange={(event) => setState({ ...state, optimalTemperature: event.target.value })}
+        defaultValue={state.optimalTemperature}
       >
         <option value="">Select Temperature</option>
         <option value="low">15-20°C</option>
@@ -124,7 +164,8 @@ export default function FilterForm({ plants, onAddPreference }) {
       <StyledSelect
         name="petFriendly"
         id="petFriendly"
-        onChange={(event) => setPetFriendly(event.target.value)}
+        onChange={(event) => setState({ ...state, petFriendly: event.target.value })}
+        defaultValue={state.petFriendly}
       >
         <option value="">Select Pet Compatibility</option>
         <option value="true">Yes</option>

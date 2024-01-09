@@ -20,7 +20,6 @@ export default function PreferenceCard({ preference, onDeletePreference }) {
     setShowPopup(false);
   };
 
-
   return (
     <StyledPreferenceCard>
       <StyledLink href={`preferences/${preference?.id}`}>
@@ -54,6 +53,7 @@ const StyledPreferenceCard = styled.div`
   padding: 0.6rem 1.5rem;
   border-radius: 8px;
   border: none;
+  width: 14.5rem;
 `;
 
 const StyledLink = styled(Link)`
