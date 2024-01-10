@@ -1,5 +1,5 @@
 import PlantList from "@/components/PlantList";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import SearchField from "@/components/SearchField";
 import { StyledHeadline } from "@/components/Headline/StyledHeadline";
 import styled from "styled-components";
@@ -14,7 +14,6 @@ export default function HomePage({
   toggleTheme,
 }) {
   const [search, setSearch] = useState("");
-  const [counterMessage, setCounterMessage] = useState("");
   const [sortPlants, setSortPlants] = useState(plants);
 
   const searchResult = plants.filter((plant) => {
@@ -58,6 +57,7 @@ export default function HomePage({
           search={search}
           searchResult={searchResult}
           sortedPlants={sortPlants}
+          theme={theme}
         />
       </main>
     </>

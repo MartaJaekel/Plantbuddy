@@ -16,7 +16,6 @@ export default function Navigation({ theme }) {
 
   return (
     <StyledNav>
-      {theme === "light" ? (
         <StyledList>
           <li>
             <Link href="/" onClick={handleHomeClick}>
@@ -75,66 +74,6 @@ export default function Navigation({ theme }) {
             </Link>
           </li>
         </StyledList>
-      ) : (
-        <StyledList>
-          <li>
-            <Link href="/" onClick={handleHomeClick}>
-              <Image
-                src={
-                  router.pathname === "/"
-                    ? "/assets/HomeDarkmode.svg"
-                    : "/assets/HomeActive.svg"
-                }
-                alt="Home Icon"
-                width={40}
-                height={40}
-              />
-            </Link>
-          </li>
-          <li>
-            <Link href="/favorites">
-              <Image
-                src={
-                  router.pathname === "/favorites"
-                    ? "/assets/HeartDarkmode.svg"
-                    : "/assets/HeartActive.svg"
-                }
-                alt="Favorite Icon"
-                width={40}
-                height={40}
-              />
-            </Link>
-          </li>
-          <li>
-            <Link href="/categories">
-              <Image
-                src={
-                  router.pathname === "/categories"
-                    ? "/assets/CategoryDarkmode.svg"
-                    : "/assets/CategoryActive.svg"
-                }
-                alt="Categories Icon"
-                width={40}
-                height={40}
-              />
-            </Link>
-          </li>
-          <li>
-            <Link href="/preferences">
-              <Image
-                src={
-                  router.pathname === "/preferences"
-                    ? "/assets/PreferenceDarkmode.svg"
-                    : "/assets/PreferenceActive.svg"
-                }
-                alt="Preference Icon"
-                width={40}
-                height={40}
-              />
-            </Link>
-          </li>
-        </StyledList>
-      )}
     </StyledNav>
   );
 }

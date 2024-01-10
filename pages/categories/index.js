@@ -4,7 +4,7 @@ import { categories } from "@/lib/data-categories";
 import styled from "styled-components";
 import { StyledHeadline } from "@/components/Headline/StyledHeadline";
 
-export default function CategoriesOverview() {
+export default function CategoriesOverview({theme}) {
 
   return (
     <>
@@ -14,7 +14,7 @@ export default function CategoriesOverview() {
         <StyledPlantList>
           {categories.map((category) => (
             <StyledLink key={category.id} href={`/categories/${category.slug}`}>
-              <CategoryCard $bgcolor={category.bgcolor}>
+              <CategoryCard $bgcolor={theme === "light" ? category.bgcolor : category.bgcolorDark}>
                 <p>{category.title}</p>
               </CategoryCard>
             </StyledLink>
