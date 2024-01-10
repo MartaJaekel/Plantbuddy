@@ -1,22 +1,20 @@
 import React from "react";
 import Link from "next/link";
 import styled from "styled-components";
-import dbConnect from "@/db/connect";
-import Category from "@/db/models/categories";
+import useSWR from "swr";
 
-export async function getServerSideProps() {
-  await dbConnect();
+const fetcher = url => fetch(url).then(res => res.json());
 
-  const categories = await Category.find({}).lean();
+export default function CategoriesOverview() {
+  const { data, error, isLoading } = useSWR("/api/categories", fetcher, { onError: console.error, shouldRetryOnError: false });
 
-  return {
-    props: {
-      categories: categories.map(category => ({ ...category, _id: category._id.toString() })),
-    },
-  };
-}
+  if (isLoading) return <h1>Loading...</h1>;
+  if (error) return <h1>Error loading data</h1>;
+  if (!data) return <h1>No data available</h1>;
 
-export default function CategoriesOverview({ categories }) {
+  if (!Array.isArray(data)) {
+    return <div>Invalid data format</div>;
+  }
 
   return (
     <>
@@ -24,7 +22,7 @@ export default function CategoriesOverview({ categories }) {
       <StyledTitle>Categories</StyledTitle>
       <main>
         <StyledPlantList>
-          {categories.map((category) => (
+          {data.map((category) => (
             <StyledLink key={category._id} href={`/categories/${category.slug}`}>
               <CategoryCard $bgcolor={category.bgcolor}>
                 <p>{category.title}</p>
