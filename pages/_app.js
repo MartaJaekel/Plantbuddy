@@ -4,6 +4,7 @@ import useLocalStorageState from "use-local-storage-state";
 import { plants } from "@/lib/data";
 import { uid } from "uid";
 
+
 export default function App({ Component, pageProps }) {
   const [favorites, setFavorites] = useLocalStorageState("favorites", {
     defaultValue: [],
@@ -12,6 +13,10 @@ export default function App({ Component, pageProps }) {
   const [preferences, setPreferences] = useLocalStorageState("preferences", {
     defaultValue: [],
   });
+
+  const [entries, setEntries] = useLocalStorageState("entries" , {
+    defaultValue: [],
+  })
 
   function handleToggleFavorite(plantId) {
     if (favorites.includes(plantId)) {
@@ -28,6 +33,12 @@ export default function App({ Component, pageProps }) {
   function handleDeletePreference(id) {
     setPreferences(preferences.filter((preference) => preference.id !== id));
   }
+  function handleFormSubmit(data) {
+    const newEntry = { id: uid(), ...data };
+    setEntries((prevFormEntry) => [...prevFormEntry, newEntry]);
+console.log(newEntry)
+  }
+  
 
   return (
     <>
@@ -41,6 +52,8 @@ export default function App({ Component, pageProps }) {
           preferences={preferences}
           handleAddPreference={handleAddPreference}
           handleDeletePreference={handleDeletePreference}
+          onFormSubmit={handleFormSubmit}
+          entries={entries} 
         />
       </Layout>
     </>

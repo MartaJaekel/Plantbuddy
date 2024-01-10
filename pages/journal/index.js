@@ -4,12 +4,14 @@ import { StyledHeadline } from "@/components/Headline/StyledHeadline";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import EntryCard from "@/components/JournalEntryCard";
 
-export default function JournalPage() {
+export default function JournalPage({ entries }) {
   const router = useRouter();
   const goBack = () => {
     router.back();
   };
+  console.log(entries)
 
   return (
     <>
@@ -24,9 +26,23 @@ export default function JournalPage() {
       </StyledBackButton>
       <main>
         <StyledTitle>Plant Journal </StyledTitle>
-        <StyledLink href="/journal/entry" passHref>
+        <StyledLink href="/journal/entry">
           <StyledButton>Create a new Entry</StyledButton>
         </StyledLink>
+        <StyledEntriesContainer>
+        <ul>
+        {entries.length > 0 ? (
+            entries.map((entry) => (
+              <li key={entry.id}>
+                <EntryCard entry={entry} />
+              </li>
+            ))
+       
+        ) : (
+          <StyledParagraph>You don't have any entries yet<br/>
+          Start with your first entry.</StyledParagraph>
+        )}   </ul>
+         </StyledEntriesContainer>
       </main>
     </>
   );
@@ -65,3 +81,17 @@ const StyledBackButton = styled.button`
   border: none;
   z-index: 2;
 `;
+const StyledEntriesContainer = styled.div`
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  align-items: center; /* Center items horizontally */
+`;
+
+
+const StyledParagraph = styled.p`
+text-align:center;
+ margin-top: 50px;
+
+
+
+`

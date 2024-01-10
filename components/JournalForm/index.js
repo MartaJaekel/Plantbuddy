@@ -5,64 +5,59 @@ import { StyledHeadline } from "@/components/Headline/StyledHeadline";
 import { useRouter } from "next/router";
 import Image from "next/image";
 
-export default function EntryForm() {
-  /*const [formValues, setFormValues] = useState({
-        url: "",
-        name: "",
-        description: "",
-        care: "",
-        location: ""
-    });*/
-
+export default function EntryForm({ onFormSubmit }) {
   const [url, setUrl] = useState("");
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [careTipps, setCareTipps] = useState("");
   const [location, setLocation] = useState("");
 
-  /*function handleInputChange(event) {
-    // Extract the name and value from the input field
-    const name = event.target.name;
-    const value = event.target.value;
-// Update the formValues state using setFormValues
-    setFormValues((prevValues)  => {
-         // Create a new object by copying the previous values
-    const newValues = {...prevValues};
-    newValues[name]= value;
- // Return the new object as the updated state
-    return newValues;
-     }) }*/
+  const router = useRouter();
+  const goBack = () => {
+    router.back();
+  };
+  const isUrlValid = (url) => {
+    const urlRegex = /^(https?:\/\/)?([\w-]+\.)+[\w-]+(\/[\w-./?%&=]*)?$/;
+    return urlRegex.test(url);
+  };
 
-     const router = useRouter();
-     const goBack = () => {
-         router.back();
-       };
   function handleSubmit(event) {
     event.preventDefault();
+    if (isUrlValid(url)) {
+      const entry = { url, name, description, careTipps, location };
+      onFormSubmit(entry);
+      router.push("/journal");
+    } else {
+      alert("Invalid URL. Please enter a valid image URL.");
+    }
   }
   function handleReset(event) {
-    event.target.reset;
+    event.target.reset();
   }
 
   return (
     <>
       <StyledHeadline>PlantBuddy</StyledHeadline>
       <StyledBackButton type="button" aria-label="Go Back" onClick={goBack}>
-          <Image src="/assets/ArrowIcon.svg" alt="Back Link" width={25} height={20} />
-        </StyledBackButton>
-
+        <Image
+          src="/assets/ArrowIcon.svg"
+          alt="Back Link"
+          width={25}
+          height={20}
+        />
+      </StyledBackButton>
       <main>
-      <StyledTitle>Plant Journal </StyledTitle>
+        <StyledTitle>Plant Journal </StyledTitle>
         <StyledForm onSubmit={handleSubmit} onReset={handleReset}>
           <StyledLabel htmlFor="url"></StyledLabel>
           <StyledInput
-            type="text"
+            type="url"
             id="url"
             name="url"
             placeholder="Image Upload URL"
             onChange={(event) => setUrl(event.target.value)}
           />
-          <StyledLabel htmlFor="url"></StyledLabel>
+          <StyledLabel htmlFor="name"></StyledLabel>
           <StyledInput
             type="text"
             id="name"
@@ -70,7 +65,7 @@ export default function EntryForm() {
             placeholder="Name"
             onChange={(event) => setName(event.target.value)}
           />
-          <StyledLabel htmlFor="url"></StyledLabel>
+          <StyledLabel htmlFor="description"></StyledLabel>
           <StyledTextarea
             type="text"
             id="description"
@@ -78,7 +73,7 @@ export default function EntryForm() {
             placeholder="Description"
             onChange={(event) => setDescription(event.target.value)}
           />
-          <StyledLabel htmlFor="url"></StyledLabel>
+          <StyledLabel htmlFor="care"></StyledLabel>
           <StyledTextarea
             type="text"
             id="care"
@@ -86,7 +81,7 @@ export default function EntryForm() {
             placeholder="Care Tipps"
             onChange={(event) => setCareTipps(event.target.value)}
           />
-          <StyledLabel htmlFor="url"></StyledLabel>
+          <StyledLabel htmlFor="location"></StyledLabel>
           <StyledInput
             type="text"
             id="location"
@@ -195,5 +190,23 @@ const StyledTitle = styled.h2`
   font-size: 1.5;
   color: var(--color-green);
 `;
+/*const [formValues, setFormValues] = useState({
+        url: "",
+        name: "",
+        description: "",
+        care: "",
+        location: ""
+    });*/
 
-
+/*function handleInputChange(event) {
+    // Extract the name and value from the input field
+    const name = event.target.name;
+    const value = event.target.value;
+// Update the formValues state using setFormValues
+    setFormValues((prevValues)  => {
+         // Create a new object by copying the previous values
+    const newValues = {...prevValues};
+    newValues[name]= value;
+ // Return the new object as the updated state
+    return newValues;
+     }) }*/
