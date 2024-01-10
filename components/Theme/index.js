@@ -13,16 +13,16 @@ export const lightTheme = {
   popUpFieldButton: "var(--color-beige)",
 };
 export const darkTheme = {
-  background: "var(--color-blackGreen)",
+  background: "#2B2E28",
   primaryGreen: "var(--color-lightGreen)",
-  navigation: "var(--color-darkGreen)",
+  navigation: "#3E4438",
   formText: "var(--color-beige)",
-  formField: "var(--color-blackGreen)",
-  button: "var(--color-darkGreen)",
-  divider: "var(--color-darkGreen)",
+  formField: "#2B2E28",
+  button: "#3E4438",
+  divider: "#3E4438",
   dividerDetails: "var(--color-beige)",
   infoText: "var(--color-beige)",
   popUpBackground: "rgba(45, 45, 40, 0.9)",
-  popUpField: "var(--color-darkGreen)",
+  popUpField: "#3E4438",
   popUpFieldButton: "var(--color-green)",
 };
