@@ -1,5 +1,4 @@
 import { useRouter } from "next/router";
-import Image from "next/image";
 import styled from "styled-components";
 
 export default function EntryDetail({ entries }) {
@@ -17,7 +16,7 @@ export default function EntryDetail({ entries }) {
   return (
     <>
       <StyledBackButton type="button" aria-label="Go Back" onClick={goBack}>
-        <Image
+        <img
           src="/assets/ArrowIcon.svg"
           alt="Back Link"
           width={25}
@@ -59,7 +58,7 @@ const StyledBackButton = styled.button`
   align-items: center;
   border: none;
 `;
-const StyledImage = styled(Image)`
+const StyledImage = styled.img`
   width: 100%;
   height: 50%;
 `;
