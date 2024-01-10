@@ -64,7 +64,7 @@ export default function Navigation({ theme }) {
               <Image
                 src={
                   router.pathname === "/preferences"
-                    ? "/assets/PreferenceActive"
+                    ? "/assets/PreferenceActive.svg"
                     : "/assets/PreferenceInactive.svg"
                 }
                 alt="Preference Icon"
