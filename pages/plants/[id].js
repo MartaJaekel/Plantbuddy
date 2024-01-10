@@ -145,7 +145,7 @@ const StyledName = styled.h1`
   font-family: serif;
   font-size: 2rem;
   line-height: 2rem;
-  color: ${({ theme }) => theme.primaryGreen};
+  color: ${({ theme }) => theme.formText};
   margin: 0;
 `;
 
