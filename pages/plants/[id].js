@@ -41,37 +41,48 @@ export default function PlantDetail({ onToggleFavorite, favorites, plants, categ
           <StyledName>{plant.commonName}</StyledName>
           <StyledSpecies>{plant.species}</StyledSpecies>
           <StyledPlantCharacteristics>
+            <li>
             <PlantCharacteristics
               headline="Size"
               imageAlt="Size Icon"
               imageSrc="/assets/SizeIcon.svg"
               info={plant.size}
             />
+            </li>
+            <li>
             <PlantCharacteristics
               headline="Sunlight"
               imageAlt="Sunlight Icon"
               imageSrc="/assets/SunlightIcon.svg"
               info={plant.sunlightRequirements}
             />
+            </li>
+            <li>
             <PlantCharacteristics
               headline="Warmth"
               imageAlt="Temperature Icon"
               imageSrc="/assets/TemperatureIcon.svg"
               info={plant.optimalTemperature}
             />
-            <PlantCharacteristics
+            </li>
+          <li>
+          <PlantCharacteristics
               headline="Water"
               imageAlt="Water Icon"
               imageSrc="/assets/WaterIcon.svg"
               info={plant.waterNeeds}
             />
-            <PlantCharacteristics
+          </li>
+          <li>
+          <PlantCharacteristics
               headline="Pet-Friendly"
               imageAlt="Paw Icon"
               imageSrc="/assets/PawIcon.svg"
               info={plant.petFriendly === true ? "yes" : "no"}
             />
-            <StyledLink href={`/categories/${plant.categorySlug}`}>
+          </li>
+          <li>
+          <StyledLink href={`/categories/${plant.categorySlug}`}>
             <PlantCharacteristics
               headline="Category"
               imageAlt="Leaf Icons"
@@ -79,6 +90,7 @@ export default function PlantDetail({ onToggleFavorite, favorites, plants, categ
               info={plant.categorySlug}
             />
             </StyledLink>
+          </li>
           </StyledPlantCharacteristics>
           <article>
             <h3>Description</h3>
@@ -130,7 +142,7 @@ const StyledSpecies = styled.h2`
   margin: 0;
 `;
 
-const StyledPlantCharacteristics = styled.article`
+const StyledPlantCharacteristics = styled.ul`
   display: flex;
   gap: 1rem 2rem;
   flex-wrap: wrap;
