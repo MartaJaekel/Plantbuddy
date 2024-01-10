@@ -2,11 +2,20 @@ import Image from "next/image";
 import styled from "styled-components";
 import Link from "next/link";
 import FavoriteButton from "../FavoriteButton";
-import { categories } from "@/lib/data-categories";
+import useSWR from 'swr';
+
+const fetcher = url => fetch(url).then(response => response.json());
 
 
 export default function PlantCard({ onToggleFavorite, isFavorite, plant }) {
+  const { data: categories, error: categoriesError } = useSWR('/api/categories', fetcher);
+
+  if (categoriesError) return <div>Error occurred while fetching data</div>;
+  if (!categories) return <div>Loading...</div>;
+  
   const categoryColor =  categories.find((category) => category.slug === plant.categorySlug).bgcolor;
+
+
   return (
     <StyledListItem>
       <FavoriteButton

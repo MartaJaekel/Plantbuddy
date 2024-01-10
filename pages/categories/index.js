@@ -3,7 +3,7 @@ import Link from "next/link";
 import styled from "styled-components";
 import useSWR from "swr";
 
-const fetcher = url => fetch(url).then(res => res.json());
+const fetcher = url => fetch(url).then(response => response.json());
 
 export default function CategoriesOverview() {
   const { data: categories, error, isLoading } = useSWR("/api/categories", fetcher, { onError: console.error, shouldRetryOnError: false });

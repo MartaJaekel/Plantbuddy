@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useRouter } from "next/router";
 import Image from "next/image";
 
-const fetcher = url => fetch(url).then(res => res.json());
+const fetcher = url => fetch(url).then(response => response.json());
 
 export default function CategoryDetail() {
   const router = useRouter();
