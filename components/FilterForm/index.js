@@ -5,23 +5,23 @@ import { useRouter } from "next/router";
 export default function FilterForm({
   plants,
   onAddPreference,
-  initialFilterSettings = {},
-  initialFilterTitle = "",
+  preferenceFilterSettings = {},
+  preferenceFilterTitle = "",
   onEditPreference,
   preferenceId,
 }) {
   const router = useRouter();
 
-  const initialState = {
-    preferenceTitle: initialFilterTitle,
-    plantSize: initialFilterSettings.plantSize || "",
-    sunlightRequirement: initialFilterSettings.sunlightRequirement || "",
-    waterNeeds: initialFilterSettings.waterNeeds || "",
-    optimalTemperature: initialFilterSettings.optimalTemperature || "",
-    petFriendly: initialFilterSettings.petFriendly || "",
+  const initialPreferenceFilterSettings = {
+    preferenceTitle: preferenceFilterTitle,
+    plantSize: preferenceFilterSettings.plantSize || "",
+    sunlightRequirement: preferenceFilterSettings.sunlightRequirement || "",
+    waterNeeds: preferenceFilterSettings.waterNeeds || "",
+    optimalTemperature: preferenceFilterSettings.optimalTemperature || "",
+    petFriendly: preferenceFilterSettings.petFriendly || "",
   };
 
-  const [state, setState] = useState(initialState);
+  const [settings, setSettings] = useState(initialPreferenceFilterSettings);
 
   if (!plants) {
     return null;
@@ -49,7 +49,7 @@ export default function FilterForm({
   function handleSubmit(event) {
     event.preventDefault();
 
-    const { plantSize, sunlightRequirement, waterNeeds, optimalTemperature, petFriendly } = state;
+    const { plantSize, sunlightRequirement, waterNeeds, optimalTemperature, petFriendly } = settings;
 
     const filterSettings = {
       plantSize,
@@ -60,31 +60,39 @@ export default function FilterForm({
     };
 
     const preferenceData = {
-      preferenceTitle: state.preferenceTitle,
+      preferenceTitle: settings.preferenceTitle,
       preferencePlants: plants
         .filter(
           (plant) =>
-            filterPlantSize(plant.id, state.plantSize) &&
-            filterSunlightRequirement(plant.id, state.sunlightRequirement) &&
-            filterWaterNeeds(plant.id, state.waterNeeds) &&
-            filterOptimalTemperature(plant.id, state.optimalTemperature) &&
-            filterPetFriendly(plant.id,state.petFriendly)
+            filterPlantSize(plant.id, settings.plantSize) &&
+            filterSunlightRequirement(plant.id, settings.sunlightRequirement) &&
+            filterWaterNeeds(plant.id, settings.waterNeeds) &&
+            filterOptimalTemperature(plant.id, settings.optimalTemperature) &&
+            filterPetFriendly(plant.id, settings.petFriendly)
         )
         .map((plant) => plant.id),
       filterSettings,
     };
 
     if (preferenceId) {
-      // Editing an existing preference
       onEditPreference({ ...preferenceData, id: preferenceId });
       router.push("/preferences");
     } else {
-      // Adding a new preference
       onAddPreference(preferenceData);
       event.target.reset();
     }
 
     event.target.elements.title.focus();
+  }
+
+  function handleCancel() {
+    if (preferenceId) {
+      // navigate back to preferences page if editing an existing preference
+      router.push("/preferences");
+    } else {
+      // reset the form if adding a new preference, 
+      setSettings(initialPreferenceFilterSettings);
+    }
   }
 
   return (
@@ -98,16 +106,16 @@ export default function FilterForm({
         minLength="3"
         maxLength="25"
         required
-        value={state.preferenceTitle}
-        onChange={(event) => setState({ ...state, preferenceTitle: event.target.value })}
+        value={settings.preferenceTitle}
+        onChange={(event) => setSettings({ ...settings, preferenceTitle: event.target.value })}
       />
 
       <StyledLabel htmlFor="plantSize">Select the plant size:</StyledLabel>
       <StyledSelect
         name="plantSize"
         id="plantSize"
-        onChange={(event) => setState({ ...state, plantSize: event.target.value })}
-        defaultValue={state.plantSize}
+        onChange={(event) => setSettings({ ...settings, plantSize: event.target.value })}
+        defaultValue={settings.plantSize}
       >
         <option value="">Select Size</option>
         <option value="small">Small (15cm-50cm)</option>
@@ -121,8 +129,8 @@ export default function FilterForm({
       <StyledSelect
         name="sunlightRequirement"
         id="sunlightRequirement"
-        onChange={(event) => setState({ ...state, sunlightRequirement: event.target.value })}
-        defaultValue={state.sunlightRequirement}
+        onChange={(event) => setSettings({ ...settings, sunlightRequirement: event.target.value })}
+        defaultValue={settings.sunlightRequirement}
       >
         <option value="">Select Sunlight Requirement</option>
         <option value="full sun">Full Sun</option>
@@ -134,8 +142,8 @@ export default function FilterForm({
       <StyledSelect
         name="waterNeeds"
         id="waterNeeds"
-        onChange={(event) => setState({ ...state, waterNeeds: event.target.value })}
-        defaultValue={state.waterNeeds}
+        onChange={(event) => setSettings({ ...settings, waterNeeds: event.target.value })}
+        defaultValue={settings.waterNeeds}
       >
         <option value="">Select Water Needs</option>
         <option value="weekly">Weekly</option>
@@ -149,8 +157,8 @@ export default function FilterForm({
       <StyledSelect
         name="optimalTemperature"
         id="optimalTemperature"
-        onChange={(event) => setState({ ...state, optimalTemperature: event.target.value })}
-        defaultValue={state.optimalTemperature}
+        onChange={(event) => setSettings({ ...settings, optimalTemperature: event.target.value })}
+        defaultValue={settings.optimalTemperature}
       >
         <option value="">Select Temperature</option>
         <option value="low">15-20°C</option>
@@ -164,15 +172,15 @@ export default function FilterForm({
       <StyledSelect
         name="petFriendly"
         id="petFriendly"
-        onChange={(event) => setState({ ...state, petFriendly: event.target.value })}
-        defaultValue={state.petFriendly}
+        onChange={(event) => setSettings({ ...settings, petFriendly: event.target.value })}
+        defaultValue={settings.petFriendly}
       >
         <option value="">Select Pet Compatibility</option>
         <option value="true">Yes</option>
         <option value="false">No</option>
       </StyledSelect>
       <StyledButtonContainer>
-        <StyledButton type="reset">Cancel</StyledButton>
+        <StyledButton type="button" onClick={handleCancel}>Cancel</StyledButton>
         <StyledButton type="submit">Save</StyledButton>
       </StyledButtonContainer>
     </StyledForm>

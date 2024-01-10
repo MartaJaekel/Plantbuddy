@@ -18,7 +18,7 @@ export default function EditPreferencePage({preferences, onEditPreference, plant
       <StyledHeadline>PlantBuddy</StyledHeadline>;
       <main>
         <StyledTitle>Edit your Preference</StyledTitle>
-        <FilterForm plants={plants} initialFilterSettings={thisPreference?.filterSettings} preferenceId={thisPreference.id} initialFilterTitle={thisPreference?.preferenceTitle} onEditPreference={onEditPreference}/>
+        <FilterForm plants={plants} preferenceFilterSettings={thisPreference?.filterSettings} preferenceId={thisPreference.id} preferenceFilterTitle={thisPreference?.preferenceTitle} onEditPreference={onEditPreference}/>
       </main>
     </>
   );
