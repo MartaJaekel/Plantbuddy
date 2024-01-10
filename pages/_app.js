@@ -3,6 +3,7 @@ import GlobalStyle from "../styles";
 import useLocalStorageState from "use-local-storage-state";
 import { plants } from "@/lib/data";
 import { uid } from "uid";
+import { categories } from "@/lib/data-categories";
 
 export default function App({ Component, pageProps }) {
   const [favorites, setFavorites] = useLocalStorageState("favorites", {
@@ -46,6 +47,7 @@ export default function App({ Component, pageProps }) {
           onToggleFavorite={handleToggleFavorite}
           favorites={favorites}
           plants={plants}
+          categories={categories}
           preferences={preferences}
           handleAddPreference={handleAddPreference}
           onEditPreference={handleEditPreference}

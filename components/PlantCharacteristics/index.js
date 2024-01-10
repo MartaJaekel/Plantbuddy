@@ -18,7 +18,7 @@ export default function PlantCharacteristics({
   );
 }
 
-const StyledCharacteristic = styled.div`
+const StyledCharacteristic = styled.figure`
   width: 130px;
   display: flex;
   gap: 0.75rem;
@@ -26,7 +26,7 @@ const StyledCharacteristic = styled.div`
   align-items: center;
 `;
 const StyledCharacterHeadline = styled.h3`
-  font-size: 1rem;
+  font-size: 0.9rem;
   margin: 0;
 `;
 
