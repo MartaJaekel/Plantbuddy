@@ -19,7 +19,6 @@ export default function HomePage({
   const searchResult = plants.filter((plant) => {
     return plant.commonName.toLowerCase().startsWith(search.toLowerCase());
   });
- 
   function handleSortUpdate(newSortedPlants) {
     setSortPlants(newSortedPlants);
   }

@@ -34,6 +34,14 @@ export default function App({ Component, pageProps }) {
     setPreferences([...preferences, { id: uid(), ...newPreference }]);
   }
 
+  function handleEditPreference(editedPreference) {
+    setPreferences(
+      preferences.map((preference) =>
+        preference.id === editedPreference.id ? editedPreference : preference
+      )
+    );
+  }
+
   function handleDeletePreference(id) {
     setPreferences(preferences.filter((preference) => preference.id !== id));
   }
