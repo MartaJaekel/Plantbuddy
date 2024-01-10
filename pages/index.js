@@ -1,5 +1,5 @@
 import PlantList from "@/components/PlantList";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import SearchField from "@/components/SearchField";
 import { StyledHeadline } from "@/components/Headline/StyledHeadline";
 import styled from "styled-components";
@@ -7,21 +7,11 @@ import SortPlants from "@/components/SortPlants";
 
 export default function HomePage({ onToggleFavorite, favorites, plants }) {
   const [search, setSearch] = useState("");
-  const [counterMessage, setCounterMessage] = useState("");
   const [sortPlants, setSortPlants] = useState(plants);
 
   const searchResult = plants.filter((plant) => {
     return plant.commonName.toLowerCase().startsWith(search.toLowerCase());
   });
-  useEffect(() => {
-    if (searchResult.length > 0 && searchResult.length < plants.length) {
-      setCounterMessage(
-        `Showing ${searchResult.length} of ${plants.length} plants:`
-      );
-    } else if (searchResult.length === plants.length) {
-      setCounterMessage("");
-    }
-  }, [searchResult, plants.length]);
 
   function handleSortUpdate(newSortedPlants) {
     setSortPlants(newSortedPlants);
@@ -35,8 +25,6 @@ export default function HomePage({ onToggleFavorite, favorites, plants }) {
         {search === "" && (
           <SortPlants onSortUpdate={handleSortUpdate} plants={plants} />
         )}
-        <StyledCounterMessage>{counterMessage}</StyledCounterMessage>
-
         <PlantList
           onToggleFavorite={onToggleFavorite}
           favorites={favorites}
