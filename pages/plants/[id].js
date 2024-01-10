@@ -3,7 +3,6 @@ import Image from "next/image";
 import styled from "styled-components";
 import PlantCharacteristics from "@/components/PlantCharacteristics";
 import FavoriteButton from "@/components/FavoriteButton";
-
 export default function PlantDetail({ onToggleFavorite, favorites, plants, categories }) {
   const router = useRouter();
   const { id } = router.query;
@@ -40,30 +39,56 @@ export default function PlantDetail({ onToggleFavorite, favorites, plants, categ
           <StyledName>{plant.commonName}</StyledName>
           <StyledSpecies>{plant.species}</StyledSpecies>
           <StyledPlantCharacteristics>
+            <li>
             <PlantCharacteristics
               headline="Size"
               imageAlt="Size Icon"
               imageSrc="/assets/SizeIcon.svg"
               info={plant.size}
             />
+            </li>
+            <li>
             <PlantCharacteristics
               headline="Sunlight"
               imageAlt="Sunlight Icon"
               imageSrc="/assets/SunlightIcon.svg"
               info={plant.sunlightRequirements}
             />
+            </li>
+            <li>
             <PlantCharacteristics
-              headline="Temperature"
+              headline="Warmth"
               imageAlt="Temperature Icon"
               imageSrc="/assets/TemperatureIcon.svg"
               info={plant.optimalTemperature}
             />
-            <PlantCharacteristics
+            </li>
+          <li>
+          <PlantCharacteristics
               headline="Water"
               imageAlt="Water Icon"
               imageSrc="/assets/WaterIcon.svg"
               info={plant.waterNeeds}
             />
+          </li>
+          <li>
+          <PlantCharacteristics
+              headline="Pet-Friendly"
+              imageAlt="Paw Icon"
+              imageSrc="/assets/PawIcon.svg"
+              info={plant.petFriendly === true ? "yes" : "no"}
+            />
+          </li>
+          <li>
+          <StyledLink href={`/categories/${plant.categorySlug}`}>
+            <PlantCharacteristics
+              headline="Category"
+              imageAlt="Leaf Icons"
+              imageSrc="/assets/CategoryInactive.svg"
+              info={plant.categorySlug}
+            />
+            </StyledLink>
+          </li>
           </StyledPlantCharacteristics>
           <StyledDescription>
             <h3>Description</h3>
@@ -95,7 +120,7 @@ const StyledImage = styled(Image)`
 `;
 
 const StyledSection = styled.section`
-  padding: 1rem 2rem 2rem 2rem;
+  padding: 1rem 2rem 6rem 2rem;
   background-color: ${(props) => props.$categoryColor};
 `;
 
@@ -116,12 +141,12 @@ const StyledSpecies = styled.h2`
   margin: 0;
 `;
 
-const StyledPlantCharacteristics = styled.article`
+const StyledPlantCharacteristics = styled.ul`
   display: flex;
-  gap: 1rem 3rem;
+  gap: 1rem 2rem;
   flex-wrap: wrap;
   justify-content: center;
-  border-bottom: 2px solid ${({ theme }) => theme.divider};;
+  border-bottom: 2px solid ${({ theme }) => theme.divider};
   padding: 1rem 0 1rem 0;
 `;
 

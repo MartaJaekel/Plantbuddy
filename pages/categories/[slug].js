@@ -8,6 +8,10 @@ export default function CategoryDetail() {
   const router = useRouter();
   const { slug } = router.query;
   const category = categories.find(cat => cat.slug === slug);
+  
+  const goBack = () => {
+    router.back();
+  };
 
   if (!category) {
     return (
@@ -19,7 +23,7 @@ export default function CategoryDetail() {
 
   return (
       <StyledDiv>
-   <StyledBackButton type="button" aria-label="Go Back" onClick={goBack}>
+      <StyledBackButton type="button" aria-label="Go Back" onClick={goBack}>
         <Image src="/assets/ArrowIcon.svg" alt="Back Link" width={25} height={20} />
       </StyledBackButton>
         <StyledImage
