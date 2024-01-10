@@ -39,8 +39,8 @@ export default function JournalPage({ entries }) {
             ))
        
         ) : (
-          <StyledParagraph>You don't have any entries yet<br/>
-          Start with your first entry.</StyledParagraph>
+            <StyledParagraph>You don&apos;t have any entries yet<br/>
+            start with your first entry.</StyledParagraph>
         )}   </ul>
          </StyledEntriesContainer>
       </main>
