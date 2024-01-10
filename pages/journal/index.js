@@ -63,11 +63,13 @@ const StyledTitle = styled.h2`
 const StyledButton = styled.button`
   display: block;
   margin: 0 auto;
-  margin-top: 3rem;
-  color: green;
-  font-size: 0.5;
-  padding: 1rem 2rem;
-  background-color: #abc32f;
+  width: 9rem;
+  color: white;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 0.6rem 0.4rem;
+  cursor: pointer;
+  background-color: var(--color-green);
 `;
 const StyledLink = styled.a`
   text-decoration: none;
