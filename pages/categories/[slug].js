@@ -1,7 +1,6 @@
 import dbConnect from "@/db/connect";
 import Category from "@/db/models/categories";
 import styled from "styled-components";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import Image from "next/image";
 
@@ -27,6 +26,10 @@ export async function getServerSideProps(context) {
 export default function CategoryDetail({ category }) {
   const router = useRouter();
 
+  const goBack = () => {
+    router.back();
+  };
+
   if (router.isFallback) {
     return (
         <StyledSection>
@@ -37,11 +40,9 @@ export default function CategoryDetail({ category }) {
 
   return (
       <StyledDiv>
-      <StyledNav>
-        <Link href="/categories">
-          <Image src="/assets/ArrowIcon.svg" alt="Back Link" width={30} height={25} />
-        </Link>
-      </StyledNav>
+      <StyledBackButton type="button" aria-label="Go Back" onClick={goBack}>
+        <Image src="/assets/ArrowIcon.svg" alt="Back Link" width={25} height={20} />
+      </StyledBackButton>
         <StyledImage
           src={category.image}
           width={200}
@@ -63,16 +64,17 @@ const StyledDiv = styled.div`
   position: relative;
 `;
 
-const StyledNav = styled.nav`
+const StyledBackButton = styled.button`
   position: absolute;
-  top: 2rem;
+  top: 1.75rem;
   left: 1rem;
   background-color: var(--color-green);
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   display: flex;
   align-items: center;
+  border: none;
 `;
 
 const StyledImage = styled(Image)`
