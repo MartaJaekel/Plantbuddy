@@ -1,42 +1,31 @@
-import dbConnect from "@/db/connect";
-import Category from "@/db/models/categories";
+import useSWR from "swr";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 import Image from "next/image";
 
-export async function getServerSideProps(context) {
-  await dbConnect();
+const fetcher = url => fetch(url).then(res => res.json());
 
-  const category = await Category.findOne({ slug: context.params.slug}).lean();
+export default function CategoryDetail() {
+  const router = useRouter();
+  const { slug } = router.query;
 
-  if (!category) {
-    return {
-      notFound: true,
-    };
+  const { data: category, isLoading } = useSWR(slug ? `/api/categories/${slug}` : null, fetcher);
+
+  if (isLoading) {
+    return (
+      <StyledSection>
+        <StyledName>Loading...</StyledName>
+      </StyledSection>
+  );
   }
 
-  return {
-    props: {
-      category: { ...category, _id: category._id.toString() },
-    },
-  };
-}
-
-
-export default function CategoryDetail({ category }) {
-  const router = useRouter();
+  if (!category) {
+    return;
+  }
 
   const goBack = () => {
     router.back();
   };
-
-  if (router.isFallback) {
-    return (
-        <StyledSection>
-          <StyledName>Loading...</StyledName>
-        </StyledSection>
-    );
-  }
 
   return (
       <StyledDiv>

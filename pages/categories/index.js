@@ -6,15 +6,11 @@ import useSWR from "swr";
 const fetcher = url => fetch(url).then(res => res.json());
 
 export default function CategoriesOverview() {
-  const { data, error, isLoading } = useSWR("/api/categories", fetcher, { onError: console.error, shouldRetryOnError: false });
+  const { data: categories, error, isLoading } = useSWR("/api/categories", fetcher, { onError: console.error, shouldRetryOnError: false });
 
   if (isLoading) return <h1>Loading...</h1>;
   if (error) return <h1>Error loading data</h1>;
-  if (!data) return <h1>No data available</h1>;
-
-  if (!Array.isArray(data)) {
-    return <div>Invalid data format</div>;
-  }
+  if (!categories) return <h1>No data available</h1>;
 
   return (
     <>
@@ -22,7 +18,7 @@ export default function CategoriesOverview() {
       <StyledTitle>Categories</StyledTitle>
       <main>
         <StyledPlantList>
-          {data.map((category) => (
+          {categories.map((category) => (
             <StyledLink key={category._id} href={`/categories/${category.slug}`}>
               <CategoryCard $bgcolor={category.bgcolor}>
                 <p>{category.title}</p>
