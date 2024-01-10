@@ -36,9 +36,8 @@ export default function App({ Component, pageProps }) {
   function handleFormSubmit(data) {
     const newEntry = { id: uid(), ...data };
     setEntries((prevFormEntry) => [...prevFormEntry, newEntry]);
-console.log(newEntry)
+
   }
-  
 
   return (
     <>

@@ -6,12 +6,12 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import EntryCard from "@/components/JournalEntryCard";
 
-export default function JournalPage({ entries }) {
+export default function JournalOverviewPage({ entries }) {
   const router = useRouter();
   const goBack = () => {
     router.back();
   };
-  console.log(entries)
+  console.log(entries);
 
   return (
     <>
@@ -30,19 +30,24 @@ export default function JournalPage({ entries }) {
           <StyledButton>Create a new Entry</StyledButton>
         </StyledLink>
         <StyledEntriesContainer>
-        <ul>
-        {entries.length > 0 ? (
-            entries.map((entry) => (
-              <li key={entry.id}>
-                <EntryCard entry={entry} />
-              </li>
-            ))
-       
-        ) : (
-            <StyledParagraph>You don&apos;t have any entries yet<br/>
-            start with your first entry.</StyledParagraph>
-        )}   </ul>
-         </StyledEntriesContainer>
+          <ul>
+            {entries.length > 0 ? (
+              entries.map((entry) => (
+                <li key={entry.id}>
+                  <StyledLink href={`/journal/${entry.id}`}>
+                    <EntryCard entry={entry} />
+                  </StyledLink>
+                </li>
+              ))
+            ) : (
+              <StyledParagraph>
+                You don&apos;t have any entries yet
+                <br />
+                start with your first entry.
+              </StyledParagraph>
+            )}{" "}
+          </ul>
+        </StyledEntriesContainer>
       </main>
     </>
   );
@@ -83,15 +88,11 @@ const StyledBackButton = styled.button`
 `;
 const StyledEntriesContainer = styled.div`
   display: flex;
-  flex-direction: column; /* Stack items vertically */
-  align-items: center; /* Center items horizontally */
+  flex-direction: column;
+  align-items: center;
 `;
 
-
 const StyledParagraph = styled.p`
-text-align:center;
- margin-top: 50px;
-
-
-
-`
+  text-align: center;
+  margin-top: 50px;
+`;

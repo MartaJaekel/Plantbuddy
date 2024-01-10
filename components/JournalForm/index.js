@@ -56,6 +56,7 @@ export default function EntryForm({ onFormSubmit }) {
             name="url"
             placeholder="Image Upload URL"
             onChange={(event) => setUrl(event.target.value)}
+            required
           />
           <StyledLabel htmlFor="name"></StyledLabel>
           <StyledInput
@@ -147,8 +148,8 @@ const StyledTextarea = styled.textarea`
   border: none;
   font-weight: 600;
   cursor: pointer;
-  resize: vertical; /* Allow vertical resizing only */
-  min-height: 100px; /* Set a minimum height */
+  resize: vertical; 
+  min-height: 100px; 
   &::placeholder {
     color: var(--color-lightGreen);
     font-weight: 600;
