@@ -9,9 +9,10 @@ const fetcher = url => fetch(url).then(response => response.json());
 
 export default function PlantCard({ onToggleFavorite, isFavorite, plant }) {
   const { data: categories, error: categoriesError } = useSWR('/api/categories', fetcher);
+  const { data: plants, error: plantsError } = useSWR('/api/plants', fetcher);
 
-  if (categoriesError) return <div>Error occurred while fetching data</div>;
-  if (!categories) return <div>Loading...</div>;
+  if (plantsError || categoriesError) return <div>Error occurred while fetching data</div>;
+  if (!plants || !categories) return <div>Loading...</div>;
   
   const categoryColor =  categories.find((category) => category.slug === plant.categorySlug).bgcolor;
 
@@ -19,10 +20,10 @@ export default function PlantCard({ onToggleFavorite, isFavorite, plant }) {
   return (
     <StyledListItem>
       <FavoriteButton
-        onClick={() => onToggleFavorite(plant.id)}
+        onClick={() => onToggleFavorite(plant._id)}
         isFavorite={isFavorite}
       />
-      <StyledLink href={`/plants/${plant?.id}`}>
+      <StyledLink href={`/plants/${plant?._id}`}>
         <StyledFigure $categoryColor={categoryColor}>
           <Image
             src={plant?.image}

@@ -1,7 +1,6 @@
 import Layout from "@/components/Layout";
 import GlobalStyle from "../styles";
 import useLocalStorageState from "use-local-storage-state";
-import { plants } from "@/lib/data";
 import { uid } from "uid";
 import useSWR from 'swr';
 
@@ -40,13 +39,11 @@ export default function App({ Component, pageProps }) {
     setPreferences(preferences.filter((preference) => preference.id !== id));
   }
 
-  // const { data: plants, error: plantsError } = useSWR('/api/plants', fetcher);
+  const { data: plants, error: plantsError } = useSWR('/api/plants', fetcher);
   const { data: categories, error: categoriesError } = useSWR('/api/categories', fetcher);
 
-  // if (plantsError || categoriesError) return <div>Error occurred while fetching data</div>;
-  // if (!plants || !categories) return <div>Loading...</div>;
-  if (categoriesError) return <div>Error occurred while fetching data</div>;
-  if (!categories) return <div>Loading...</div>;
+  if (plantsError || categoriesError) return <div>Error occurred while fetching data</div>;
+  if (!plants || !categories) return <div>Loading...</div>;
 
   return (
     <>
