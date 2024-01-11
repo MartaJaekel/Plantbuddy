@@ -6,19 +6,16 @@ import PlantCharacteristics from "@/components/PlantCharacteristics";
 import FavoriteButton from "@/components/FavoriteButton";
 import Link from "next/link";
 
-const fetcher = url => fetch(url).then(response => response.json());
-
 export default function PlantDetail({ onToggleFavorite, favorites, plants, categories }) {
   const router = useRouter();
   const { _id } = router.query;
 
-  const { data: plant, plantError } = useSWR(`/api/plants/${_id}`, fetcher);
-  const { data: fetchedCategories, error: categoriesError } = useSWR(`/api/categories`, fetcher);
+  const { data: plant, error: plantError } = useSWR(`/api/plants/${_id}`);
+  const { data: fetchedCategories, error: categoriesError } = useSWR(`/api/categories`);
 
-  if (plantError) return <div>Error occurred while fetching plant</div>;
-  if (!plant) return <div>Loading...</div>;
-  if (categoriesError) return <div>Error occurred while fetching categories</div>;
-  if (!fetchedCategories) return <div>Loading...</div>;
+  if (plantError || categoriesError) return <div>Error occurred while fetching data</div>;
+  if (!plant || !fetchedCategories) return <div>Loading...</div>;
+ 
 
   const categoryColor = fetchedCategories.find((category) => category.slug === plant.categorySlug)?.bgcolor;
   

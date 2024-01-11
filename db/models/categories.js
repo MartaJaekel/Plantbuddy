@@ -6,6 +6,7 @@ const categorySchema = new Schema({
   slug: { type: String, required: true },
   title: { type: String, required: true },
   bgcolor: { type: String, required: true },
+  bgcolorDark: { type: String, required: true },
   image: { type: String, required: true },
   description: { type: String, required: true },
 });

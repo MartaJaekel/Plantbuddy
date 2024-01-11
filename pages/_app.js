@@ -2,9 +2,9 @@ import Layout from "@/components/Layout";
 import GlobalStyle from "../styles";
 import useLocalStorageState from "use-local-storage-state";
 import { uid } from "uid";
+import { SWRConfig } from "swr";
+import fetcher from "@/utils/fetcher";
 import useSWR from 'swr';
-
-const fetcher = url => fetch(url).then(response => response.json());
 
 export default function App({ Component, pageProps }) {
   const [favorites, setFavorites] = useLocalStorageState("favorites", {
@@ -45,22 +45,25 @@ export default function App({ Component, pageProps }) {
   if (plantsError || categoriesError) return <div>Error occurred while fetching data</div>;
   if (!plants || !categories) return <div>Loading...</div>;
 
+
   return (
     <>
-      <Layout>
-        <GlobalStyle />
-        <Component
-          {...pageProps}
-          onToggleFavorite={handleToggleFavorite}
-          favorites={favorites}
-          plants={plants}
-          categories={categories}
-          preferences={preferences}
-          handleAddPreference={handleAddPreference}
-          onEditPreference={handleEditPreference}
-          handleDeletePreference={handleDeletePreference}
-        />
-      </Layout>
+      <SWRConfig value={{ fetcher }}>
+        <Layout>
+          <GlobalStyle />
+          <Component
+            {...pageProps}
+            onToggleFavorite={handleToggleFavorite}
+            favorites={favorites}
+            plants={plants}
+            categories={categories}
+            preferences={preferences}
+            handleAddPreference={handleAddPreference}
+            onEditPreference={handleEditPreference}
+            handleDeletePreference={handleDeletePreference}
+          />
+        </Layout>
+      </SWRConfig>
     </>
   );
 }

@@ -4,12 +4,10 @@ import Link from "next/link";
 import FavoriteButton from "../FavoriteButton";
 import useSWR from 'swr';
 
-const fetcher = url => fetch(url).then(response => response.json());
-
 
 export default function PlantCard({ onToggleFavorite, isFavorite, plant }) {
-  const { data: categories, error: categoriesError } = useSWR('/api/categories', fetcher);
-  const { data: plants, error: plantsError } = useSWR('/api/plants', fetcher);
+  const { data: categories, error: categoriesError } = useSWR('/api/categories');
+  const { data: plants, error: plantsError } = useSWR('/api/plants');
 
   if (plantsError || categoriesError) return <div>Error occurred while fetching data</div>;
   if (!plants || !categories) return <div>Loading...</div>;

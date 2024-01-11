@@ -1,4 +1,3 @@
-// TODO: Move this with darkmode bgcolor updated data to MongoDB collection after merge with darkmode and update the categories model accordingly
 [
   {
     "slug": "succulents",

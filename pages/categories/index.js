@@ -3,14 +3,11 @@ import Link from "next/link";
 import styled from "styled-components";
 import useSWR from "swr";
 
-const fetcher = url => fetch(url).then(response => response.json());
-
 export default function CategoriesOverview() {
-  const { data: categories, error, isLoading } = useSWR("/api/categories", fetcher, { onError: console.error, shouldRetryOnError: false });
+  const { data: categories, error: categoriesError } = useSWR(`/api/categories`);
 
-  if (isLoading) return <h1>Loading...</h1>;
-  if (error) return <h1>Error loading data</h1>;
-  if (!categories) return <h1>No data available</h1>;
+  if (categoriesError) return <div>Error occurred while fetching data</div>;
+  if (!categories) return <div>Loading...</div>;
 
   return (
     <>

@@ -3,25 +3,14 @@ import styled from "styled-components";
 import { useRouter } from "next/router";
 import Image from "next/image";
 
-const fetcher = url => fetch(url).then(response => response.json());
-
 export default function CategoryDetail() {
   const router = useRouter();
   const { slug } = router.query;
 
-  const { data: category, isLoading } = useSWR(slug ? `/api/categories/${slug}` : null, fetcher);
+  const { data: category, error: categoriesError } = useSWR(`/api/categories/${slug}`);
 
-  if (isLoading) {
-    return (
-      <StyledSection>
-        <StyledName>Loading...</StyledName>
-      </StyledSection>
-  );
-  }
-
-  if (!category) {
-    return;
-  }
+  if (categoriesError) return <div>Error occurred while fetching data</div>;
+  if (!category) return <div>Loading...</div>;
 
   const goBack = () => {
     router.back();
