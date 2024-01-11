@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { StyledHeadline } from "@/components/Headline/StyledHeadline";
 
 export default function FavoritePage({ plants, favorites, onToggleFavorite }) {
-  const favoritePlants = plants.filter((plant) => favorites.includes(plant.id));
+  const favoritePlants = plants.filter((plant) => favorites.includes(plant._id));
 
   return (
     <>
@@ -23,8 +23,8 @@ export default function FavoritePage({ plants, favorites, onToggleFavorite }) {
             {favoritePlants.map((plant) => (
               <PlantCard
                 plant={plant}
-                key={plant.id}
-                isFavorite={favorites.includes(plant.id)}
+                key={plant._id}
+                isFavorite={favorites.includes(plant._id)}
                 onToggleFavorite={onToggleFavorite}
               />
             ))}
