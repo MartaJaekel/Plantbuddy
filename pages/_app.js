@@ -62,6 +62,7 @@ export default function App({ Component, pageProps }) {
             preferences={preferences}
             handleAddPreference={handleAddPreference}
             handleDeletePreference={handleDeletePreference}
+            onEditPreference={handleEditPreference}
             theme={theme}
             toggleTheme={toggleTheme}
           />
