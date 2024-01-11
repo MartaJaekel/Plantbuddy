@@ -3,7 +3,7 @@ import PlantCard from "@/components/Card";
 import styled from "styled-components";
 import { StyledHeadline } from "@/components/Headline/StyledHeadline";
 
-export default function FavoritePage({ plants, favorites, onToggleFavorite }) {
+export default function FavoritePage({ plants, favorites, onToggleFavorite, theme }) {
   const favoritePlants = plants.filter((plant) => favorites.includes(plant.id));
 
   return (
@@ -26,6 +26,7 @@ export default function FavoritePage({ plants, favorites, onToggleFavorite }) {
                 key={plant.id}
                 isFavorite={favorites.includes(plant.id)}
                 onToggleFavorite={onToggleFavorite}
+                theme={theme}
               />
             ))}
           </StyledPlantList>

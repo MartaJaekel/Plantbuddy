@@ -9,6 +9,7 @@ export default function Preference({
   onToggleFavorite,
   favorites,
   plants,
+  theme
 }) {
   const router = useRouter();
   const { id } = router.query;
@@ -61,6 +62,7 @@ export default function Preference({
               plant={plant}
               onToggleFavorite={onToggleFavorite}
               isFavorite={favorites?.includes(plant.id)}
+              theme={theme}
             />
           ))}
         </StyledPlantList>
