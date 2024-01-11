@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useRouter } from "next/router";
 import Image from "next/image";
 
-export default function CategoryDetail() {
+export default function CategoryDetail({theme}) {
   const router = useRouter();
   const { slug } = router.query;
 
@@ -16,6 +16,9 @@ export default function CategoryDetail() {
     router.back();
   };
 
+  const categoryColor =
+    theme === "light" ? category.bgcolor : category.bgcolorDark;
+
   return (
       <StyledDiv>
       <StyledBackButton type="button" aria-label="Go Back" onClick={goBack}>
@@ -27,7 +30,7 @@ export default function CategoryDetail() {
           height={200}
           alt={category.title}
         />
-        <StyledSection $categoryColor={category.bgcolor}>
+        <StyledSection $categoryColor={categoryColor}>
           <StyledName>{category.title}</StyledName>
           <article>
             <h3>Description</h3>
@@ -46,7 +49,7 @@ const StyledBackButton = styled.button`
   position: absolute;
   top: 1.75rem;
   left: 1rem;
-  background-color: var(--color-green);
+  background-color: ${({ theme }) => theme.primaryGreen};
   border-radius: 50%;
   width: 30px;
   height: 30px;
@@ -63,13 +66,14 @@ const StyledImage = styled(Image)`
 
 const StyledSection = styled.section`
   padding: 1rem 2rem 2rem 2rem;
-  background-color: ${(props) => props.$categoryColor};
+  background-color: ${({ $categoryColor }) => $categoryColor};
+  color: ${({ theme }) => theme.infoText}
 `;
 
 const StyledName = styled.h1`
   font-family: serif;
   font-size: 2rem;
   line-height: 2rem;
-  color: var(--color-green);
+  color: ${({ theme }) => theme.formText};
   margin: 0;
 `;

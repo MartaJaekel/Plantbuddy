@@ -3,7 +3,7 @@ import Image from "next/image";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 
-export default function Navigation() {
+export default function Navigation({ theme }) {
   const router = useRouter();
 
   const handleHomeClick = () => {
@@ -14,13 +14,27 @@ export default function Navigation() {
     }
   };
 
+  const imageSrc = (name, pathname) => {
+    if (theme === "light") {
+      return router.pathname === pathname
+        ? `/assets/${name}Active.svg`
+        : `/assets/${name}Inactive.svg`;
+    }
+
+    if (theme === "dark") {
+      return router.pathname === pathname
+        ? `/assets/${name}Darkmode.svg`
+        : `/assets/${name}Active.svg`;
+    }
+  };
+
   return (
     <StyledNav>
       <StyledList>
         <li>
           <Link href="/" onClick={handleHomeClick}>
             <Image
-              src={router.pathname === "/" ? "/assets/HomeActive.svg" : "/assets/HomeInactive.svg"}
+              src={imageSrc("Home", "/")}
               alt="Home Icon"
               width={40}
               height={40}
@@ -30,7 +44,7 @@ export default function Navigation() {
         <li>
           <Link href="/favorites">
             <Image
-              src={router.pathname === "/favorites" ?"/assets/HeartActive.svg" : "/assets/HeartInactive.svg"}
+              src={imageSrc("Heart", "/favorites")}
               alt="Favorite Icon"
               width={40}
               height={40}
@@ -40,7 +54,7 @@ export default function Navigation() {
         <li>
           <Link href="/categories">
             <Image
-              src={router.pathname === "/categories" ? "/assets/CategoryActive.svg" : "/assets/CategoryInactive.svg"}
+              src={imageSrc("Category", "/categories")}
               alt="Categories Icon"
               width={40}
               height={40}
@@ -50,7 +64,7 @@ export default function Navigation() {
         <li>
           <Link href="/preferences">
             <Image
-              src={router.pathname === "/preferences" ? "/assets/PreferencesActive.svg" : "/assets/PreferencesInactive.svg"}
+              src={imageSrc("Preference", "/preferences")}
               alt="Preference Icon"
               width={40}
               height={40}
@@ -67,7 +81,7 @@ const StyledNav = styled.nav`
   position: fixed;
   bottom: 0;
   width: 100%;
-  background-color: var(--color-beige);
+  background-color: ${({ theme }) => theme.navigation};
 `;
 
 const StyledList = styled.ul`

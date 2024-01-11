@@ -2,17 +2,26 @@ import Image from "next/image";
 import styled from "styled-components";
 import Link from "next/link";
 import FavoriteButton from "../FavoriteButton";
-import useSWR from 'swr';
+import useSWR from "swr";
 
-
-export default function PlantCard({ onToggleFavorite, isFavorite, plant }) {
+export default function PlantCard({
+  onToggleFavorite,
+  isFavorite,
+  plant,
+  theme,
+}) {
   const { data: categories, error: categoriesError } = useSWR('/api/categories');
   const { data: plants, error: plantsError } = useSWR('/api/plants');
 
   if (plantsError || categoriesError) return <div>Error occurred while fetching data</div>;
   if (!plants || !categories) return <div>Loading...</div>;
   
-  const categoryColor =  categories.find((category) => category.slug === plant.categorySlug).bgcolor;
+  const category = categories.find(
+    (category) => category.slug === plant.categorySlug
+  );
+  const categoryColor =
+    theme === "light" ? category.bgcolor : category.bgcolorDark;
+
 
 
   return (
@@ -45,18 +54,19 @@ const StyledFigure = styled.figure`
   width: 9rem;
   height: 13rem;
   border-radius: 1rem;
-  border: 2px solid var(--color-grey);
+  border: 2px solid ${({ theme }) => theme.cardBorder};
   overflow: hidden;
-  background-color: ${(props) => props.$categoryColor};
+  background-color: ${({ $categoryColor }) => $categoryColor};
 `;
 
 const StyledCaption = styled.figcaption`
+  color: ${({ theme }) => theme.infoText};
   text-align: center;
+  justify-content: center;
   margin: 0.25rem;
 `;
 
 const StyledLink = styled(Link)`
   position: relative;
   text-decoration: none;
-  color: var(--color-black);
 `;

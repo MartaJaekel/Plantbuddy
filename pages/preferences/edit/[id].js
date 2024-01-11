@@ -28,5 +28,5 @@ const StyledTitle = styled.h2`
   text-align: center;
   margin: 6rem 0 2rem 0;
   font-size: 1.25rem;
-  color: var(--color-green);
+  color: ${({ theme }) => theme.primaryGreen};
 `;

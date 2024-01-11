@@ -24,6 +24,7 @@ const StyledCharacteristic = styled.figure`
   gap: 0.75rem;
   margin: 0;
   align-items: center;
+  color: ${({ theme }) => theme.infoText}
 `;
 const StyledCharacterHeadline = styled.h3`
   font-size: 0.9rem;

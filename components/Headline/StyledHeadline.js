@@ -4,10 +4,10 @@ export const StyledHeadline = styled.h1`
   z-index: 2;
   position: fixed;
   top: 0;
-  background-color: white;
+  background-color: ${({ theme }) => theme.background};
   width: 100%;
   text-align: center;
-  color: var(--color-green);
+  color: ${({ theme }) => theme.primaryGreen};
   font-family: serif;
   font-size: 3rem;
   margin: 0;

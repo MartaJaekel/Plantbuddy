@@ -2,11 +2,21 @@ import Layout from "@/components/Layout";
 import GlobalStyle from "../styles";
 import useLocalStorageState from "use-local-storage-state";
 import { uid } from "uid";
+import { ThemeProvider } from "styled-components";
+import { lightTheme, darkTheme } from "@/components/Theme";
 import { SWRConfig } from "swr";
 import fetcher from "@/utils/fetcher";
 import useSWR from 'swr';
 
 export default function App({ Component, pageProps }) {
+  const [theme, setTheme] = useLocalStorageState("theme", {
+    defaultValue: "light",
+  });
+
+  function toggleTheme() {
+    theme === "light" ? setTheme("dark") : setTheme("light");
+  }
+
   const [favorites, setFavorites] = useLocalStorageState("favorites", {
     defaultValue: [],
   });
@@ -48,22 +58,26 @@ export default function App({ Component, pageProps }) {
 
   return (
     <>
-      <SWRConfig value={{ fetcher }}>
-        <Layout>
-          <GlobalStyle />
-          <Component
-            {...pageProps}
-            onToggleFavorite={handleToggleFavorite}
-            favorites={favorites}
-            plants={plants}
-            categories={categories}
-            preferences={preferences}
-            handleAddPreference={handleAddPreference}
-            onEditPreference={handleEditPreference}
-            handleDeletePreference={handleDeletePreference}
-          />
-        </Layout>
-      </SWRConfig>
+      <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
+        <SWRConfig value={{ fetcher }}>
+          <Layout theme={theme}>
+            <GlobalStyle />
+            <Component
+              {...pageProps}
+              onToggleFavorite={handleToggleFavorite}
+              favorites={favorites}
+              plants={plants}
+              categories={categories}
+              preferences={preferences}
+              handleAddPreference={handleAddPreference}
+              handleDeletePreference={handleDeletePreference}
+              onEditPreference={handleEditPreference}
+              theme={theme}
+              toggleTheme={toggleTheme}
+            />
+          </Layout>
+        </SWRConfig>
+      </ThemeProvider>
     </>
   );
 }

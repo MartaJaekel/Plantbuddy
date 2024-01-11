@@ -3,7 +3,7 @@ import PlantCard from "@/components/Card";
 import styled from "styled-components";
 import { StyledHeadline } from "@/components/Headline/StyledHeadline";
 
-export default function FavoritePage({ plants, favorites, onToggleFavorite }) {
+export default function FavoritePage({ plants, favorites, onToggleFavorite, theme }) {
   const favoritePlants = plants.filter((plant) => favorites.includes(plant._id));
 
   return (
@@ -26,6 +26,7 @@ export default function FavoritePage({ plants, favorites, onToggleFavorite }) {
                 key={plant._id}
                 isFavorite={favorites.includes(plant._id)}
                 onToggleFavorite={onToggleFavorite}
+                theme={theme}
               />
             ))}
           </StyledPlantList>
@@ -39,13 +40,14 @@ const StyledTitle = styled.h2`
   text-align: center;
   margin-top: 6rem;
   font-size: 1.25rem;
-  color: var(--color-green);
+  color: ${({ theme }) => theme.primaryGreen};
 `;
 
 const StyledArticle = styled.article`
   text-align: center;
   line-height: 1;
   padding: 1rem;
+  color: ${({ theme }) => theme.primaryGreen};
 `;
 
 const StyledPlantList = styled.ul`
