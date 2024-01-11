@@ -31,7 +31,7 @@ export default function EntryDetail({ entries }) {
           alt={entry.name}
         />
 
-        <StyledSection>
+       
           <StyledArticle>
             <StyledName>{entry.name}</StyledName>
             <StyledDescription>Description</StyledDescription>
@@ -41,7 +41,7 @@ export default function EntryDetail({ entries }) {
             <StyledDescription>Location</StyledDescription>
             <StyledParagraph>{entry.location}</StyledParagraph>
           </StyledArticle>
-        </StyledSection>
+        
       </main>
     </>
   );
@@ -73,18 +73,18 @@ const StyledName = styled.h1`
 const StyledArticle = styled.article`
   display: flex;
   flex-direction: column; 
+  flex: 1;
+  overflow: hidden;
   gap: 1rem; 
   align-items: center; 
   border-bottom: 2px solid var(--color-grey);
   padding: 1rem 0;
+  
 `;
 
-const StyledSection = styled.section`
-  flex: 1;
-  overflow: hidden;
-`;
 
-const StyledDescription = styled.h3`
+
+const StyledDescription = styled.h2`
   font-size: 1.5rem;
   color: var(--color-green);
   margin-top: 20px;

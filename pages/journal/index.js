@@ -11,7 +11,6 @@ export default function JournalOverviewPage({ entries }) {
   const goBack = () => {
     router.back();
   };
-  console.log(entries);
 
   return (
     <>
@@ -30,23 +29,21 @@ export default function JournalOverviewPage({ entries }) {
           <StyledButton>Create a new Entry</StyledButton>
         </StyledLink>
         <StyledEntriesContainer>
-          <ul>
-            {entries.length > 0 ? (
-              entries.map((entry) => (
-                <li key={entry.id}>
-                  <StyledLink href={`/journal/${entry.id}`}>
-                    <EntryCard entry={entry} />
-                  </StyledLink>
-                </li>
-              ))
-            ) : (
-              <StyledParagraph>
-                You don&apos;t have any entries yet
-                <br />
-                start with your first entry.
-              </StyledParagraph>
-            )}{" "}
-          </ul>
+          {entries.length > 0 ? (
+            entries.map((entry) => (
+              <StyledEntries key={entry.id}>
+                <StyledLink href={`/journal/${entry.id}`}>
+                  <EntryCard entry={entry} />
+                </StyledLink>
+              </StyledEntries>
+            ))
+          ) : (
+            <StyledParagraph>
+              You don&apos;t have any entries yet
+              <br />
+              start with your first entry.
+            </StyledParagraph>
+          )}
         </StyledEntriesContainer>
       </main>
     </>
@@ -71,8 +68,11 @@ const StyledButton = styled.button`
   cursor: pointer;
   background-color: var(--color-green);
 `;
-const StyledLink = styled.a`
+const StyledLink = styled(Link)`
   text-decoration: none;
+  margin: 0 auto;
+  max-width: 316px;
+  display: block;
 `;
 const StyledBackButton = styled.button`
   position: absolute;
@@ -88,10 +88,14 @@ const StyledBackButton = styled.button`
   border: none;
   z-index: 2;
 `;
-const StyledEntriesContainer = styled.div`
+const StyledEntriesContainer = styled.ul`
   display: flex;
   flex-direction: column;
   align-items: center;
+`;
+
+const StyledEntries = styled.li`
+  width: 100%;
 `;
 
 const StyledParagraph = styled.p`

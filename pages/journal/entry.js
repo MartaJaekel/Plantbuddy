@@ -42,7 +42,7 @@ export default function EntryForm({ onFormSubmit }) {
       <main>
         <StyledTitle>Plant Journal </StyledTitle>
         <StyledForm onSubmit={handleSubmit} onReset={handleReset}>
-          <StyledLabel htmlFor="url"></StyledLabel>
+          <StyledLabel htmlFor="url">URL</StyledLabel>
           <StyledInput
             type="url"
             id="url"
@@ -52,7 +52,7 @@ export default function EntryForm({ onFormSubmit }) {
             onChange={(event) => setUrl(event.target.value)}
             required
           />
-          <StyledLabel htmlFor="name"></StyledLabel>
+          <StyledLabel htmlFor="name">Name</StyledLabel>
           <StyledInput
             type="text"
             id="name"
@@ -61,7 +61,7 @@ export default function EntryForm({ onFormSubmit }) {
             onChange={(event) => setName(event.target.value)}
             required
           />
-          <StyledLabel htmlFor="description"></StyledLabel>
+          <StyledLabel htmlFor="description">Description</StyledLabel>
           <StyledTextarea
             type="text"
             id="description"
@@ -69,7 +69,7 @@ export default function EntryForm({ onFormSubmit }) {
             placeholder="Description"
             onChange={(event) => setDescription(event.target.value)}
           />
-          <StyledLabel htmlFor="care"></StyledLabel>
+          <StyledLabel htmlFor="care">Care</StyledLabel>
           <StyledTextarea
             type="text"
             id="care"
@@ -77,7 +77,7 @@ export default function EntryForm({ onFormSubmit }) {
             placeholder="Care Tipps"
             onChange={(event) => setCareTipps(event.target.value)}
           />
-          <StyledLabel htmlFor="location"></StyledLabel>
+          <StyledLabel htmlFor="location">Location</StyledLabel>
           <StyledInput
             type="text"
             id="location"
@@ -91,7 +91,7 @@ export default function EntryForm({ onFormSubmit }) {
             <StyledButton type="submit">Save</StyledButton>
           </StyledButtonContainer>
         </StyledForm>
-      </main>{" "}
+      </main>
     </>
   );
 }

@@ -17,7 +17,7 @@ export default function EntryCard({ entry }) {
     </StyledEntryCard>
   );
 }
-const StyledEntryCard = styled.div`
+const StyledEntryCard = styled.figure`
   display: flex;
   align-items: center;
   border: 1px solid #ccc;
@@ -32,6 +32,6 @@ const StyledEntryImage = styled.img`
   margin-right: 16px;
 `;
 
-const StyledEntryInfo = styled.p`
+const StyledEntryInfo = styled.figcaption`
   flex: 1;
 `;
