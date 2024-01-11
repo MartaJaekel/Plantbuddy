@@ -8,8 +8,10 @@ import { lightTheme, darkTheme } from "@/components/Theme";
 import { categories } from "@/lib/data-categories";
 
 export default function App({ Component, pageProps }) {
-  const [theme, setTheme] = useLocalStorageState("light");
-
+  const [theme, setTheme] = useLocalStorageState("theme", {
+    defaultValue: "light",
+  });
+  
   function toggleTheme() {
     theme === "light" ? setTheme("dark") : setTheme("light");
   }

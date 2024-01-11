@@ -27,7 +27,6 @@ export default function HomePage({
     <>
       <StyledHeadline>PlantBuddy</StyledHeadline>
       <StyledThemeToggler onClick={toggleTheme}>
-          {" "}
           {theme === "light" ? (
             <Image
               src="/assets/DarkModeIcon.svg"
