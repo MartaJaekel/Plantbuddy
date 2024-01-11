@@ -19,8 +19,13 @@ export default function EntryForm({ onFormSubmit }) {
 
   function handleSubmit(event) {
     event.preventDefault();
-
-    const entry = { url, name, description, careTipps, location };
+    const entry = {
+      url,
+      name,
+      description,
+      careTipps,
+      location,
+    };
     onFormSubmit(entry);
     router.push("/journal");
   }
@@ -48,7 +53,6 @@ export default function EntryForm({ onFormSubmit }) {
             id="url"
             name="url"
             placeholder="Image Upload URL"
-            pattern="https://.*"
             onChange={(event) => setUrl(event.target.value)}
             required
           />
@@ -186,4 +190,3 @@ const StyledTitle = styled.h2`
   font-size: 1.5;
   color: var(--color-green);
 `;
-
