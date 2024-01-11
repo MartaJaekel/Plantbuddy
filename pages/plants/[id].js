@@ -88,7 +88,7 @@ const StyledBackButton = styled.button`
 
 const StyledImage = styled(Image)`
   width: 100%;
-  height: auto;
+  height: 100%;
 `;
 
 const StyledSection = styled.section`
