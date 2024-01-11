@@ -9,6 +9,7 @@ export default function Preference({
   onToggleFavorite,
   favorites,
   plants,
+  theme
 }) {
   const router = useRouter();
   const { id } = router.query;
@@ -61,6 +62,7 @@ export default function Preference({
               plant={plant}
               onToggleFavorite={onToggleFavorite}
               isFavorite={favorites?.includes(plant.id)}
+              theme={theme}
             />
           ))}
         </StyledPlantList>
@@ -82,7 +84,7 @@ const StyledSpan = styled.span`
 const StyledTitle = styled.h2`
   text-align: center;
   font-size: 1.25rem;
-  color: var(--color-green);
+  color: ${({ theme }) => theme.primaryGreen};
   word-wrap: break-word;
   padding: 0 2rem 0 2rem;
 `;
@@ -90,7 +92,7 @@ const StyledTitle = styled.h2`
 const StyledCounterMessage = styled.p`
   margin: 1rem auto;
   max-width: 19rem;
-  color: var(--color-green);
+  color: ${({ theme }) => theme.primaryGreen};
   font-weight: 600;
 `;
 
@@ -105,7 +107,7 @@ const StyledBackButton = styled.button`
   position: fixed;
   top: 1.75rem;
   left: 1rem;
-  background-color: var(--color-green);
+  background-color: ${({ theme }) => theme.primaryGreen};
   border-radius: 50%;
   width: 30px;
   height: 30px;

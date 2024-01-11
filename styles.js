@@ -10,6 +10,7 @@ export default createGlobalStyle`
   body {
     margin: 0;
     font-family: system-ui;
+    background-color: ${({ theme }) => theme.background};
   }
 
   main {
@@ -21,13 +22,4 @@ ul {
   list-style: none;
   padding: 0;
 }
-
-  :root {
-// Colors
---color-green: #426B1F;
---color-beige: #FAFAF5;
---color-black: #010101;
---color-grey: #E6E6E6;
---color-lightGreen: #53A00A;
-  }
 `;

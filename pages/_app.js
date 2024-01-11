@@ -3,9 +3,19 @@ import GlobalStyle from "../styles";
 import useLocalStorageState from "use-local-storage-state";
 import { plants } from "@/lib/data";
 import { uid } from "uid";
+import { ThemeProvider } from "styled-components";
+import { lightTheme, darkTheme } from "@/components/Theme";
 import { categories } from "@/lib/data-categories";
 
 export default function App({ Component, pageProps }) {
+  const [theme, setTheme] = useLocalStorageState("theme", {
+    defaultValue: "light",
+  });
+  
+  function toggleTheme() {
+    theme === "light" ? setTheme("dark") : setTheme("light");
+  }
+
   const [favorites, setFavorites] = useLocalStorageState("favorites", {
     defaultValue: [],
   });
@@ -40,20 +50,24 @@ export default function App({ Component, pageProps }) {
 
   return (
     <>
-      <Layout>
-        <GlobalStyle />
-        <Component
-          {...pageProps}
-          onToggleFavorite={handleToggleFavorite}
-          favorites={favorites}
-          plants={plants}
-          categories={categories}
-          preferences={preferences}
-          handleAddPreference={handleAddPreference}
-          onEditPreference={handleEditPreference}
-          handleDeletePreference={handleDeletePreference}
-        />
-      </Layout>
+      <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
+        <Layout theme={theme}>
+          <GlobalStyle />
+          <Component
+            {...pageProps}
+            onToggleFavorite={handleToggleFavorite}
+            favorites={favorites}
+            plants={plants}
+            categories={categories}
+            preferences={preferences}
+            handleAddPreference={handleAddPreference}
+            handleDeletePreference={handleDeletePreference}
+            onEditPreference={handleEditPreference}
+            theme={theme}
+            toggleTheme={toggleTheme}
+          />
+        </Layout>
+      </ThemeProvider>
     </>
   );
 }

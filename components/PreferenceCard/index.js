@@ -49,7 +49,7 @@ export default function PreferenceCard({ preference, onDeletePreference }) {
 
 const StyledPreferenceCard = styled.div`
   position: relative;
-  background-color: var(--color-green);
+  background-color: ${({ theme }) => theme.primaryGreen};
   padding: 0.6rem 1.5rem;
   border-radius: 8px;
   border: none;
@@ -57,7 +57,7 @@ const StyledPreferenceCard = styled.div`
 `;
 
 const StyledLink = styled(Link)`
-  color: var(--color-beige);
+  color: ${({ theme }) => theme.white};
   font-weight: 600;
   font-size: 0.8rem;
   cursor: pointer;

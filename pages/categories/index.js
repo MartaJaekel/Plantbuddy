@@ -2,18 +2,19 @@ import React from "react";
 import Link from "next/link";
 import { categories } from "@/lib/data-categories";
 import styled from "styled-components";
+import { StyledHeadline } from "@/components/Headline/StyledHeadline";
 
-export default function CategoriesOverview() {
+export default function CategoriesOverview({theme}) {
 
   return (
     <>
-      <StyledHeader>PlantBuddy</StyledHeader>
+      <StyledHeadline>PlantBuddy</StyledHeadline>
       <StyledTitle>Categories</StyledTitle>
       <main>
         <StyledPlantList>
           {categories.map((category) => (
             <StyledLink key={category.id} href={`/categories/${category.slug}`}>
-              <CategoryCard $bgcolor={category.bgcolor}>
+              <CategoryCard $bgcolor={theme === "light" ? category.bgcolor : category.bgcolorDark}>
                 <p>{category.title}</p>
               </CategoryCard>
             </StyledLink>
@@ -24,25 +25,12 @@ export default function CategoriesOverview() {
   );
 }
 
-const StyledHeader = styled.h1`
-  z-index: 1;
-  position: fixed;
-  top: 0;
-  background-color: white;
-  width: 100%;
-  text-align: center;
-  color: var(--color-green);
-  font-family: serif;
-  font-size: 3rem;
-  margin: 0;
-  padding: 1rem;
-`;
 
 const StyledTitle = styled.h2`
   text-align: center;
   margin-top: 6rem;
   font-size: 1.25rem;
-  color: var(--color-green);
+  color: ${({ theme }) => theme.primaryGreen};
 `;
 
 const StyledPlantList = styled.ul`
@@ -60,7 +48,7 @@ const CategoryCard = styled.li`
   width: 9rem;
   height: 9rem;
   border-radius: 1rem;
-  border: 2px solid #e6e6e6;
+  border: 2px solid ${({ theme }) => theme.cardBorder};
   padding: 1rem;
   background-color: ${(props) => props.$bgcolor};
 `;
@@ -68,6 +56,6 @@ const CategoryCard = styled.li`
 const StyledLink = styled(Link)`
   position: relative;
   text-decoration: none;
-  color: var(--color-black);
+  color: ${({ theme }) => theme.infoText};
   font-weight: 600;
 `;
