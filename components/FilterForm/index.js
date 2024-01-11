@@ -29,21 +29,21 @@ export default function FilterForm({
 
   // Separate filter functions
   const filterPlantSize = (plantId, size) =>
-    !size || plants.find((plant) => plant.id === plantId)?.size === size;
+    !size || plants.find((plant) => plant._id === plantId)?.size === size;
   const filterSunlightRequirement = (plantId, requirement) =>
     !requirement ||
-    plants.find((plant) => plant.id === plantId)?.sunlightRequirements ===
+    plants.find((plant) => plant._id === plantId)?.sunlightRequirements ===
       requirement;
   const filterWaterNeeds = (plantId, needs) =>
     !needs ||
-    plants.find((plant) => plant.id === plantId)?.waterNeeds === needs;
+    plants.find((plant) => plant._id === plantId)?.waterNeeds === needs;
   const filterOptimalTemperature = (plantId, temperature) =>
     !temperature ||
-    plants.find((plant) => plant.id === plantId)?.optimalTemperature ===
+    plants.find((plant) => plant._id === plantId)?.optimalTemperature ===
       temperature;
   const filterPetFriendly = (plantId, isPetFriendly) =>
     !isPetFriendly ||
-    plants.find((plant) => plant.id === plantId)?.petFriendly ===
+    plants.find((plant) => plant._id === plantId)?.petFriendly ===
       (isPetFriendly === "true");
 
   function handleSubmit(event) {
@@ -64,13 +64,13 @@ export default function FilterForm({
       preferencePlants: plants
         .filter(
           (plant) =>
-            filterPlantSize(plant.id, settings.plantSize) &&
-            filterSunlightRequirement(plant.id, settings.sunlightRequirement) &&
-            filterWaterNeeds(plant.id, settings.waterNeeds) &&
-            filterOptimalTemperature(plant.id, settings.optimalTemperature) &&
-            filterPetFriendly(plant.id, settings.petFriendly)
+            filterPlantSize(plant._id, settings.plantSize) &&
+            filterSunlightRequirement(plant._id, settings.sunlightRequirement) &&
+            filterWaterNeeds(plant._id, settings.waterNeeds) &&
+            filterOptimalTemperature(plant._id, settings.optimalTemperature) &&
+            filterPetFriendly(plant._id, settings.petFriendly)
         )
-        .map((plant) => plant.id),
+        .map((plant) => plant._id),
       filterSettings,
     };
 
