@@ -46,7 +46,7 @@ const StyledFigure = styled.figure`
   width: 9rem;
   height: 13rem;
   border-radius: 1rem;
-  border: 2px solid var(--color-grey);
+  border: 2px solid ${({ theme }) => theme.cardBorder};
   overflow: hidden;
   background-color: ${({ $categoryColor }) => $categoryColor};
 `;

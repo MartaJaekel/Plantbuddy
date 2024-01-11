@@ -90,7 +90,7 @@ const StyledSelect = styled.select`
   padding: 0.8rem 2rem;
   border-radius: 0.4rem;
   color: ${({ theme }) => theme.formText};
-  border: solid 0.8px var(--color-beige);
+  border: solid 0.8px ${({ theme }) => theme.cardBorder};
   cursor: pointer;
 
 `

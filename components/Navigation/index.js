@@ -14,19 +14,17 @@ export default function Navigation({ theme }) {
     }
   };
 
-  const imageSrc = () => {
+  const imageSrc = (name, pathname) => {
     if (theme === "light") {
-      if (router.pathname === "/") {
-        return "/assets/HomeActive.svg";
-      } else {
-        return "/assets/HomeInactive.svg";
-      }
-    } else {
-      if (router.pathname === "/") {
-        return "/assets/HomeDarkmode.svg";
-      } else {
-        return "/assets/HomeActive.svg";
-      }
+      return router.pathname === pathname
+        ? `/assets/${name}Active.svg`
+        : `/assets/${name}Inactive.svg`;
+    }
+
+    if (theme === "dark") {
+      return router.pathname === pathname
+        ? `/assets/${name}Darkmode.svg`
+        : `/assets/${name}Active.svg`;
     }
   };
 
@@ -36,15 +34,7 @@ export default function Navigation({ theme }) {
         <li>
           <Link href="/" onClick={handleHomeClick}>
             <Image
-              src={
-                theme === "light"
-                  ? router.pathname === "/"
-                    ? "/assets/HomeActive.svg"
-                    : "/assets/HomeInactive.svg"
-                  : router.pathname === "/"
-                  ? "/assets/HomeDarkmode.svg"
-                  : "/assets/HomeActive.svg"
-              }
+              src={imageSrc("Home", "/")}
               alt="Home Icon"
               width={40}
               height={40}
@@ -54,11 +44,7 @@ export default function Navigation({ theme }) {
         <li>
           <Link href="/favorites">
             <Image
-              src={
-                router.pathname === "/favorites"
-                  ? "/assets/HeartActive.svg"
-                  : "/assets/HeartInactive.svg"
-              }
+              src={imageSrc("Heart", "/favorites")}
               alt="Favorite Icon"
               width={40}
               height={40}
@@ -68,11 +54,7 @@ export default function Navigation({ theme }) {
         <li>
           <Link href="/categories">
             <Image
-              src={
-                router.pathname === "/categories"
-                  ? "/assets/CategoryActive.svg"
-                  : "/assets/CategoryInactive.svg"
-              }
+              src={imageSrc("Category", "/categories")}
               alt="Categories Icon"
               width={40}
               height={40}
@@ -82,11 +64,7 @@ export default function Navigation({ theme }) {
         <li>
           <Link href="/preferences">
             <Image
-              src={
-                router.pathname === "/preferences"
-                  ? "/assets/PreferenceActive.svg"
-                  : "/assets/PreferenceInactive.svg"
-              }
+              src={imageSrc("Preference", "/preferences")}
               alt="Preference Icon"
               width={40}
               height={40}

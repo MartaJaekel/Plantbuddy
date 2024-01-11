@@ -49,7 +49,7 @@ export default function App({ Component, pageProps }) {
   return (
     <>
       <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
-        <Layout>
+        <Layout theme={theme}>
           <GlobalStyle />
           <Component
             {...pageProps}

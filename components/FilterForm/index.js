@@ -205,11 +205,12 @@ const StyledTitleInput = styled.input`
   padding: 0.6rem 1.5rem;
   border-radius: 8px;
   color: ${({ theme }) => theme.formText};
-  border: solid 0.8px var(--color-beige);
+  border: solid 1px ${({ theme }) => theme.cardBorder};
   cursor: pointer;
 
   &::placeholder {
-    color: ${({ theme }) => theme.formText};
+    color: ${({ theme }) => theme.formTitle};
+    font-weight: 600;
   }
 `;
 
@@ -231,7 +232,7 @@ const StyledSelect = styled.select`
   padding: 0.6rem 1.5rem;
   border-radius: 8px;
   color: ${({ theme }) => theme.formText};
-  border: solid 0.8px var(--color-beige);
+  border: solid 1px ${({ theme }) => theme.cardBorder};
   cursor: pointer;
 `;
 
@@ -241,7 +242,7 @@ const StyledButtonContainer = styled.div`
 `;
 
 const StyledButton = styled.button`
-  color: var(--color-beige);
+  color: ${({ theme }) => theme.white};
   background-color: ${({ theme }) => theme.button};
   border: none;
   border-radius: 8px;

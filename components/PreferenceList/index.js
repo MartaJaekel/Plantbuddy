@@ -50,10 +50,10 @@ justify-content: space-between;
 `;
 
 const StyledEditLink = styled(Link)`
-  color: white;
+  color: ${({ theme }) => theme.white};
   text-decoration: none;
   text-align: center;
-  background-color: var(--color-green);
+  background-color: ${({ theme }) => theme.primaryGreen};
   border-radius: 8px;
   padding: 0.6rem 0.4rem;
   width: 3.5rem;

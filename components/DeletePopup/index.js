@@ -36,7 +36,7 @@ const StyledPopupContent = styled.div`
 
 const StyledCallText = styled.p`
   text-align: center;
-  color: white;
+  color: ${({ theme }) => theme.white};
 `;
 
 const StyledSpan = styled.span`

@@ -78,10 +78,10 @@ const SearchFieldInput = styled.input`
   background-color: ${({ theme }) => theme.primaryGreen};
   border: none;
   padding-left: 40px;
-  color: var(--color-beige);
+  color: ${({ theme }) => theme.white};
 
   &::placeholder {
-    color: var(--color-beige);
+    color: ${({ theme }) => theme.white};
   }
 
   &::-webkit-search-decoration,

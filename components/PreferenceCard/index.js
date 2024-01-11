@@ -57,7 +57,7 @@ const StyledPreferenceCard = styled.div`
 `;
 
 const StyledLink = styled(Link)`
-  color: var(--color-beige);
+  color: ${({ theme }) => theme.white};
   font-weight: 600;
   font-size: 0.8rem;
   cursor: pointer;

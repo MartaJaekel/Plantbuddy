@@ -48,7 +48,7 @@ const CategoryCard = styled.li`
   width: 9rem;
   height: 9rem;
   border-radius: 1rem;
-  border: 2px solid var(--color-grey);
+  border: 2px solid ${({ theme }) => theme.cardBorder};
   padding: 1rem;
   background-color: ${(props) => props.$bgcolor};
 `;

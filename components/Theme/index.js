@@ -1,28 +1,34 @@
 export const lightTheme = {
-  background: "white",
-  primaryGreen: "var(--color-green)",
-  navigation: "var(--color-beige)",
-  formText: "var(--color-green)",
-  formField: "var(--color-grey)",
-  button: "var(--color-green)",
-  divider: "var(--color-grey)",
-  dividerDetails: "var(--color-grey)",
-  infoText: "var(--color-black)",
+  background: "#FFFFFF",
+  primaryGreen: "#426B1F", // green
+  navigation: "#FAFAF5", // beige
+  formText: "#426B1F",
+  formField: "#E6E6E6", // grey
+  formTitle: "#53A00A",
+  button: "#426B1F",
+  divider: "#E6E6E6",
+  dividerDetails: "#E6E6E6",
+  infoText: "#010101", // black
   popUpBackground: "rgba(255, 255, 255, 0.7)",
-  popUpField: "var(--color-green)",
-  popUpFieldButton: "var(--color-beige)",
+  popUpField: "#426B1F",
+  popUpFieldButton: "#FAFAF5",
+  cardBorder: "#E6E6E6",
+  white: "#FFFFFF",
 };
 export const darkTheme = {
   background: "#2B2E28",
-  primaryGreen: "var(--color-lightGreen)",
+  primaryGreen: "#53A00A", // light green
   navigation: "#3E4438",
-  formText: "var(--color-beige)",
+  formText: "#FAFAF5",
   formField: "#2B2E28",
-  button: "#3E4438",
-  divider: "#3E4438",
-  dividerDetails: "var(--color-beige)",
-  infoText: "var(--color-beige)",
+  formTitle: "#53A00A",
+  button: "#53A00A",
+  divider: "#E6E6E6",
+  dividerDetails: "#FAFAF5)",
+  infoText: "#FAFAF5",
   popUpBackground: "rgba(45, 45, 40, 0.9)",
   popUpField: "#3E4438",
-  popUpFieldButton: "var(--color-green)",
+  popUpFieldButton: "#426B1F",
+  cardBorder: "#E6E6E6",
+  white: "#FFFFFF",
 };

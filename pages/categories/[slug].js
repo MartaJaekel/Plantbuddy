@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useRouter } from "next/router";
 import Image from "next/image";
 
-export default function CategoryDetail() {
+export default function CategoryDetail({theme}) {
   const router = useRouter();
   const { slug } = router.query;
   const category = categories.find(cat => cat.slug === slug);
@@ -20,6 +20,9 @@ export default function CategoryDetail() {
     );
   }
 
+  const categoryColor =
+    theme === "light" ? category.bgcolor : category.bgcolorDark;
+
   return (
       <StyledDiv>
       <StyledBackButton type="button" aria-label="Go Back" onClick={goBack}>
@@ -31,7 +34,7 @@ export default function CategoryDetail() {
           height={200}
           alt={category.title}
         />
-        <StyledSection $categoryColor={category.bgcolor}>
+        <StyledSection $categoryColor={categoryColor}>
           <StyledName>{category.title}</StyledName>
           <article>
             <h3>Description</h3>
@@ -67,7 +70,8 @@ const StyledImage = styled(Image)`
 
 const StyledSection = styled.section`
   padding: 1rem 2rem 2rem 2rem;
-  background-color: ${(props) => props.$categoryColor};
+  background-color: ${({ $categoryColor }) => $categoryColor};
+  color: ${({ theme }) => theme.infoText}
 `;
 
 const StyledName = styled.h1`
