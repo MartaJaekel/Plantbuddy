@@ -25,6 +25,10 @@ export default function App({ Component, pageProps }) {
     defaultValue: [],
   });
 
+  const [entries, setEntries] = useLocalStorageState("entries", {
+    defaultValue: [],
+  })
+
   function handleToggleFavorite(plantId) {
     if (favorites.includes(plantId)) {
       setFavorites(favorites?.filter((favorite) => favorite !== plantId));
@@ -55,6 +59,11 @@ export default function App({ Component, pageProps }) {
   if (plantsError || categoriesError) return <div>Error occurred while fetching data</div>;
   if (!plants || !categories) return <div>Loading...</div>;
 
+  function handleFormSubmit(data) {
+    const newEntry = { id: uid(), ...data };
+    setEntries((prevFormEntry) => [...prevFormEntry, newEntry]);
+
+  }
 
   return (
     <>
@@ -74,6 +83,8 @@ export default function App({ Component, pageProps }) {
               onEditPreference={handleEditPreference}
               theme={theme}
               toggleTheme={toggleTheme}
+              onFormSubmit={handleFormSubmit}
+              entries={entries}
             />
           </Layout>
         </SWRConfig>

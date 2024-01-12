@@ -71,6 +71,16 @@ export default function Navigation({ theme }) {
             />
           </Link>
         </li>
+        <li>
+          <Link href="/journal">
+            <Image
+              src={imageSrc("Journal", "/journal")}
+              alt="Journal Icon"
+              width={40}
+              height={40}
+            />
+          </Link>
+        </li>
       </StyledList>
     </StyledNav>
   );
