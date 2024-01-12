@@ -18,15 +18,16 @@ export default function PlantCharacteristics({
   );
 }
 
-const StyledCharacteristic = styled.div`
+const StyledCharacteristic = styled.figure`
   width: 130px;
   display: flex;
   gap: 0.75rem;
   margin: 0;
   align-items: center;
+  color: ${({ theme }) => theme.infoText}
 `;
 const StyledCharacterHeadline = styled.h3`
-  font-size: 1rem;
+  font-size: 0.9rem;
   margin: 0;
 `;
 

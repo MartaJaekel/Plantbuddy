@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import PreferenceCard from "../PreferenceCard";
+import Link from "next/link";
 
 export default function PreferenceList({ preferences, handleDeletePreference }) {
   return (
@@ -11,9 +12,10 @@ export default function PreferenceList({ preferences, handleDeletePreference }) 
       ) : (
         <StyledPreferenceList>
           {preferences.map((preference) => (
-            <li key={preference.id}>
+            <StyledPreferenceContainer key={preference.id}>
               <PreferenceCard preference={preference} onDeletePreference={handleDeletePreference}/>
-            </li>
+              <StyledEditLink href={`/preferences/edit/${preference.id}`}>Edit</StyledEditLink>
+            </StyledPreferenceContainer>
           ))}
         </StyledPreferenceList>
       )}
@@ -23,6 +25,7 @@ export default function PreferenceList({ preferences, handleDeletePreference }) 
 
 const StyledCallText = styled.p`
   text-align: center;
+  color: ${({ theme }) => theme.primaryGreen};
 `;
 
 const StyledSpan = styled.span`
@@ -39,4 +42,19 @@ const StyledPreferenceList = styled.ul`
   max-width: 19rem;
   margin: 1rem auto;
   padding: 1rem 0;
+`;
+
+const StyledPreferenceContainer = styled.li`
+display: flex;
+justify-content: space-between;
+`;
+
+const StyledEditLink = styled(Link)`
+  color: ${({ theme }) => theme.white};
+  text-decoration: none;
+  text-align: center;
+  background-color: ${({ theme }) => theme.primaryGreen};
+  border-radius: 8px;
+  padding: 0.6rem 0.4rem;
+  width: 3.5rem;
 `;

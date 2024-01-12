@@ -7,6 +7,7 @@ export default function PlantList({
   search,
   searchResult,
   sortedPlants,
+  theme
 }) {
   const error = search.length > 0 && searchResult.length === 0;
 
@@ -22,8 +23,6 @@ export default function PlantList({
     );
   }
 
-  
-
   return (
     <StyledPlantList>
       {search.length === 0
@@ -33,6 +32,7 @@ export default function PlantList({
               plant={plant}
               onToggleFavorite={onToggleFavorite}
               isFavorite={favorites?.includes(plant.id)}
+              theme={theme}
             />
           ))
         : searchResult.map((plant) => (

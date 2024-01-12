@@ -1,12 +1,31 @@
 import styled from "styled-components";
 import React, { useState } from "react";
+import { useRouter } from "next/router";
 
-export default function FilterForm({ plants, onAddPreference }) {
-  const [plantSize, setPlantSize] = useState("");
-  const [sunlightRequirement, setSunlightRequirement] = useState("");
-  const [waterNeeds, setWaterNeeds] = useState("");
-  const [optimalTemperature, setOptimalTemperature] = useState("");
-  const [petFriendly, setPetFriendly] = useState("");
+export default function FilterForm({
+  plants,
+  onAddPreference,
+  preferenceFilterSettings = {},
+  preferenceFilterTitle = "",
+  onEditPreference,
+  preferenceId,
+}) {
+  const router = useRouter();
+
+  const initialPreferenceFilterSettings = {
+    preferenceTitle: preferenceFilterTitle,
+    plantSize: preferenceFilterSettings.plantSize || "",
+    sunlightRequirement: preferenceFilterSettings.sunlightRequirement || "",
+    waterNeeds: preferenceFilterSettings.waterNeeds || "",
+    optimalTemperature: preferenceFilterSettings.optimalTemperature || "",
+    petFriendly: preferenceFilterSettings.petFriendly || "",
+  };
+
+  const [settings, setSettings] = useState(initialPreferenceFilterSettings);
+
+  if (!plants) {
+    return null;
+  }
 
   // Separate filter functions
   const filterPlantSize = (plantId, size) =>
@@ -30,31 +49,54 @@ export default function FilterForm({ plants, onAddPreference }) {
   function handleSubmit(event) {
     event.preventDefault();
 
-    const newPreference = {
-      preferenceTitle: event.target.elements.title.value,
+    const { plantSize, sunlightRequirement, waterNeeds, optimalTemperature, petFriendly } = settings;
+
+    const filterSettings = {
+      plantSize,
+      sunlightRequirement,
+      waterNeeds,
+      optimalTemperature,
+      petFriendly,
+    };
+
+    const preferenceData = {
+      preferenceTitle: settings.preferenceTitle,
       preferencePlants: plants
         .filter(
           (plant) =>
-            filterPlantSize(plant.id, plantSize) &&
-            filterSunlightRequirement(plant.id, sunlightRequirement) &&
-            filterWaterNeeds(plant.id, waterNeeds) &&
-            filterOptimalTemperature(plant.id, optimalTemperature) &&
-            filterPetFriendly(plant.id, petFriendly)
+            filterPlantSize(plant.id, settings.plantSize) &&
+            filterSunlightRequirement(plant.id, settings.sunlightRequirement) &&
+            filterWaterNeeds(plant.id, settings.waterNeeds) &&
+            filterOptimalTemperature(plant.id, settings.optimalTemperature) &&
+            filterPetFriendly(plant.id, settings.petFriendly)
         )
         .map((plant) => plant.id),
+      filterSettings,
     };
 
-    onAddPreference(newPreference);
+    if (preferenceId) {
+      onEditPreference({ ...preferenceData, id: preferenceId });
+      router.push("/preferences");
+    } else {
+      onAddPreference(preferenceData);
+      event.target.reset();
+    }
+
     event.target.elements.title.focus();
-    event.target.reset();
   }
 
-  function handleReset() {
-    event.target.reset();
+  function handleCancel() {
+    if (preferenceId) {
+      // navigate back to preferences page if editing an existing preference
+      router.push("/preferences");
+    } else {
+      // reset the form if adding a new preference, 
+      setSettings(initialPreferenceFilterSettings);
+    }
   }
 
   return (
-    <StyledForm onSubmit={handleSubmit} onReset={handleReset}>
+    <StyledForm onSubmit={handleSubmit}>
       <StyledLabel htmlFor="title">Add your preference title</StyledLabel>
       <StyledTitleInput
         type="text"
@@ -62,15 +104,18 @@ export default function FilterForm({ plants, onAddPreference }) {
         name="title"
         placeholder="Add here your Preference Title"
         minLength="3"
-        maxLength="35"
+        maxLength="25"
         required
+        value={settings.preferenceTitle}
+        onChange={(event) => setSettings({ ...settings, preferenceTitle: event.target.value })}
       />
 
       <StyledLabel htmlFor="plantSize">Select the plant size:</StyledLabel>
       <StyledSelect
         name="plantSize"
         id="plantSize"
-        onChange={(event) => setPlantSize(event.target.value)}
+        onChange={(event) => setSettings({ ...settings, plantSize: event.target.value })}
+        defaultValue={settings.plantSize}
       >
         <option value="">Select Size</option>
         <option value="small">Small (15cm-50cm)</option>
@@ -84,7 +129,8 @@ export default function FilterForm({ plants, onAddPreference }) {
       <StyledSelect
         name="sunlightRequirement"
         id="sunlightRequirement"
-        onChange={(event) => setSunlightRequirement(event.target.value)}
+        onChange={(event) => setSettings({ ...settings, sunlightRequirement: event.target.value })}
+        defaultValue={settings.sunlightRequirement}
       >
         <option value="">Select Sunlight Requirement</option>
         <option value="full sun">Full Sun</option>
@@ -96,7 +142,8 @@ export default function FilterForm({ plants, onAddPreference }) {
       <StyledSelect
         name="waterNeeds"
         id="waterNeeds"
-        onChange={(event) => setWaterNeeds(event.target.value)}
+        onChange={(event) => setSettings({ ...settings, waterNeeds: event.target.value })}
+        defaultValue={settings.waterNeeds}
       >
         <option value="">Select Water Needs</option>
         <option value="weekly">Weekly</option>
@@ -110,7 +157,8 @@ export default function FilterForm({ plants, onAddPreference }) {
       <StyledSelect
         name="optimalTemperature"
         id="optimalTemperature"
-        onChange={(event) => setOptimalTemperature(event.target.value)}
+        onChange={(event) => setSettings({ ...settings, optimalTemperature: event.target.value })}
+        defaultValue={settings.optimalTemperature}
       >
         <option value="">Select Temperature</option>
         <option value="low">15-20°C</option>
@@ -124,14 +172,15 @@ export default function FilterForm({ plants, onAddPreference }) {
       <StyledSelect
         name="petFriendly"
         id="petFriendly"
-        onChange={(event) => setPetFriendly(event.target.value)}
+        onChange={(event) => setSettings({ ...settings, petFriendly: event.target.value })}
+        defaultValue={settings.petFriendly}
       >
         <option value="">Select Pet Compatibility</option>
         <option value="true">Yes</option>
         <option value="false">No</option>
       </StyledSelect>
       <StyledButtonContainer>
-        <StyledButton type="reset">Cancel</StyledButton>
+        <StyledButton type="button" onClick={handleCancel}>Cancel</StyledButton>
         <StyledButton type="submit">Save</StyledButton>
       </StyledButtonContainer>
     </StyledForm>
@@ -148,20 +197,19 @@ const StyledForm = styled.form`
   max-width: 19rem;
   margin: 1rem auto 1rem auto;
   padding: 0rem 0rem 2rem 0;
-  border-bottom: 2px solid var(--color-grey);
+  border-bottom: 2px solid ${({ theme }) => theme.divider};
 `;
 
 const StyledTitleInput = styled.input`
-  background-color: var(--color-grey);
+  background-color: ${({ theme }) => theme.formField};
   padding: 0.6rem 1.5rem;
   border-radius: 8px;
-  color: var(--color-green);
-  border: none;
-  font-weight: 600;
+  color: ${({ theme }) => theme.formText};
+  border: solid 1px ${({ theme }) => theme.cardBorder};
   cursor: pointer;
 
   &::placeholder {
-    color: var(--color-lightGreen);
+    color: ${({ theme }) => theme.formTitle};
     font-weight: 600;
   }
 `;
@@ -180,12 +228,11 @@ const StyledLabel = styled.label`
 `;
 
 const StyledSelect = styled.select`
-  background-color: var(--color-grey);
+  background-color: ${({ theme }) => theme.formField};
   padding: 0.6rem 1.5rem;
   border-radius: 8px;
-  color: var(--color-green);
-  border: none;
-  font-weight: 600;
+  color: ${({ theme }) => theme.formText};
+  border: solid 1px ${({ theme }) => theme.cardBorder};
   cursor: pointer;
 `;
 
@@ -195,8 +242,8 @@ const StyledButtonContainer = styled.div`
 `;
 
 const StyledButton = styled.button`
-  color: white;
-  background-color: var(--color-green);
+  color: ${({ theme }) => theme.white};
+  background-color: ${({ theme }) => theme.button};
   border: none;
   border-radius: 8px;
   padding: 0.6rem 0.4rem;

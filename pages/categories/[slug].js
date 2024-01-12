@@ -1,13 +1,16 @@
 import { categories } from "@/lib/data-categories";
 import styled from "styled-components";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import Image from "next/image";
 
-export default function CategoryDetail() {
+export default function CategoryDetail({theme}) {
   const router = useRouter();
   const { slug } = router.query;
   const category = categories.find(cat => cat.slug === slug);
+  
+  const goBack = () => {
+    router.back();
+  };
 
   if (!category) {
     return (
@@ -17,20 +20,21 @@ export default function CategoryDetail() {
     );
   }
 
+  const categoryColor =
+    theme === "light" ? category.bgcolor : category.bgcolorDark;
+
   return (
       <StyledDiv>
-      <StyledNav>
-        <Link href="/categories">
-          <Image src="/assets/ArrowIcon.svg" alt="Back Link" width={30} height={25} />
-        </Link>
-      </StyledNav>
+      <StyledBackButton type="button" aria-label="Go Back" onClick={goBack}>
+        <Image src="/assets/ArrowIcon.svg" alt="Back Link" width={25} height={20} />
+      </StyledBackButton>
         <StyledImage
           src={category.image}
           width={200}
           height={200}
           alt={category.title}
         />
-        <StyledSection>
+        <StyledSection $categoryColor={categoryColor}>
           <StyledName>{category.title}</StyledName>
           <article>
             <h3>Description</h3>
@@ -45,31 +49,35 @@ const StyledDiv = styled.div`
   position: relative;
 `;
 
-const StyledNav = styled.nav`
+const StyledBackButton = styled.button`
   position: absolute;
-  top: 2rem;
+  top: 1.75rem;
   left: 1rem;
-  background-color: var(--color-green);
+  background-color: ${({ theme }) => theme.primaryGreen};
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   display: flex;
   align-items: center;
+  border: none;
 `;
 
 const StyledImage = styled(Image)`
   width: 100%;
   height: auto;
+  display: block;
 `;
 
 const StyledSection = styled.section`
-  margin: 1rem 2rem 2rem 2rem;
+  padding: 1rem 2rem 2rem 2rem;
+  background-color: ${({ $categoryColor }) => $categoryColor};
+  color: ${({ theme }) => theme.infoText}
 `;
 
 const StyledName = styled.h1`
   font-family: serif;
   font-size: 2rem;
   line-height: 2rem;
-  color: var(--color-green);
+  color: ${({ theme }) => theme.formText};
   margin: 0;
 `;
