@@ -53,6 +53,10 @@ export default function App({ Component, pageProps }) {
     setPreferences(preferences.filter((preference) => preference.id !== id));
   }
 
+function handleDeleteEntry(id) {
+  setEntries(entries.filter((entry) => entry.id !== id));
+}
+
   const { data: plants, error: plantsError } = useSWR('/api/plants', fetcher);
   const { data: categories, error: categoriesError } = useSWR('/api/categories', fetcher);
 
@@ -85,6 +89,7 @@ export default function App({ Component, pageProps }) {
               toggleTheme={toggleTheme}
               onFormSubmit={handleFormSubmit}
               entries={entries}
+              handleDeleteEntry={handleDeleteEntry}
             />
           </Layout>
         </SWRConfig>
