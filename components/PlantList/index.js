@@ -28,19 +28,19 @@ export default function PlantList({
       {search.length === 0
         ? sortedPlants.map((plant) => (
             <PlantCard
-              key={plant.id}
+              key={plant._id}
               plant={plant}
               onToggleFavorite={onToggleFavorite}
-              isFavorite={favorites?.includes(plant.id)}
+              isFavorite={favorites?.includes(plant._id)}
               theme={theme}
             />
           ))
         : searchResult.map((plant) => (
             <PlantCard
-              key={plant.id}
+              key={plant._id}
               plant={plant}
               onToggleFavorite={onToggleFavorite}
-              isFavorite={favorites?.includes(plant.id)}
+              isFavorite={favorites?.includes(plant._id)}
             />
           ))}
     </StyledPlantList>

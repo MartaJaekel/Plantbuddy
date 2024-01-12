@@ -55,7 +55,7 @@ const StyledTitle = styled.h2`
   margin-top: 6rem;
   margin-bottom: 2rem;
   font-size: 1.5;
-  color: var(--color-green);
+  color: ${({ theme }) => theme.primaryGreen};
 `;
 const StyledButton = styled.button`
   display: block;
@@ -66,7 +66,7 @@ const StyledButton = styled.button`
   border-radius: 8px;
   padding: 0.6rem 0.4rem;
   cursor: pointer;
-  background-color: var(--color-green);
+  background-color: ${({ theme }) => theme.primaryGreen};
 `;
 const StyledLink = styled(Link)`
   text-decoration: none;
@@ -79,7 +79,7 @@ const StyledBackButton = styled.button`
   top: 1.75rem;
   left: 1rem;
   font-size: 2rem;
-  background-color: var(--color-green);
+  background-color: ${({ theme }) => theme.primaryGreen};
   border-radius: 50%;
   width: 30px;
   height: 30px;
@@ -101,4 +101,5 @@ const StyledEntries = styled.li`
 const StyledParagraph = styled.p`
   text-align: center;
   margin-top: 50px;
+  color: ${({ theme }) => theme.formText};
 `;

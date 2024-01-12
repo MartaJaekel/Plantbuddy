@@ -1,4 +1,4 @@
-import { categories } from "@/lib/data-categories";
+import useSWR from "swr";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 import Image from "next/image";
@@ -6,19 +6,15 @@ import Image from "next/image";
 export default function CategoryDetail({theme}) {
   const router = useRouter();
   const { slug } = router.query;
-  const category = categories.find(cat => cat.slug === slug);
-  
+
+  const { data: category, error: categoriesError } = useSWR(`/api/categories/${slug}`);
+
+  if (categoriesError) return <div>Error occurred while fetching data</div>;
+  if (!category) return <div>Loading...</div>;
+
   const goBack = () => {
     router.back();
   };
-
-  if (!category) {
-    return (
-        <StyledSection>
-          <StyledName>Category not found!</StyledName>
-        </StyledSection>
-    );
-  }
 
   const categoryColor =
     theme === "light" ? category.bgcolor : category.bgcolorDark;

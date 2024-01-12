@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+import useSWR from "swr";
 import Image from "next/image";
 import styled from "styled-components";
 import PlantCharacteristics from "@/components/PlantCharacteristics";
@@ -13,23 +14,24 @@ export default function PlantDetail({
   theme,
 }) {
   const router = useRouter();
-  const { id } = router.query;
+  const { _id } = router.query;
 
-  const goBack = () => {
-    router.back();
-  };
+  const { data: plant, error: plantError } = useSWR(`/api/plants/${_id}`);
+  const { data: fetchedCategories, error: categoriesError } = useSWR(`/api/categories`);
 
-  const plant = plants.find((plant) => plant.id === id);
+  if (plantError || categoriesError) return <div>Error occurred while fetching data</div>;
+  if (!plant || !fetchedCategories) return <div>Loading...</div>;
 
-  if (!plant) {
-    return <h2>Plant not found!</h2>;
-  }
 
   const category = categories.find(
     (category) => category.slug === plant.categorySlug
   );
   const categoryColor =
-    theme === "light" ? category.bgcolor : category.bgcolorDark;
+  theme === "light" ? category.bgcolor : category.bgcolorDark;
+
+  const goBack = () => {
+    router.back();
+  };
 
   return (
     <>
@@ -43,8 +45,8 @@ export default function PlantDetail({
       </StyledBackButton>
       <main>
         <FavoriteButton
-          onClick={() => onToggleFavorite(plant.id)}
-          isFavorite={favorites?.includes(plant.id)}
+          onClick={() => onToggleFavorite(plant._id)}
+          isFavorite={favorites?.includes(plant._id)}
         />
         <StyledImage
           src={plant.image}

@@ -110,7 +110,7 @@ const StyledForm = styled.form`
   max-width: 19rem;
   margin: 3rem auto;
   padding: 0rem 0rem 2rem 0;
-  border-bottom: 2px solid var(--color-grey);
+  border-bottom: 2px ${({ theme }) => theme.dividerDetails};
 `;
 const StyledLabel = styled.label`
   border: 0;
@@ -125,32 +125,32 @@ const StyledLabel = styled.label`
   white-space: nowrap;
 `;
 const StyledInput = styled.input`
-  background-color: var(--color-grey);
+  background-color: ${({ theme }) => theme.formField};
   padding: 0.6rem 1.5rem;
   border-radius: 8px;
-  color: var(--color-green);
-  border: none;
+  color: ${({ theme }) => theme.formText};
+  border: solid 1px ${({ theme }) => theme.cardBorder};
   font-weight: 600;
   cursor: pointer;
 
   &::placeholder {
-    color: var(--color-lightGreen);
+    color: ${({ theme }) => theme.formTitle};
     font-weight: 600;
   }
 `;
 
 const StyledTextarea = styled.textarea`
-  background-color: var(--color-grey);
+  background-color: ${({ theme }) => theme.formField};
   padding: 1rem;
   border-radius: 8px;
-  color: var(--color-green);
-  border: none;
+  color: ${({ theme }) => theme.formText};
+  border: solid 1px ${({ theme }) => theme.cardBorder};
   font-weight: 600;
   cursor: pointer;
   resize: vertical;
   min-height: 100px;
   &::placeholder {
-    color: var(--color-lightGreen);
+    color: ${({ theme }) => theme.formTitle};
     font-weight: 600;
   }
 `;
@@ -160,8 +160,8 @@ const StyledButtonContainer = styled.div`
 `;
 
 const StyledButton = styled.button`
-  color: white;
-  background-color: var(--color-green);
+  color: ${({ theme }) => theme.white};
+  background-color: ${({ theme }) => theme.button};
   border: none;
   border-radius: 8px;
   padding: 0.6rem 0.4rem;
@@ -174,7 +174,7 @@ const StyledBackButton = styled.button`
   top: 1.75rem;
   left: 1rem;
   font-size: 2rem;
-  background-color: var(--color-green);
+  background-color: ${({ theme }) => theme.primaryGreen};
   border-radius: 50%;
   width: 30px;
   height: 30px;
@@ -188,5 +188,5 @@ const StyledTitle = styled.h2`
   margin-top: 6rem;
   margin-bottom: 2rem;
   font-size: 1.5;
-  color: var(--color-green);
+  color: ${({ theme }) => theme.infoText};
 `;

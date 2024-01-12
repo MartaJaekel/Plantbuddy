@@ -2,7 +2,7 @@ import Image from "next/image";
 import styled from "styled-components";
 import Link from "next/link";
 import FavoriteButton from "../FavoriteButton";
-import { categories } from "@/lib/data-categories";
+import useSWR from "swr";
 
 export default function PlantCard({
   onToggleFavorite,
@@ -10,19 +10,27 @@ export default function PlantCard({
   plant,
   theme,
 }) {
+  const { data: categories, error: categoriesError } = useSWR('/api/categories');
+  const { data: plants, error: plantsError } = useSWR('/api/plants');
+
+  if (plantsError || categoriesError) return <div>Error occurred while fetching data</div>;
+  if (!plants || !categories) return <div>Loading...</div>;
+  
   const category = categories.find(
     (category) => category.slug === plant.categorySlug
   );
   const categoryColor =
     theme === "light" ? category.bgcolor : category.bgcolorDark;
 
+
+
   return (
     <StyledListItem>
       <FavoriteButton
-        onClick={() => onToggleFavorite(plant.id)}
+        onClick={() => onToggleFavorite(plant._id)}
         isFavorite={isFavorite}
       />
-      <StyledLink href={`/plants/${plant?.id}`}>
+      <StyledLink href={`/plants/${plant?._id}`}>
         <StyledFigure $categoryColor={categoryColor}>
           <Image
             src={plant?.image}

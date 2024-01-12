@@ -50,7 +50,7 @@ const StyledBackButton = styled.button`
   position: absolute;
   top: 1.75rem;
   left: 1rem;
-  background-color: var(--color-green);
+  background-color: ${({ theme }) => theme.primaryGreen};
   border-radius: 50%;
   width: 30px;
   height: 30px;
@@ -66,7 +66,7 @@ const StyledName = styled.h1`
   font-family: serif;
   font-size: 2rem;
   line-height: 2rem;
-  color: var(--color-green);
+  color: ${({ theme }) => theme.formText};
   margin: 0;
 `;
 
@@ -77,7 +77,7 @@ const StyledArticle = styled.article`
   overflow: hidden;
   gap: 1rem; 
   align-items: center; 
-  border-bottom: 2px solid var(--color-grey);
+  border-bottom: 2px solid ${({ theme }) => theme.cardBorder};
   padding: 1rem 0;
   
 `;
@@ -86,14 +86,14 @@ const StyledArticle = styled.article`
 
 const StyledDescription = styled.h2`
   font-size: 1.5rem;
-  color: var(--color-green);
+  color: ${({ theme }) => theme.infoText};
   margin-top: 20px;
 `;
 
 const StyledParagraph = styled.p`
   font-size: 1rem;
   line-height: 1.5;
-  color: #555;
+  color: ${({ theme }) => theme.infoText};
   margin-top: 10px;
   overflow: hidden;
   text-overflow: ellipsis;

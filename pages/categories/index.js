@@ -1,10 +1,14 @@
 import React from "react";
 import Link from "next/link";
-import { categories } from "@/lib/data-categories";
 import styled from "styled-components";
+import useSWR from "swr";
 import { StyledHeadline } from "@/components/Headline/StyledHeadline";
 
 export default function CategoriesOverview({theme}) {
+  const { data: categories, error: categoriesError } = useSWR(`/api/categories`);
+
+  if (categoriesError) return <div>Error occurred while fetching data</div>;
+  if (!categories) return <div>Loading...</div>;
 
   return (
     <>
@@ -13,7 +17,7 @@ export default function CategoriesOverview({theme}) {
       <main>
         <StyledPlantList>
           {categories.map((category) => (
-            <StyledLink key={category.id} href={`/categories/${category.slug}`}>
+            <StyledLink key={category._id} href={`/categories/${category.slug}`}>
               <CategoryCard $bgcolor={theme === "light" ? category.bgcolor : category.bgcolorDark}>
                 <p>{category.title}</p>
               </CategoryCard>

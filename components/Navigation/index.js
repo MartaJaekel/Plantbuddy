@@ -74,11 +74,7 @@ export default function Navigation({ theme }) {
         <li>
           <Link href="/journal">
             <Image
-              src={
-                router.pathname === "/journal"
-                  ? "/assets/JournalActive.svg"
-                  : "/assets/JournalInactive.svg"
-              }
+              src={imageSrc("Journal", "/journal")}
               alt="Journal Icon"
               width={40}
               height={40}

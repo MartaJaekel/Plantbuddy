@@ -20,12 +20,13 @@ export default function EntryCard({ entry }) {
 const StyledEntryCard = styled.figure`
   display: flex;
   align-items: center;
-  border: 1px solid #ccc;
+  border: ${({ theme }) => theme.cardBorder};
   border-radius: 8px;
   padding: 16px;
   margin: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   max-width: 300px;
+  background-color: ${({ theme }) => theme.primaryGreen};
 `;
 
 const StyledEntryImage = styled.img`
@@ -33,5 +34,8 @@ const StyledEntryImage = styled.img`
 `;
 
 const StyledEntryInfo = styled.figcaption`
-  flex: 1;
+  color: ${({ theme }) => theme.white};
+  text-align: center;
+  justify-content: center;
+  margin: 0.25rem;
 `;

@@ -21,7 +21,7 @@ export default function Preference({
   const preference = preferences.find((preference) => preference.id === id);
 
   const preferencePlants = plants.filter((plant) =>
-    preference?.preferencePlants.includes(plant.id)
+    preference?.preferencePlants.includes(plant._id)
   );
 
   let counterMessage;
@@ -58,10 +58,10 @@ export default function Preference({
         <StyledPlantList>
           {preferencePlants.map((plant) => (
             <PlantCard
-              key={plant.id}
+              key={plant._id}
               plant={plant}
               onToggleFavorite={onToggleFavorite}
-              isFavorite={favorites?.includes(plant.id)}
+              isFavorite={favorites?.includes(plant._id)}
               theme={theme}
             />
           ))}
