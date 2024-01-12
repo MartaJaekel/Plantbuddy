@@ -71,6 +71,20 @@ export default function Navigation({ theme }) {
             />
           </Link>
         </li>
+        <li>
+          <Link href="/journal">
+            <Image
+              src={
+                router.pathname === "/journal"
+                  ? "/assets/JournalActive.svg"
+                  : "/assets/JournalInactive.svg"
+              }
+              alt="Journal Icon"
+              width={40}
+              height={40}
+            />
+          </Link>
+        </li>
       </StyledList>
     </StyledNav>
   );

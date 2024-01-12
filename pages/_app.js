@@ -24,6 +24,10 @@ export default function App({ Component, pageProps }) {
     defaultValue: [],
   });
 
+  const [entries, setEntries] = useLocalStorageState("entries" , {
+    defaultValue: [],
+  })
+
   function handleToggleFavorite(plantId) {
     if (favorites.includes(plantId)) {
       setFavorites(favorites?.filter((favorite) => favorite !== plantId));
@@ -47,6 +51,11 @@ export default function App({ Component, pageProps }) {
   function handleDeletePreference(id) {
     setPreferences(preferences.filter((preference) => preference.id !== id));
   }
+  function handleFormSubmit(data) {
+    const newEntry = { id: uid(), ...data };
+    setEntries((prevFormEntry) => [...prevFormEntry, newEntry]);
+
+  }
 
   return (
     <>
@@ -65,7 +74,9 @@ export default function App({ Component, pageProps }) {
             onEditPreference={handleEditPreference}
             theme={theme}
             toggleTheme={toggleTheme}
-          />
+            onFormSubmit={handleFormSubmit}
+          entries={entries} 
+        />
         </Layout>
       </ThemeProvider>
     </>
