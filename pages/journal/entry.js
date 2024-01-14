@@ -1,6 +1,6 @@
 import React from "react";
-import EntryForm from "components/JournalEntryForm"
+import EntryForm from "components/JournalEntryForm";
 
-export default function EntryFormPage({ onFormSubmit}) {
-  return(<EntryForm onFormSubmit={onFormSubmit}/>)
+export default function EntryFormPage({ onFormSubmit }) {
+  return <EntryForm onFormSubmit={onFormSubmit} />;
 }

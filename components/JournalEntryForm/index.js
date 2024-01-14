@@ -28,8 +28,8 @@ export default function EntryForm({ onFormSubmit, entry }) {
       careTipps,
       location,
     };
-    //copies the id from the existing entry to the modiefied entryObject.
-    
+
+        //copies the id from the existing entry to the modified entryObject.
     if (entry && entry.id) {
       entryObject.id = entry.id;
     }
@@ -38,7 +38,13 @@ export default function EntryForm({ onFormSubmit, entry }) {
   }
   function handleReset(event) {
     event.target.reset();
+
+    if (entry && entry.id) {
+      router.push("/journal")
+    }
   }
+
+  
 
   return (
     <>
