@@ -64,6 +64,12 @@ export default function App({ Component, pageProps }) {
     setEntries((prevFormEntry) => [...prevFormEntry, newEntry]);
 
   }
+  function handleEditEntry(editedEntry) {
+    setEntries(
+      entries.map((entry) =>
+      entry.id === editedEntry.id ? editedEntry : entry
+    ))
+  }
 
   return (
     <>
@@ -85,6 +91,7 @@ export default function App({ Component, pageProps }) {
               toggleTheme={toggleTheme}
               onFormSubmit={handleFormSubmit}
               entries={entries}
+              onEditEntry={handleEditEntry}
             />
           </Layout>
         </SWRConfig>

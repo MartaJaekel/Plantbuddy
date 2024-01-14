@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import styled from "styled-components";
+import Link from "next/link";
 
 export default function EntryDetail({ entries }) {
   const router = useRouter();
@@ -23,6 +24,7 @@ export default function EntryDetail({ entries }) {
           height={20}
         />
       </StyledBackButton>
+      <StyledEditLink href={`/journal/edit/${entry.id}`}>Edit</StyledEditLink>
       <main>
         <StyledImage
           src={entry.url}
@@ -58,10 +60,21 @@ const StyledBackButton = styled.button`
   align-items: center;
   border: none;
 `;
+const StyledEditLink = styled(Link)`
+  color: ${({ theme }) => theme.white};
+  text-decoration: none;
+  text-align: center;
+  background-color: ${({ theme }) => theme.primaryGreen};
+  border-radius: 8px;
+  padding: 0.6rem 0.4rem;
+  width: 3.5rem;
+`;
+
 const StyledImage = styled.img`
   width: 100%;
   height: 50%;
 `;
+
 const StyledName = styled.h1`
   font-family: serif;
   font-size: 2rem;
