@@ -61,6 +61,9 @@ const StyledBackButton = styled.button`
   border: none;
 `;
 const StyledEditLink = styled(Link)`
+  position: absolute;
+  top: 1.75rem;
+  right: 1rem;
   color: ${({ theme }) => theme.white};
   text-decoration: none;
   text-align: center;
