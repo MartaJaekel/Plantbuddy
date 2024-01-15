@@ -167,7 +167,6 @@ const StyledPlantCharacteristics = styled.ul`
   justify-content: center;
   border-bottom: 2px solid ${({ theme }) => theme.dividerDetails};
   padding: 1rem 0 1rem 0;
-  
 `;
 
 const StyledDescription = styled.article`

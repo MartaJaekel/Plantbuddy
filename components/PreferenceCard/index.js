@@ -41,6 +41,7 @@ export default function PreferenceCard({ preference, onDeletePreference }) {
         <DeletePopup
           onConfirm={handleConfirm}
           onCancel={handleCancel}
+          name="preference"
         />
       )}
     </StyledPreferenceCard>

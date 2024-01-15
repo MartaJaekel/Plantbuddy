@@ -1,41 +1,89 @@
 import styled from "styled-components";
+import { useState } from "react";
+import DeletePopup from "../DeletePopup";
+import Image from "next/image";
+import Link from "next/link";
 
+export default function EntryCard({ entry, onDeleteEntry }) {
+  const [showPopup, setShowPopup] = useState(false);
 
-export default function EntryCard({ entry }) {
+  const confirmDelete = () => {
+    setShowPopup(true);
+  };
+
+  const handleConfirm = () => {
+    onDeleteEntry(entry.id);
+    setShowPopup(false);
+  };
+
+  const handleCancel = () => {
+    setShowPopup(false);
+  };
+
   return (
     <StyledEntryCard>
-      <StyledEntryImage
-        src={entry.url}
-        width={100}
-        height={100}
-        alt="Uploaded"
-      />
-
-      <StyledEntryInfo>
-        {entry.name}
-      </StyledEntryInfo>
+      <StyledLink href={`/journal/${entry.id}`}>
+        <StyledEntryImage
+          src={entry.url}
+          width={100}
+          height={100}
+          alt="Uploaded"
+        />
+        <StyledEntryInfo lang="en">{entry.name}</StyledEntryInfo>
+      </StyledLink>
+      <StyledDeleteButton
+        type="button"
+        aria-label="Delete Preference"
+        onClick={confirmDelete}
+      >
+        <Image
+          src="/assets/x-mark.svg"
+          alt="Delete Icon"
+          width={20}
+          height={20}
+        />
+      </StyledDeleteButton>
+      {showPopup && (
+        <DeletePopup name="entry" onConfirm={handleConfirm} onCancel={handleCancel} />
+      )}
     </StyledEntryCard>
   );
 }
 const StyledEntryCard = styled.figure`
-  display: flex;
-  align-items: center;
-  border: ${({ theme }) => theme.cardBorder};
+  position: relative;
+  border: 2px solid ${({ theme }) => theme.cardBorder};
   border-radius: 8px;
   padding: 16px;
   margin: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  max-width: 300px;
   background-color: ${({ theme }) => theme.primaryGreen};
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  display: flex;
+  align-items: center;
 `;
 
 const StyledEntryImage = styled.img`
   margin-right: 16px;
+  object-fit: cover;
 `;
 
 const StyledEntryInfo = styled.figcaption`
   color: ${({ theme }) => theme.white};
-  text-align: center;
-  justify-content: center;
   margin: 0.25rem;
+  hyphens: auto;
+  max-width: 7rem;
+  overflow-x: hidden;
+`;
+
+const StyledDeleteButton = styled.button`
+  position: absolute;
+  right: 1rem;
+  top: 0;
+  bottom: 0;
+  margin: auto 0;
+  border: 0;
+  background: none;
+  padding: 0;
 `;

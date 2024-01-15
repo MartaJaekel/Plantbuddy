@@ -45,7 +45,7 @@ export default function EntryForm({ onFormSubmit }) {
         />
       </StyledBackButton>
       <main>
-        <StyledTitle>Plant Journal </StyledTitle>
+        <StyledTitle>Plant Journal</StyledTitle>
         <StyledForm onSubmit={handleSubmit} onReset={handleReset}>
           <StyledLabel htmlFor="url">URL</StyledLabel>
           <StyledInput
@@ -63,6 +63,8 @@ export default function EntryForm({ onFormSubmit }) {
             name="name"
             placeholder="Name"
             onChange={(event) => setName(event.target.value)}
+            minLength="3"
+            maxLength="20"
             required
           />
           <StyledLabel htmlFor="description">Description</StyledLabel>
@@ -70,6 +72,8 @@ export default function EntryForm({ onFormSubmit }) {
             type="text"
             id="description"
             name="description"
+            minLength="3"
+            maxLength="300"
             placeholder="Description"
             onChange={(event) => setDescription(event.target.value)}
           />
@@ -78,6 +82,8 @@ export default function EntryForm({ onFormSubmit }) {
             type="text"
             id="care"
             name="care"
+            minLength="3"
+            maxLength="300"
             placeholder="Care Tipps"
             onChange={(event) => setCareTipps(event.target.value)}
           />
@@ -86,6 +92,8 @@ export default function EntryForm({ onFormSubmit }) {
             type="text"
             id="location"
             name="location"
+            minLength="3"
+            maxLength="40"
             placeholder="Location"
             onChange={(event) => setLocation(event.target.value)}
           />
@@ -141,7 +149,7 @@ const StyledInput = styled.input`
 
 const StyledTextarea = styled.textarea`
   background-color: ${({ theme }) => theme.formField};
-  padding: 1rem;
+  padding: 0.6rem 1.5rem;
   border-radius: 8px;
   color: ${({ theme }) => theme.formText};
   border: solid 1px ${({ theme }) => theme.cardBorder};
@@ -149,6 +157,7 @@ const StyledTextarea = styled.textarea`
   cursor: pointer;
   resize: vertical;
   min-height: 100px;
+  font-family: sans-serif;
   &::placeholder {
     color: ${({ theme }) => theme.formTitle};
     font-weight: 600;
@@ -169,6 +178,7 @@ const StyledButton = styled.button`
   cursor: pointer;
   width: 9rem;
 `;
+
 const StyledBackButton = styled.button`
   position: absolute;
   top: 1.75rem;
@@ -183,10 +193,10 @@ const StyledBackButton = styled.button`
   border: none;
   z-index: 2;
 `;
+
 const StyledTitle = styled.h2`
   text-align: center;
-  margin-top: 6rem;
-  margin-bottom: 2rem;
-  font-size: 1.5;
-  color: ${({ theme }) => theme.infoText};
+  margin: 6rem 0 2rem 0;
+  font-size: 1.25rem;
+  color: ${({ theme }) => theme.primaryGreen};
 `;

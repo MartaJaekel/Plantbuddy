@@ -26,22 +26,19 @@ export default function EntryDetail({ entries }) {
       <main>
         <StyledImage
           src={entry.url}
-          width={200}
-          height={200}
+          width={375}
+          height={357}
           alt={entry.name}
         />
-
-       
-          <StyledArticle>
-            <StyledName>{entry.name}</StyledName>
-            <StyledDescription>Description</StyledDescription>
-            <StyledParagraph>{entry.description}</StyledParagraph>
-            <StyledDescription>Care Tips</StyledDescription>
-            <StyledParagraph>{entry.careTipps}</StyledParagraph>
-            <StyledDescription>Location</StyledDescription>
-            <StyledParagraph>{entry.location}</StyledParagraph>
-          </StyledArticle>
-        
+        <StyledArticle>
+          <StyledName lang="en">{entry.name}</StyledName>
+          <StyledDescription>Description</StyledDescription>
+          <StyledParagraph>{entry.description}</StyledParagraph>
+          <StyledDescription>Care Tips</StyledDescription>
+          <StyledParagraph>{entry.careTipps}</StyledParagraph>
+          <StyledDescription>Location</StyledDescription>
+          <StyledParagraph>{entry.location}</StyledParagraph>
+        </StyledArticle>
       </main>
     </>
   );
@@ -60,7 +57,7 @@ const StyledBackButton = styled.button`
 `;
 const StyledImage = styled.img`
   width: 100%;
-  height: 50%;
+  object-fit: cover;
 `;
 const StyledName = styled.h1`
   font-family: serif;
@@ -68,34 +65,24 @@ const StyledName = styled.h1`
   line-height: 2rem;
   color: ${({ theme }) => theme.formText};
   margin: 0;
+  hyphens: auto;
 `;
 
 const StyledArticle = styled.article`
-  display: flex;
-  flex-direction: column; 
-  flex: 1;
-  overflow: hidden;
-  gap: 1rem; 
-  align-items: center; 
-  border-bottom: 2px solid ${({ theme }) => theme.cardBorder};
-  padding: 1rem 0;
-  
+  padding: 1rem 2rem 6rem 2rem;
 `;
 
-
-
-const StyledDescription = styled.h2`
-  font-size: 1.5rem;
+const StyledDescription = styled.h3`
   color: ${({ theme }) => theme.infoText};
-  margin-top: 20px;
+  margin:0;
+  padding: 1.5rem 0 0.5rem 0;
 `;
 
 const StyledParagraph = styled.p`
-  font-size: 1rem;
-  line-height: 1.5;
   color: ${({ theme }) => theme.infoText};
-  margin-top: 10px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  margin: 0;
+  padding-bottom: 1rem;
+  &:not(:last-child)  {
+    border-bottom: 2px solid ${({ theme }) => theme.divider};
+  }
 `;
