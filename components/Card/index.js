@@ -14,6 +14,7 @@ export default function PlantCard({
   const { data: categories, error: categoriesError } =
     useSWR("/api/categories");
   const { data: plants, error: plantsError } = useSWR("/api/plants");
+  const { status } = useSession();
 
   if (plantsError || categoriesError)
     return <div>Error occurred while fetching data</div>;
@@ -24,8 +25,6 @@ export default function PlantCard({
   );
   const categoryColor =
     theme === "light" ? category.bgcolor : category.bgcolorDark;
-
-  const { status } = useSession();
 
   return (
     <StyledListItem>

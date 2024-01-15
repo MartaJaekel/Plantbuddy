@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import styled from "styled-components";
+import Image from "next/image";
 
 export default function EntryDetail({ entries }) {
   const router = useRouter();
@@ -16,7 +17,7 @@ export default function EntryDetail({ entries }) {
   return (
     <>
       <StyledBackButton type="button" aria-label="Go Back" onClick={goBack}>
-        <img
+        <Image
           src="/assets/ArrowIcon.svg"
           alt="Back Link"
           width={25}
@@ -74,7 +75,7 @@ const StyledArticle = styled.article`
 
 const StyledDescription = styled.h3`
   color: ${({ theme }) => theme.infoText};
-  margin:0;
+  margin: 0;
   padding: 1.5rem 0 0.5rem 0;
 `;
 

@@ -24,7 +24,7 @@ export const authOptions = {
             name: "Buddy",
           };
         } else {
-          return <h2>"Wrong Username or Password"</h2>;
+          return null;
         }
       },
     }),
