@@ -6,13 +6,14 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 
 export default function EntryForm({ onFormSubmit, entry }) {
-  const [url, setUrl] = useState(entry ? entry.url : ""); // enrty?.url || ""
+  const [url, setUrl] = useState(entry ? entry.url : ""); 
   const [name, setName] = useState(entry ? entry.name : "");
   const [description, setDescription] = useState(
     entry ? entry.description : ""
   );
   const [careTipps, setCareTipps] = useState(entry ? entry.careTipps : "");
   const [location, setLocation] = useState(entry ? entry.location : "");
+  
 
   const router = useRouter();
   const goBack = () => {
@@ -29,7 +30,7 @@ export default function EntryForm({ onFormSubmit, entry }) {
       location,
     };
 
-        //copies the id from the existing entry to the modified entryObject.
+       
     if (entry && entry.id) {
       entryObject.id = entry.id;
     }
@@ -43,7 +44,6 @@ export default function EntryForm({ onFormSubmit, entry }) {
       router.push("/journal")
     }
   }
-
   
 
   return (
