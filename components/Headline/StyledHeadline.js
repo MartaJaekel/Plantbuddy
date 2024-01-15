@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const StyledHeadline = styled.h1`
   z-index: 2;
   position: fixed;
-  top: 0;
+  top: ${({ status }) => (status === "authenticated" ? "3rem" : "0")};
   background-color: ${({ theme }) => theme.background};
   width: 100%;
   text-align: center;

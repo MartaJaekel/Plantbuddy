@@ -7,7 +7,7 @@ import { lightTheme, darkTheme } from "@/components/Theme";
 import { SWRConfig } from "swr";
 import fetcher from "@/utils/fetcher";
 import useSWR from "swr";
-import { sessionProvider } from "next-auth/react";
+import { SessionProvider } from "next-auth/react";
 
 export default function App({ Component, pageProps }) {
   const [theme, setTheme] = useLocalStorageState("theme", {
@@ -75,7 +75,7 @@ export default function App({ Component, pageProps }) {
 
   return (
     <>
-      <sessionProvider session={pageProps.session}>
+      <SessionProvider session={pageProps.session}>
         <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
           <SWRConfig value={{ fetcher }}>
             <Layout theme={theme}>
@@ -99,7 +99,7 @@ export default function App({ Component, pageProps }) {
             </Layout>
           </SWRConfig>
         </ThemeProvider>
-      </sessionProvider>
+      </SessionProvider>
     </>
   );
 }
