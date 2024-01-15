@@ -2,23 +2,32 @@ import React from "react";
 import Link from "next/link";
 import styled from "styled-components";
 import useSWR from "swr";
-import { StyledHeadline } from "@/components/Headline/StyledHeadline";
+import Headline from "@/components/Headline";
 
-export default function CategoriesOverview({theme}) {
-  const { data: categories, error: categoriesError } = useSWR(`/api/categories`);
+export default function CategoriesOverview({ theme }) {
+  const { data: categories, error: categoriesError } =
+    useSWR(`/api/categories`);
 
   if (categoriesError) return <div>Error occurred while fetching data</div>;
   if (!categories) return <div>Loading...</div>;
 
+
   return (
     <>
-      <StyledHeadline>PlantBuddy</StyledHeadline>
+      <Headline />
       <StyledTitle>Categories</StyledTitle>
       <main>
         <StyledPlantList>
           {categories.map((category) => (
-            <StyledLink key={category._id} href={`/categories/${category.slug}`}>
-              <CategoryCard $bgcolor={theme === "light" ? category.bgcolor : category.bgcolorDark}>
+            <StyledLink
+              key={category._id}
+              href={`/categories/${category.slug}`}
+            >
+              <CategoryCard
+                $bgcolor={
+                  theme === "light" ? category.bgcolor : category.bgcolorDark
+                }
+              >
                 <p>{category.title}</p>
               </CategoryCard>
             </StyledLink>
@@ -28,7 +37,6 @@ export default function CategoriesOverview({theme}) {
     </>
   );
 }
-
 
 const StyledTitle = styled.h2`
   text-align: center;

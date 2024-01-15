@@ -1,9 +1,8 @@
 import React from "react";
 import Link from "next/link";
-import { StyledHeadline } from "@/components/Headline/StyledHeadline";
+import Headline from "@/components/Headline";
 import styled from "styled-components";
 import { useRouter } from "next/router";
-import Image from "next/image";
 import EntryCard from "@/components/JournalEntryCard";
 
 export default function JournalOverviewPage({ entries, handleDeleteEntry }) {
@@ -14,7 +13,7 @@ export default function JournalOverviewPage({ entries, handleDeleteEntry }) {
 
   return (
     <>
-      <StyledHeadline>PlantBuddy</StyledHeadline>
+      <Headline />
       <main>
         <StyledTitle>Plant Journal</StyledTitle>
         <StyledLink href="/journal/entry">
@@ -24,7 +23,7 @@ export default function JournalOverviewPage({ entries, handleDeleteEntry }) {
           {entries.length > 0 ? (
             entries.map((entry) => (
               <StyledEntries key={entry.id}>
-                  <EntryCard entry={entry} onDeleteEntry={handleDeleteEntry} />
+                <EntryCard entry={entry} onDeleteEntry={handleDeleteEntry} />
               </StyledEntries>
             ))
           ) : (

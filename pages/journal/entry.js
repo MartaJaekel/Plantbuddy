@@ -1,11 +1,13 @@
 import React from "react";
 import { useState } from "react";
 import styled from "styled-components";
-import { StyledHeadline } from "@/components/Headline/StyledHeadline";
+import Headline from "@/components/Headline";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import { useSession } from "next-auth/react";
 
 export default function EntryForm({ onFormSubmit }) {
+  const { status } = useSession();
   const [url, setUrl] = useState("");
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -35,8 +37,13 @@ export default function EntryForm({ onFormSubmit }) {
 
   return (
     <>
-      <StyledHeadline>PlantBuddy</StyledHeadline>
-      <StyledBackButton type="button" aria-label="Go Back" onClick={goBack}>
+      <Headline />
+      <StyledBackButton
+        type="button"
+        aria-label="Go Back"
+        onClick={goBack}
+        status={status}
+      >
         <Image
           src="/assets/ArrowIcon.svg"
           alt="Back Link"
@@ -181,7 +188,7 @@ const StyledButton = styled.button`
 
 const StyledBackButton = styled.button`
   position: absolute;
-  top: 1.75rem;
+  top: ${({ status }) => (status === "authenticated" ? "4.75rem" : "1.75rem")};
   left: 1rem;
   font-size: 2rem;
   background-color: ${({ theme }) => theme.primaryGreen};

@@ -1,7 +1,7 @@
 import React from "react";
 import PlantCard from "@/components/Card";
 import styled from "styled-components";
-import { StyledHeadline } from "@/components/Headline/StyledHeadline";
+import Headline from "@/components/Headline";
 import Login from "@/components/Login";
 import { useSession } from "next-auth/react";
 import Logout from "@/components/Logout";
@@ -19,16 +19,7 @@ export default function FavoritePage({
 
   return (
     <>
-      {status === "authenticated" ? (
-        <>
-          <Logout />
-          <StyledHeadline>PlantBuddy</StyledHeadline>
-        </>
-      ) : (
-        <>
-          <StyledHeadline>PlantBuddy</StyledHeadline>
-        </>
-      )}
+      <Headline />
       <main>
         <StyledTitle>Your Favorite Plants</StyledTitle>
         {status !== "authenticated" ? (
