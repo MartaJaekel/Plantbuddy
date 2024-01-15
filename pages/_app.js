@@ -6,7 +6,8 @@ import { ThemeProvider } from "styled-components";
 import { lightTheme, darkTheme } from "@/components/Theme";
 import { SWRConfig } from "swr";
 import fetcher from "@/utils/fetcher";
-import useSWR from 'swr';
+import useSWR from "swr";
+import { sessionProvider } from "next-auth/react";
 
 export default function App({ Component, pageProps }) {
   const [theme, setTheme] = useLocalStorageState("theme", {
@@ -27,7 +28,7 @@ export default function App({ Component, pageProps }) {
 
   const [entries, setEntries] = useLocalStorageState("entries", {
     defaultValue: [],
-  })
+  });
 
   function handleToggleFavorite(plantId) {
     if (favorites.includes(plantId)) {
@@ -53,47 +54,52 @@ export default function App({ Component, pageProps }) {
     setPreferences(preferences.filter((preference) => preference.id !== id));
   }
 
-function handleDeleteEntry(id) {
-  setEntries(entries.filter((entry) => entry.id !== id));
-}
+  function handleDeleteEntry(id) {
+    setEntries(entries.filter((entry) => entry.id !== id));
+  }
 
-  const { data: plants, error: plantsError } = useSWR('/api/plants', fetcher);
-  const { data: categories, error: categoriesError } = useSWR('/api/categories', fetcher);
+  const { data: plants, error: plantsError } = useSWR("/api/plants", fetcher);
+  const { data: categories, error: categoriesError } = useSWR(
+    "/api/categories",
+    fetcher
+  );
 
-  if (plantsError || categoriesError) return <div>Error occurred while fetching data</div>;
+  if (plantsError || categoriesError)
+    return <div>Error occurred while fetching data</div>;
   if (!plants || !categories) return <div>Loading...</div>;
 
   function handleFormSubmit(data) {
     const newEntry = { id: uid(), ...data };
     setEntries((prevFormEntry) => [...prevFormEntry, newEntry]);
-
   }
 
   return (
     <>
-      <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
-        <SWRConfig value={{ fetcher }}>
-          <Layout theme={theme}>
-            <GlobalStyle />
-            <Component
-              {...pageProps}
-              onToggleFavorite={handleToggleFavorite}
-              favorites={favorites}
-              plants={plants}
-              categories={categories}
-              preferences={preferences}
-              handleAddPreference={handleAddPreference}
-              handleDeletePreference={handleDeletePreference}
-              onEditPreference={handleEditPreference}
-              theme={theme}
-              toggleTheme={toggleTheme}
-              onFormSubmit={handleFormSubmit}
-              entries={entries}
-              handleDeleteEntry={handleDeleteEntry}
-            />
-          </Layout>
-        </SWRConfig>
-      </ThemeProvider>
+      <sessionProvider session={pageProps.session}>
+        <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
+          <SWRConfig value={{ fetcher }}>
+            <Layout theme={theme}>
+              <GlobalStyle />
+              <Component
+                {...pageProps}
+                onToggleFavorite={handleToggleFavorite}
+                favorites={favorites}
+                plants={plants}
+                categories={categories}
+                preferences={preferences}
+                handleAddPreference={handleAddPreference}
+                handleDeletePreference={handleDeletePreference}
+                onEditPreference={handleEditPreference}
+                theme={theme}
+                toggleTheme={toggleTheme}
+                onFormSubmit={handleFormSubmit}
+                entries={entries}
+                handleDeleteEntry={handleDeleteEntry}
+              />
+            </Layout>
+          </SWRConfig>
+        </ThemeProvider>
+      </sessionProvider>
     </>
   );
 }
