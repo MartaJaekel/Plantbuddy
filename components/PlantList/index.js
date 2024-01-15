@@ -27,22 +27,22 @@ export default function PlantList({
     <StyledPlantList>
       {search.length === 0
         ? sortedPlants.map((plant) => (
-            <PlantCard
-              key={plant._id}
-              plant={plant}
-              onToggleFavorite={onToggleFavorite}
-              isFavorite={favorites?.includes(plant._id)}
-              theme={theme}
-            />
-          ))
+          <PlantCard
+            key={plant._id}
+            plant={plant}
+            onToggleFavorite={onToggleFavorite}
+            isFavorite={favorites?.includes(plant._id)}
+            theme={theme}
+          />
+        ))
         : searchResult.map((plant) => (
-            <PlantCard
-              key={plant._id}
-              plant={plant}
-              onToggleFavorite={onToggleFavorite}
-              isFavorite={favorites?.includes(plant._id)}
-            />
-          ))}
+          <PlantCard
+            key={plant._id}
+            plant={plant}
+            onToggleFavorite={onToggleFavorite}
+            isFavorite={favorites?.includes(plant._id)}
+          />
+        ))}
     </StyledPlantList>
   );
 }
@@ -52,6 +52,12 @@ const StyledPlantList = styled.ul`
   flex-wrap: wrap;
   justify-content: center;
   gap: 1rem;
+  max-width: 41rem;
+  margin: 0 auto;
+
+  @media (min-width: 1024px) {
+    max-width: 71rem;
+  }
 `;
 
 const ErrorMessageContainer = styled.div`
