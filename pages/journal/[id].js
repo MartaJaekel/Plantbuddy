@@ -14,7 +14,7 @@ export default function EntryDetail({ entries }) {
   }
 
   return (
-    <>
+    <StyledMain>
       <StyledBackButton type="button" aria-label="Go Back" onClick={goBack}>
         <img
           src="/assets/ArrowIcon.svg"
@@ -23,7 +23,6 @@ export default function EntryDetail({ entries }) {
           height={20}
         />
       </StyledBackButton>
-      <main>
         <StyledImage
           src={entry.url}
           width={375}
@@ -39,10 +38,19 @@ export default function EntryDetail({ entries }) {
           <StyledDescription>Location</StyledDescription>
           <StyledParagraph>{entry.location}</StyledParagraph>
         </StyledArticle>
-      </main>
-    </>
+    </StyledMain>
   );
 }
+
+const StyledMain = styled.main`
+  position: relative;
+  
+  @media (min-width: 1024px) {
+    display: flex;
+    max-width: 90rem;
+    margin: 0 auto;
+  }
+`;
 const StyledBackButton = styled.button`
   position: absolute;
   top: 1.75rem;
@@ -57,7 +65,14 @@ const StyledBackButton = styled.button`
 `;
 const StyledImage = styled.img`
   width: 100%;
+  height: auto;
+  display: block;
   object-fit: cover;
+  
+  @media (min-width: 1024px) {
+    width: 60%;
+    height: 51.6rem;
+  }
 `;
 const StyledName = styled.h1`
   font-family: serif;
