@@ -60,7 +60,7 @@ const StyledPlantList = styled.ul`
   margin: 0 auto;
 
   @media (min-width: 1024px) {
-    max-width: 71rem;
+    max-width: 61rem;
   }
 `;
 
