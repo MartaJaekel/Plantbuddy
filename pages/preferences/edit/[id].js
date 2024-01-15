@@ -2,6 +2,8 @@ import FilterForm from "@/components/FilterForm";
 import Headline from "@/components/Headline";
 import styled from "styled-components";
 import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
+import Login from "@/components/Login";
 
 export default function EditPreferencePage({
   preferences,
@@ -10,6 +12,7 @@ export default function EditPreferencePage({
 }) {
   const router = useRouter();
   const { id } = router.query;
+  const { status } = useSession();
 
   const thisPreference = preferences?.find(
     (preference) => preference.id === id
@@ -24,13 +27,17 @@ export default function EditPreferencePage({
       <Headline />
       <main>
         <StyledTitle>Edit your Preference</StyledTitle>
-        <FilterForm
-          plants={plants}
-          preferenceFilterSettings={thisPreference?.filterSettings}
-          preferenceId={thisPreference.id}
-          preferenceFilterTitle={thisPreference?.preferenceTitle}
-          onEditPreference={onEditPreference}
-        />
+        {status !== "authenticated" ? (
+          <Login />
+        ) : (
+          <FilterForm
+            plants={plants}
+            preferenceFilterSettings={thisPreference?.filterSettings}
+            preferenceId={thisPreference.id}
+            preferenceFilterTitle={thisPreference?.preferenceTitle}
+            onEditPreference={onEditPreference}
+          />
+        )}
       </main>
     </>
   );

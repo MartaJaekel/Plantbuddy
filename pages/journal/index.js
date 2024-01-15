@@ -4,36 +4,45 @@ import Headline from "@/components/Headline";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 import EntryCard from "@/components/JournalEntryCard";
+import { useSession } from "next-auth/react";
+import Login from "@/components/Login";
 
 export default function JournalOverviewPage({ entries, handleDeleteEntry }) {
   const router = useRouter();
-  const goBack = () => {
-    router.back();
-  };
+  const { status } = useSession();
 
   return (
     <>
       <Headline />
       <main>
         <StyledTitle>Plant Journal</StyledTitle>
-        <StyledLink href="/journal/entry">
-          <StyledButton>Create a new Entry</StyledButton>
-        </StyledLink>
-        <StyledEntriesContainer>
-          {entries.length > 0 ? (
-            entries.map((entry) => (
-              <StyledEntries key={entry.id}>
-                <EntryCard entry={entry} onDeleteEntry={handleDeleteEntry} />
-              </StyledEntries>
-            ))
-          ) : (
-            <StyledParagraph>
-              You don&apos;t have any entries yet
-              <br />
-              start with your first entry.
-            </StyledParagraph>
-          )}
-        </StyledEntriesContainer>
+        {status !== "authenticated" ? (
+          <Login />
+        ) : (
+          <>
+            <StyledLink href="/journal/entry">
+              <StyledButton>Create a new Entry</StyledButton>
+            </StyledLink>
+            <StyledEntriesContainer>
+              {entries.length > 0 ? (
+                entries.map((entry) => (
+                  <StyledEntries key={entry.id}>
+                    <EntryCard
+                      entry={entry}
+                      onDeleteEntry={handleDeleteEntry}
+                    />
+                  </StyledEntries>
+                ))
+              ) : (
+                <StyledParagraph>
+                  You don&apos;t have any entries yet
+                  <br />
+                  start with your first entry.
+                </StyledParagraph>
+              )}
+            </StyledEntriesContainer>
+          </>
+        )}
       </main>
     </>
   );

@@ -51,66 +51,68 @@ export default function EntryForm({ onFormSubmit }) {
           height={20}
         />
       </StyledBackButton>
-      <main>
-        <StyledTitle>Plant Journal</StyledTitle>
-        <StyledForm onSubmit={handleSubmit} onReset={handleReset}>
-          <StyledLabel htmlFor="url">URL</StyledLabel>
-          <StyledInput
-            type="url"
-            id="url"
-            name="url"
-            placeholder="Image Upload URL"
-            onChange={(event) => setUrl(event.target.value)}
-            required
-          />
-          <StyledLabel htmlFor="name">Name</StyledLabel>
-          <StyledInput
-            type="text"
-            id="name"
-            name="name"
-            placeholder="Name"
-            onChange={(event) => setName(event.target.value)}
-            minLength="3"
-            maxLength="20"
-            required
-          />
-          <StyledLabel htmlFor="description">Description</StyledLabel>
-          <StyledTextarea
-            type="text"
-            id="description"
-            name="description"
-            minLength="3"
-            maxLength="300"
-            placeholder="Description"
-            onChange={(event) => setDescription(event.target.value)}
-          />
-          <StyledLabel htmlFor="care">Care</StyledLabel>
-          <StyledTextarea
-            type="text"
-            id="care"
-            name="care"
-            minLength="3"
-            maxLength="300"
-            placeholder="Care Tipps"
-            onChange={(event) => setCareTipps(event.target.value)}
-          />
-          <StyledLabel htmlFor="location">Location</StyledLabel>
-          <StyledInput
-            type="text"
-            id="location"
-            name="location"
-            minLength="3"
-            maxLength="40"
-            placeholder="Location"
-            onChange={(event) => setLocation(event.target.value)}
-          />
+      {status === "authenticated" && (
+        <main>
+          <StyledTitle>Plant Journal</StyledTitle>
+          <StyledForm onSubmit={handleSubmit} onReset={handleReset}>
+            <StyledLabel htmlFor="url">URL</StyledLabel>
+            <StyledInput
+              type="url"
+              id="url"
+              name="url"
+              placeholder="Image Upload URL"
+              onChange={(event) => setUrl(event.target.value)}
+              required
+            />
+            <StyledLabel htmlFor="name">Name</StyledLabel>
+            <StyledInput
+              type="text"
+              id="name"
+              name="name"
+              placeholder="Name"
+              onChange={(event) => setName(event.target.value)}
+              minLength="3"
+              maxLength="20"
+              required
+            />
+            <StyledLabel htmlFor="description">Description</StyledLabel>
+            <StyledTextarea
+              type="text"
+              id="description"
+              name="description"
+              minLength="3"
+              maxLength="300"
+              placeholder="Description"
+              onChange={(event) => setDescription(event.target.value)}
+            />
+            <StyledLabel htmlFor="care">Care</StyledLabel>
+            <StyledTextarea
+              type="text"
+              id="care"
+              name="care"
+              minLength="3"
+              maxLength="300"
+              placeholder="Care Tipps"
+              onChange={(event) => setCareTipps(event.target.value)}
+            />
+            <StyledLabel htmlFor="location">Location</StyledLabel>
+            <StyledInput
+              type="text"
+              id="location"
+              name="location"
+              minLength="3"
+              maxLength="40"
+              placeholder="Location"
+              onChange={(event) => setLocation(event.target.value)}
+            />
 
-          <StyledButtonContainer>
-            <StyledButton type="reset">Cancel</StyledButton>
-            <StyledButton type="submit">Save</StyledButton>
-          </StyledButtonContainer>
-        </StyledForm>
-      </main>
+            <StyledButtonContainer>
+              <StyledButton type="reset">Cancel</StyledButton>
+              <StyledButton type="submit">Save</StyledButton>
+            </StyledButtonContainer>
+          </StyledForm>
+        </main>
+      )}
     </>
   );
 }

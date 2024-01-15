@@ -1,8 +1,10 @@
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import Image from "next/image";
+import { useSession } from "next-auth/react";
 
 export default function EntryDetail({ entries }) {
+  const { status } = useSession();
   const router = useRouter();
   const { id } = router.query;
 
@@ -16,34 +18,39 @@ export default function EntryDetail({ entries }) {
 
   return (
     <>
-      <StyledBackButton type="button" aria-label="Go Back" onClick={goBack}>
-        <Image
-          src="/assets/ArrowIcon.svg"
-          alt="Back Link"
-          width={25}
-          height={20}
-        />
-      </StyledBackButton>
-      <main>
-        <StyledImage
-          src={entry.url}
-          width={375}
-          height={357}
-          alt={entry.name}
-        />
-        <StyledArticle>
-          <StyledName lang="en">{entry.name}</StyledName>
-          <StyledDescription>Description</StyledDescription>
-          <StyledParagraph>{entry.description}</StyledParagraph>
-          <StyledDescription>Care Tips</StyledDescription>
-          <StyledParagraph>{entry.careTipps}</StyledParagraph>
-          <StyledDescription>Location</StyledDescription>
-          <StyledParagraph>{entry.location}</StyledParagraph>
-        </StyledArticle>
-      </main>
+      {status === "authenticated" && (
+        <>
+          <StyledBackButton type="button" aria-label="Go Back" onClick={goBack}>
+            <Image
+              src="/assets/ArrowIcon.svg"
+              alt="Back Link"
+              width={25}
+              height={20}
+            />
+          </StyledBackButton>
+          <main>
+            <StyledImage
+              src={entry.url}
+              width={375}
+              height={357}
+              alt={entry.name}
+            />
+            <StyledArticle>
+              <StyledName lang="en">{entry.name}</StyledName>
+              <StyledDescription>Description</StyledDescription>
+              <StyledParagraph>{entry.description}</StyledParagraph>
+              <StyledDescription>Care Tips</StyledDescription>
+              <StyledParagraph>{entry.careTipps}</StyledParagraph>
+              <StyledDescription>Location</StyledDescription>
+              <StyledParagraph>{entry.location}</StyledParagraph>
+            </StyledArticle>
+          </main>
+        </>
+      )}
     </>
   );
 }
+
 const StyledBackButton = styled.button`
   position: absolute;
   top: 1.75rem;

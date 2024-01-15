@@ -4,7 +4,6 @@ import styled from "styled-components";
 import Headline from "@/components/Headline";
 import Login from "@/components/Login";
 import { useSession } from "next-auth/react";
-import Logout from "@/components/Logout";
 
 export default function FavoritePage({
   plants,

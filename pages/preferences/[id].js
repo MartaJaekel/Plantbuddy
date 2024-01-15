@@ -15,7 +15,7 @@ export default function Preference({
   const router = useRouter();
   const { id } = router.query;
   const { status } = useSession();
- 
+
   const goBack = () => {
     router.back();
   };
@@ -40,34 +40,43 @@ export default function Preference({
   return (
     <>
       <Headline />
-      <main />
-      <StyledBackButton type="button" aria-label="Go Back" onClick={goBack} status={status}>
-        <Image
-          src="/assets/ArrowIcon.svg"
-          alt="Back Link"
-          width={25}
-          height={20}
-        />
-      </StyledBackButton>
-      <StyledTitle>{preference?.preferenceTitle}</StyledTitle>
-      <StyledCounterMessage>{counterMessage}</StyledCounterMessage>
-      {preferencePlants.length === 0 ? (
-        <StyledCallText>
-          Sorry, unfortunately <StyledSpan>none</StyledSpan> of the plants
-          matched your preferences
-        </StyledCallText>
-      ) : (
-        <StyledPlantList>
-          {preferencePlants.map((plant) => (
-            <PlantCard
-              key={plant._id}
-              plant={plant}
-              onToggleFavorite={onToggleFavorite}
-              isFavorite={favorites?.includes(plant._id)}
-              theme={theme}
+      {status === "authenticated" && (
+        <>
+          <main />
+          <StyledBackButton
+            type="button"
+            aria-label="Go Back"
+            onClick={goBack}
+            status={status}
+          >
+            <Image
+              src="/assets/ArrowIcon.svg"
+              alt="Back Link"
+              width={25}
+              height={20}
             />
-          ))}
-        </StyledPlantList>
+          </StyledBackButton>
+          <StyledTitle>{preference?.preferenceTitle}</StyledTitle>
+          <StyledCounterMessage>{counterMessage}</StyledCounterMessage>
+          {preferencePlants.length === 0 ? (
+            <StyledCallText>
+              Sorry, unfortunately <StyledSpan>none</StyledSpan> of the plants
+              matched your preferences
+            </StyledCallText>
+          ) : (
+            <StyledPlantList>
+              {preferencePlants.map((plant) => (
+                <PlantCard
+                  key={plant._id}
+                  plant={plant}
+                  onToggleFavorite={onToggleFavorite}
+                  isFavorite={favorites?.includes(plant._id)}
+                  theme={theme}
+                />
+              ))}
+            </StyledPlantList>
+          )}
+        </>
       )}
     </>
   );
