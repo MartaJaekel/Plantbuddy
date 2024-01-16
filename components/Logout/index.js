@@ -3,7 +3,6 @@ import styled from "styled-components";
 
 export default function Logout() {
   const { data: session } = useSession();
-  console.log(session);
 
   const fullName = session.user.name;
   const firstName = fullName.split(" ")[0];

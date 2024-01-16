@@ -5,18 +5,16 @@ import Logout from "../Logout";
 export default function Headline() {
   const { status } = useSession();
 
-  return (
-    <>
-      {status === "authenticated" ? (
-        <>
-          <Logout />
-          <StyledHeadlineLogout>PlantBuddy</StyledHeadlineLogout>
-        </>
-      ) : (
-        <StyledHeadlineLogin>PlantBuddy</StyledHeadlineLogin>
-      )}
-    </>
-  );
+  if (status === "authenticated") {
+    return (
+      <>
+        <Logout />
+        <StyledHeadlineLogout>PlantBuddy</StyledHeadlineLogout>
+      </>
+    );
+  }
+
+  return <StyledHeadlineLogin>PlantBuddy</StyledHeadlineLogin>;
 }
 
 const StyledHeadlineLogout = styled.h1`

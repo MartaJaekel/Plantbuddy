@@ -53,7 +53,7 @@ export default function EntryForm({ onFormSubmit }) {
       </StyledBackButton>
       {status === "authenticated" && (
         <main>
-          <StyledTitle status={status}>Plant Journal</StyledTitle>
+          <StyledTitle>Plant Journal</StyledTitle>
           <StyledForm onSubmit={handleSubmit} onReset={handleReset}>
             <StyledLabel htmlFor="url">URL</StyledLabel>
             <StyledInput
@@ -205,7 +205,6 @@ const StyledBackButton = styled.button`
 
 const StyledTitle = styled.h2`
   text-align: center;
-  margin-top: ${({ status }) => (status === "authenticated" ? "9rem" : "6rem")};
   font-size: 1.25rem;
   color: ${({ theme }) => theme.primaryGreen};
 `;

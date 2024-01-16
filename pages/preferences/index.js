@@ -17,7 +17,7 @@ export default function PreferencesPage({
     <>
       <Headline />
       <main>
-        <StyledTitle status={status}>Add your Plant Preferences</StyledTitle>
+        <StyledTitle>Add your Plant Preferences</StyledTitle>
         {status !== "authenticated" ? (
           <Login />
         ) : (
@@ -38,5 +38,4 @@ const StyledTitle = styled.h2`
   text-align: center;
   font-size: 1.25rem;
   color: ${({ theme }) => theme.primaryGreen};
-  margin-top: ${({ status }) => (status === "authenticated" ? "9rem" : "6rem")};
 `;

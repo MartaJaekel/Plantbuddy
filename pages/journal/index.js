@@ -15,7 +15,7 @@ export default function JournalOverviewPage({ entries, handleDeleteEntry }) {
     <>
       <Headline />
       <main>
-        <StyledTitle status={status}>Plant Journal</StyledTitle>
+        <StyledTitle>Plant Journal</StyledTitle>
         {status !== "authenticated" ? (
           <Login />
         ) : (
@@ -52,7 +52,6 @@ export default function JournalOverviewPage({ entries, handleDeleteEntry }) {
 
 const StyledTitle = styled.h2`
   text-align: center;
-  margin-top: ${({ status }) => (status === "authenticated" ? "9rem" : "6rem")};
   font-size: 1.25rem;
   color: ${({ theme }) => theme.primaryGreen};
 `;

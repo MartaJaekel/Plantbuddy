@@ -31,19 +31,17 @@ export default function FavoritePage({
             </p>
           </StyledArticle>
         ) : (
-          <>
-            <StyledPlantList>
-              {favoritePlants.map((plant) => (
-                <PlantCard
-                  plant={plant}
-                  key={plant._id}
-                  isFavorite={favorites.includes(plant._id)}
-                  onToggleFavorite={onToggleFavorite}
-                  theme={theme}
-                />
-              ))}
-            </StyledPlantList>
-          </>
+          <StyledPlantList>
+            {favoritePlants.map((plant) => (
+              <PlantCard
+                plant={plant}
+                key={plant._id}
+                isFavorite={favorites.includes(plant._id)}
+                onToggleFavorite={onToggleFavorite}
+                theme={theme}
+              />
+            ))}
+          </StyledPlantList>
         )}
       </main>
     </>
@@ -52,7 +50,6 @@ export default function FavoritePage({
 
 const StyledTitle = styled.h2`
   text-align: center;
-  margin-top: ${({ status }) => (status === "authenticated" ? "9rem" : "6rem")};
   font-size: 1.25rem;
   color: ${({ theme }) => theme.primaryGreen};
 `;

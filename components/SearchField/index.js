@@ -1,11 +1,9 @@
 import styled from "styled-components";
 import { useState } from "react";
 import Image from "next/image";
-import { useSession } from "next-auth/react";
 
 export default function SearchField({ onChange }) {
   const [icon, setIcon] = useState("search");
-  const { status } = useSession();
 
   function handleOnChange(event) {
     const searchValue = event.target.value;
@@ -26,7 +24,7 @@ export default function SearchField({ onChange }) {
   }
 
   return (
-    <InputWrapper status={status}>
+    <InputWrapper>
         <StyledImage
           $icon={icon}
           onClick={clearInput}
@@ -71,8 +69,7 @@ const InputWrapper = styled.div`
   flex-flow: column;
   padding: 0 1rem;
   max-width: 21rem;
- // margin: 6rem auto 0 auto;
-  margin: ${({ status }) => (status === "authenticated" ? "9rem auto 0 auto;" : "6rem auto 0 auto;")}
+  margin: auto;
 `;
 
 const SearchFieldInput = styled.input`

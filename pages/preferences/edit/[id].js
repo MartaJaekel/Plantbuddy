@@ -26,7 +26,7 @@ export default function EditPreferencePage({
     <>
       <Headline />
       <main>
-        <StyledTitle status={status}>Edit your Preference</StyledTitle>
+        <StyledTitle>Edit your Preference</StyledTitle>
         {status !== "authenticated" ? (
           <Login />
         ) : (
@@ -45,7 +45,6 @@ export default function EditPreferencePage({
 
 const StyledTitle = styled.h2`
   text-align: center;
-  margin-top: ${({ status }) => (status === "authenticated" ? "9rem" : "6rem")};
   font-size: 1.25rem;
   color: ${({ theme }) => theme.primaryGreen};
 `;

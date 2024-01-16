@@ -10,25 +10,12 @@ export default function Login() {
   );
 }
 
-
-// export default function Login() {  
-//   const isPreview = process.env.VERCEL_ENV === 'preview';
-
-//   return (
-//     <>
-//       <StyledText>To use this function you must be logged in</StyledText>
-//       <StyledButton onClick={() => {signIn(isPreview ? "credentials" : "github")}}>Sign in</StyledButton>
-//     </>
-//   );
-// }
-
 const StyledText = styled.p`
   text-align: center;
   line-height: 1;
   padding: 1rem;
   color: ${({ theme }) => theme.primaryGreen};
 `;
-
 
 const StyledButton = styled.button`
   color: ${({ theme }) => theme.white};
