@@ -24,7 +24,7 @@ const StyledButton = styled.button`
   top: 0.5rem;
   right: 0.5rem;
   border-radius: 50%; 
-  padding: 0.1rem; 
+  padding: 0.2rem; 
   background-color: rgba(255, 255, 255, 0.2);
 `;
 
