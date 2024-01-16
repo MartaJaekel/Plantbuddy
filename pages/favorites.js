@@ -20,7 +20,7 @@ export default function FavoritePage({
     <>
       <Headline />
       <main>
-        <StyledTitle>Your Favorite Plants</StyledTitle>
+        <StyledTitle status={status}>Your Favorite Plants</StyledTitle>
         {status !== "authenticated" ? (
           <Login />
         ) : favoritePlants.length === 0 ? (
@@ -52,7 +52,7 @@ export default function FavoritePage({
 
 const StyledTitle = styled.h2`
   text-align: center;
-  margin-top: 6rem;
+  margin-top: ${({ status }) => (status === "authenticated" ? "9rem" : "6rem")};
   font-size: 1.25rem;
   color: ${({ theme }) => theme.primaryGreen};
 `;

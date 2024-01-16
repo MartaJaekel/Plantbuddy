@@ -56,7 +56,7 @@ export default function Preference({
               height={20}
             />
           </StyledBackButton>
-          <StyledTitle>{preference?.preferenceTitle}</StyledTitle>
+          <StyledTitle status={status}>{preference?.preferenceTitle}</StyledTitle>
           <StyledCounterMessage>{counterMessage}</StyledCounterMessage>
           {preferencePlants.length === 0 ? (
             <StyledCallText>
@@ -98,6 +98,7 @@ const StyledTitle = styled.h2`
   color: ${({ theme }) => theme.primaryGreen};
   word-wrap: break-word;
   padding: 0 2rem 0 2rem;
+  margin-top: ${({ status }) => (status === "authenticated" ? "9rem" : "6rem")};
 `;
 
 const StyledCounterMessage = styled.p`

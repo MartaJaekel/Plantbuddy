@@ -3,8 +3,10 @@ import Link from "next/link";
 import styled from "styled-components";
 import useSWR from "swr";
 import Headline from "@/components/Headline";
+import { useSession } from "next-auth/react";
 
 export default function CategoriesOverview({ theme }) {
+  const { status } = useSession();
   const { data: categories, error: categoriesError } =
     useSWR(`/api/categories`);
 
@@ -15,7 +17,7 @@ export default function CategoriesOverview({ theme }) {
   return (
     <>
       <Headline />
-      <StyledTitle>Categories</StyledTitle>
+      <StyledTitle status={status}>Categories</StyledTitle>
       <main>
         <StyledPlantList>
           {categories.map((category) => (
@@ -40,7 +42,7 @@ export default function CategoriesOverview({ theme }) {
 
 const StyledTitle = styled.h2`
   text-align: center;
-  margin-top: 6rem;
+  margin-top: ${({ status }) => (status === "authenticated" ? "9rem" : "6rem")};
   font-size: 1.25rem;
   color: ${({ theme }) => theme.primaryGreen};
 `;

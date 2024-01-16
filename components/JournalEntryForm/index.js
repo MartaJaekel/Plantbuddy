@@ -6,13 +6,15 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 
-export default function EntryForm({ onFormSubmit }) {
+export default function EntryForm({ onFormSubmit, entry }) {
+  const [url, setUrl] = useState(entry ? entry.url : "");
+  const [name, setName] = useState(entry ? entry.name : "");
+  const [description, setDescription] = useState(
+    entry ? entry.description : ""
+  );
+  const [careTipps, setCareTipps] = useState(entry ? entry.careTipps : "");
+  const [location, setLocation] = useState(entry ? entry.location : "");
   const { status } = useSession();
-  const [url, setUrl] = useState("");
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [careTipps, setCareTipps] = useState("");
-  const [location, setLocation] = useState("");
 
   const router = useRouter();
   const goBack = () => {
@@ -21,18 +23,26 @@ export default function EntryForm({ onFormSubmit }) {
 
   function handleSubmit(event) {
     event.preventDefault();
-    const entry = {
+    const entryObject = {
       url,
       name,
       description,
       careTipps,
       location,
     };
-    onFormSubmit(entry);
+
+    if (entry && entry.id) {
+      entryObject.id = entry.id;
+    }
+    onFormSubmit(entryObject);
     router.push("/journal");
   }
   function handleReset(event) {
     event.target.reset();
+
+    if (entry && entry.id) {
+      router.push("/journal");
+    }
   }
 
   return (
@@ -51,15 +61,15 @@ export default function EntryForm({ onFormSubmit }) {
           height={20}
         />
       </StyledBackButton>
-      {status === "authenticated" && (
-        <main>
-          <StyledTitle status={status}>Plant Journal</StyledTitle>
+      <main>
+        {status === "authenticated" && (
           <StyledForm onSubmit={handleSubmit} onReset={handleReset}>
             <StyledLabel htmlFor="url">URL</StyledLabel>
             <StyledInput
               type="url"
               id="url"
               name="url"
+              value={url}
               placeholder="Image Upload URL"
               onChange={(event) => setUrl(event.target.value)}
               required
@@ -70,9 +80,8 @@ export default function EntryForm({ onFormSubmit }) {
               id="name"
               name="name"
               placeholder="Name"
+              value={name}
               onChange={(event) => setName(event.target.value)}
-              minLength="3"
-              maxLength="20"
               required
             />
             <StyledLabel htmlFor="description">Description</StyledLabel>
@@ -80,9 +89,8 @@ export default function EntryForm({ onFormSubmit }) {
               type="text"
               id="description"
               name="description"
-              minLength="3"
-              maxLength="300"
               placeholder="Description"
+              value={description}
               onChange={(event) => setDescription(event.target.value)}
             />
             <StyledLabel htmlFor="care">Care</StyledLabel>
@@ -90,9 +98,8 @@ export default function EntryForm({ onFormSubmit }) {
               type="text"
               id="care"
               name="care"
-              minLength="3"
-              maxLength="300"
               placeholder="Care Tipps"
+              value={careTipps}
               onChange={(event) => setCareTipps(event.target.value)}
             />
             <StyledLabel htmlFor="location">Location</StyledLabel>
@@ -100,9 +107,8 @@ export default function EntryForm({ onFormSubmit }) {
               type="text"
               id="location"
               name="location"
-              minLength="3"
-              maxLength="40"
               placeholder="Location"
+              value={location}
               onChange={(event) => setLocation(event.target.value)}
             />
 
@@ -111,8 +117,8 @@ export default function EntryForm({ onFormSubmit }) {
               <StyledButton type="submit">Save</StyledButton>
             </StyledButtonContainer>
           </StyledForm>
-        </main>
-      )}
+        )}
+      </main>
     </>
   );
 }
@@ -187,7 +193,6 @@ const StyledButton = styled.button`
   cursor: pointer;
   width: 9rem;
 `;
-
 const StyledBackButton = styled.button`
   position: fixed;
   top: ${({ status }) => (status === "authenticated" ? "4.75rem" : "1.75rem")};
@@ -201,11 +206,4 @@ const StyledBackButton = styled.button`
   align-items: center;
   border: none;
   z-index: 2;
-`;
-
-const StyledTitle = styled.h2`
-  text-align: center;
-  margin-top: ${({ status }) => (status === "authenticated" ? "9rem" : "6rem")};
-  font-size: 1.25rem;
-  color: ${({ theme }) => theme.primaryGreen};
 `;
