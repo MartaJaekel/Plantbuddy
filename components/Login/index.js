@@ -1,11 +1,23 @@
 import { signIn } from "next-auth/react";
 import styled from "styled-components";
 
+// export default function Login() {  
+//   return (
+//     <>
+//       <StyledText>To use this function you must be logged in</StyledText>
+//       <StyledButton onClick={() => signIn()}>Sign in</StyledButton>
+//     </>
+//   );
+// }
+
+
 export default function Login() {  
+  const isPreview = process.env.VERCEL_ENV === 'preview';
+
   return (
     <>
       <StyledText>To use this function you must be logged in</StyledText>
-      <StyledButton onClick={() => signIn()}>Sign in</StyledButton>
+      <StyledButton onClick={() => {signIn(isPreview ? "credentials" : "github")}}>Sign in</StyledButton>
     </>
   );
 }
