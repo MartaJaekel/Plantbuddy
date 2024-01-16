@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import styled from "styled-components";
+import Image from "next/image";
 import Link from "next/link";
 
 export default function EntryDetail({ entries }) {
@@ -15,17 +16,11 @@ export default function EntryDetail({ entries }) {
   }
 
   return (
-    <>
+    <StyledMain>
       <StyledBackButton type="button" aria-label="Go Back" onClick={goBack}>
-        <img
-          src="/assets/ArrowIcon.svg"
-          alt="Back Link"
-          width={25}
-          height={20}
-        />
+        <Image src="/assets/ArrowIcon.svg" alt="Back Link" width={25} height={20} />
       </StyledBackButton>
       <StyledEditLink href={`/journal/edit/${entry.id}`}>Edit</StyledEditLink>
-      <main>
         <StyledImage
           src={entry.url}
           width={375}
@@ -53,10 +48,19 @@ export default function EntryDetail({ entries }) {
             </>
           )}
         </StyledArticle>
-      </main>
-    </>
+    </StyledMain>
   );
 }
+
+const StyledMain = styled.main`
+  position: relative;
+  
+  @media (min-width: 1024px) {
+    display: flex;
+    max-width: 90rem;
+    margin: 0 auto;
+  }
+`;
 const StyledBackButton = styled.button`
   position: absolute;
   top: 1.75rem;
@@ -84,7 +88,14 @@ const StyledEditLink = styled(Link)`
 
 const StyledImage = styled.img`
   width: 100%;
+  height: auto;
+  display: block;
   object-fit: cover;
+  
+  @media (min-width: 1024px) {
+    width: 60%;
+    height: 51.6rem;
+  }
 `;
 
 const StyledName = styled.h1`
