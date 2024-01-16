@@ -25,24 +25,15 @@ export default function PlantList({
 
   return (
     <StyledPlantList>
-      {search.length === 0
-        ? sortedPlants.map((plant) => (
-          <PlantCard
-            key={plant._id}
-            plant={plant}
-            onToggleFavorite={onToggleFavorite}
-            isFavorite={favorites?.includes(plant._id)}
-            theme={theme}
-          />
-        ))
-        : searchResult.map((plant) => (
-          <PlantCard
-            key={plant._id}
-            plant={plant}
-            onToggleFavorite={onToggleFavorite}
-            isFavorite={favorites?.includes(plant._id)}
-          />
-        ))}
+      {(search.length ? searchResult : sortedPlants).map((plant) =>
+        <PlantCard
+          key={plant._id}
+          plant={plant}
+          onToggleFavorite={onToggleFavorite}
+          isFavorite={favorites?.includes(plant._id)}
+          theme={theme}
+        />
+      )}
     </StyledPlantList>
   );
 }
