@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import styled from "styled-components";
+import Link from "next/link";
 
 export default function EntryDetail({ entries }) {
   const router = useRouter();
@@ -23,6 +24,7 @@ export default function EntryDetail({ entries }) {
           height={20}
         />
       </StyledBackButton>
+      <StyledEditLink href={`/journal/edit/${entry.id}`}>Edit</StyledEditLink>
       <main>
         <StyledImage
           src={entry.url}
@@ -32,12 +34,24 @@ export default function EntryDetail({ entries }) {
         />
         <StyledArticle>
           <StyledName lang="en">{entry.name}</StyledName>
-          <StyledDescription>Description</StyledDescription>
-          <StyledParagraph>{entry.description}</StyledParagraph>
-          <StyledDescription>Care Tips</StyledDescription>
-          <StyledParagraph>{entry.careTipps}</StyledParagraph>
-          <StyledDescription>Location</StyledDescription>
-          <StyledParagraph>{entry.location}</StyledParagraph>
+          {entry.description && (
+            <>
+              <StyledDescription>Description</StyledDescription>
+              <StyledParagraph>{entry.description}</StyledParagraph>
+            </>
+          )}
+          {entry.careTipps && (
+            <>
+              <StyledDescription>Care Tips</StyledDescription>
+              <StyledParagraph>{entry.careTipps}</StyledParagraph>{" "}
+            </>
+          )}
+          {entry.location && (
+            <>
+              <StyledDescription>Location</StyledDescription>
+              <StyledParagraph>{entry.location}</StyledParagraph>
+            </>
+          )}
         </StyledArticle>
       </main>
     </>
@@ -55,10 +69,24 @@ const StyledBackButton = styled.button`
   align-items: center;
   border: none;
 `;
+const StyledEditLink = styled(Link)`
+  position: absolute;
+  top: 1.75rem;
+  right: 1rem;
+  color: ${({ theme }) => theme.white};
+  text-decoration: none;
+  text-align: center;
+  background-color: ${({ theme }) => theme.primaryGreen};
+  border-radius: 8px;
+  padding: 0.6rem 0.4rem;
+  width: 3.5rem;
+`;
+
 const StyledImage = styled.img`
   width: 100%;
   object-fit: cover;
 `;
+
 const StyledName = styled.h1`
   font-family: serif;
   font-size: 2rem;
@@ -74,7 +102,7 @@ const StyledArticle = styled.article`
 
 const StyledDescription = styled.h3`
   color: ${({ theme }) => theme.infoText};
-  margin:0;
+  margin: 0;
   padding: 1.5rem 0 0.5rem 0;
 `;
 
