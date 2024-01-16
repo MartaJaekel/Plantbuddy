@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Headline from "@/components/Headline";
 import Login from "@/components/Login";
 import { useSession } from "next-auth/react";
+import ProtectedRoute from "@/components/ProtectedRoute";
 
 export default function FavoritePage({
   plants,
@@ -17,10 +18,10 @@ export default function FavoritePage({
   const { status } = useSession();
 
   return (
-    <>
+    <ProtectedRoute fallback={<Login/>}>
       <Headline />
       <main>
-        <StyledTitle status={status}>Your Favorite Plants</StyledTitle>
+        <StyledTitle>Your Favorite Plants</StyledTitle>
         {status !== "authenticated" ? (
           <Login />
         ) : favoritePlants.length === 0 ? (
@@ -44,7 +45,7 @@ export default function FavoritePage({
           </StyledPlantList>
         )}
       </main>
-    </>
+    </ProtectedRoute>
   );
 }
 

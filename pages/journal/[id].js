@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
+import ProtectedRoute from "@/components/ProtectedRoute";
 
 export default function EntryDetail({ entries }) {
   const { status } = useSession();
@@ -18,52 +19,46 @@ export default function EntryDetail({ entries }) {
   }
 
   return (
-    <>
-      {status === "authenticated" && (
-        <>
-          <StyledBackButton type="button" aria-label="Go Back" onClick={goBack}>
-            <Image
-              src="/assets/ArrowIcon.svg"
-              alt="Back Link"
-              width={25}
-              height={20}
-            />
-          </StyledBackButton>
-          <StyledEditLink href={`/journal/edit/${entry.id}`}>
-            Edit
-          </StyledEditLink>
-          <main>
-            <StyledImage
-              src={entry.url}
-              width={375}
-              height={357}
-              alt={entry.name}
-            />
-            <StyledArticle>
-              <StyledName lang="en">{entry.name}</StyledName>
-              {entry.description && (
-                <>
-                  <StyledDescription>Description</StyledDescription>
-                  <StyledParagraph>{entry.description}</StyledParagraph>
-                </>
-              )}
-              {entry.careTipps && (
-                <>
-                  <StyledDescription>Care Tips</StyledDescription>
-                  <StyledParagraph>{entry.careTipps}</StyledParagraph>{" "}
-                </>
-              )}
-              {entry.location && (
-                <>
-                  <StyledDescription>Location</StyledDescription>
-                  <StyledParagraph>{entry.location}</StyledParagraph>
-                </>
-              )}
-            </StyledArticle>
-          </main>
-        </>
-      )}
-    </>
+    <ProtectedRoute fallback={"/"}>
+      <StyledBackButton type="button" aria-label="Go Back" onClick={goBack}>
+        <Image
+          src="/assets/ArrowIcon.svg"
+          alt="Back Link"
+          width={25}
+          height={20}
+        />
+      </StyledBackButton>
+      <StyledEditLink href={`/journal/edit/${entry.id}`}>Edit</StyledEditLink>
+      <main>
+        <StyledImage
+          src={entry.url}
+          width={375}
+          height={357}
+          alt={entry.name}
+        />
+        <StyledArticle>
+          <StyledName lang="en">{entry.name}</StyledName>
+          {entry.description && (
+            <>
+              <StyledDescription>Description</StyledDescription>
+              <StyledParagraph>{entry.description}</StyledParagraph>
+            </>
+          )}
+          {entry.careTipps && (
+            <>
+              <StyledDescription>Care Tips</StyledDescription>
+              <StyledParagraph>{entry.careTipps}</StyledParagraph>{" "}
+            </>
+          )}
+          {entry.location && (
+            <>
+              <StyledDescription>Location</StyledDescription>
+              <StyledParagraph>{entry.location}</StyledParagraph>
+            </>
+          )}
+        </StyledArticle>
+      </main>
+    </ProtectedRoute>
   );
 }
 

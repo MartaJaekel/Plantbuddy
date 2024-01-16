@@ -4,6 +4,8 @@ import PlantCard from "@/components/Card";
 import Headline from "@/components/Headline";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
+import ProtectedRoute from "@/components/ProtectedRoute";
+import Login from "@/components/Login";
 
 export default function Preference({
   preferences,
@@ -38,47 +40,43 @@ export default function Preference({
   }
 
   return (
-    <>
+    <ProtectedRoute fallback={<Login/>}>
       <Headline />
-      {status === "authenticated" && (
-        <>
-          <main />
-          <StyledBackButton
-            type="button"
-            aria-label="Go Back"
-            onClick={goBack}
-            status={status}
-          >
-            <Image
-              src="/assets/ArrowIcon.svg"
-              alt="Back Link"
-              width={25}
-              height={20}
+      <main />
+      <StyledBackButton
+        type="button"
+        aria-label="Go Back"
+        onClick={goBack}
+        status={status}
+      >
+        <Image
+          src="/assets/ArrowIcon.svg"
+          alt="Back Link"
+          width={25}
+          height={20}
+        />
+      </StyledBackButton>
+      <StyledTitle>{preference?.preferenceTitle}</StyledTitle>
+      <StyledCounterMessage>{counterMessage}</StyledCounterMessage>
+      {preferencePlants.length === 0 ? (
+        <StyledCallText>
+          Sorry, unfortunately <StyledSpan>none</StyledSpan> of the plants
+          matched your preferences
+        </StyledCallText>
+      ) : (
+        <StyledPlantList>
+          {preferencePlants.map((plant) => (
+            <PlantCard
+              key={plant._id}
+              plant={plant}
+              onToggleFavorite={onToggleFavorite}
+              isFavorite={favorites?.includes(plant._id)}
+              theme={theme}
             />
-          </StyledBackButton>
-          <StyledTitle>{preference?.preferenceTitle}</StyledTitle>
-          <StyledCounterMessage>{counterMessage}</StyledCounterMessage>
-          {preferencePlants.length === 0 ? (
-            <StyledCallText>
-              Sorry, unfortunately <StyledSpan>none</StyledSpan> of the plants
-              matched your preferences
-            </StyledCallText>
-          ) : (
-            <StyledPlantList>
-              {preferencePlants.map((plant) => (
-                <PlantCard
-                  key={plant._id}
-                  plant={plant}
-                  onToggleFavorite={onToggleFavorite}
-                  isFavorite={favorites?.includes(plant._id)}
-                  theme={theme}
-                />
-              ))}
-            </StyledPlantList>
-          )}
-        </>
+          ))}
+        </StyledPlantList>
       )}
-    </>
+    </ProtectedRoute>
   );
 }
 

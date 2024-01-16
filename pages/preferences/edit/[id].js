@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import Login from "@/components/Login";
+import ProtectedRoute from "@/components/ProtectedRoute";
 
 export default function EditPreferencePage({
   preferences,
@@ -23,7 +24,7 @@ export default function EditPreferencePage({
   }
 
   return (
-    <>
+    <ProtectedRoute fallback={<Login/>}>
       <Headline />
       <main>
         <StyledTitle>Edit your Preference</StyledTitle>
@@ -39,7 +40,7 @@ export default function EditPreferencePage({
           />
         )}
       </main>
-    </>
+    </ProtectedRoute>
   );
 }
 
