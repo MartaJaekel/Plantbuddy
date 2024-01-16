@@ -13,12 +13,6 @@ export default function EntryForm({ onFormSubmit, entry }) {
   );
   const [careTipps, setCareTipps] = useState(entry ? entry.careTipps : "");
   const [location, setLocation] = useState(entry ? entry.location : "");
-  
-
-  const router = useRouter();
-  const goBack = () => {
-    router.back();
-  };
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -44,19 +38,10 @@ export default function EntryForm({ onFormSubmit, entry }) {
       router.push("/journal")
     }
   }
-  
 
   return (
     <>
       <StyledHeadline>PlantBuddy</StyledHeadline>
-      <StyledBackButton type="button" aria-label="Go Back" onClick={goBack}>
-        <Image
-          src="/assets/ArrowIcon.svg"
-          alt="Back Link"
-          width={25}
-          height={20}
-        />
-      </StyledBackButton>
       <main>
         <StyledTitle>Plant Journal </StyledTitle>
         <StyledForm onSubmit={handleSubmit} onReset={handleReset}>
@@ -187,20 +172,7 @@ const StyledButton = styled.button`
   cursor: pointer;
   width: 9rem;
 `;
-const StyledBackButton = styled.button`
-  position: absolute;
-  top: 1.75rem;
-  left: 1rem;
-  font-size: 2rem;
-  background-color: ${({ theme }) => theme.primaryGreen};
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  border: none;
-  z-index: 2;
-`;
+
 const StyledTitle = styled.h2`
   text-align: center;
   margin-top: 6rem;

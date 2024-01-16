@@ -1,14 +1,12 @@
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import Link from "next/link";
+import BackButton from "@/components/BackButton";
 
 export default function EntryDetail({ entries }) {
   const router = useRouter();
   const { id } = router.query;
 
-  const goBack = () => {
-    router.back();
-  };
   const entry = entries.find((entry) => entry.id === id);
   if (!entry) {
     return <p>Entry not found</p>;
@@ -16,14 +14,7 @@ export default function EntryDetail({ entries }) {
 
   return (
     <>
-      <StyledBackButton type="button" aria-label="Go Back" onClick={goBack}>
-        <img
-          src="/assets/ArrowIcon.svg"
-          alt="Back Link"
-          width={25}
-          height={20}
-        />
-      </StyledBackButton>
+      <BackButton />
       <StyledEditLink href={`/journal/edit/${entry.id}`}>Edit</StyledEditLink>
       <main>
         <StyledImage

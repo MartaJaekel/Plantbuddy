@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { StyledHeadline } from "@/components/Headline/StyledHeadline";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import BackButton from "@/components/BackButton";
 
 export default function EntryForm({ onFormSubmit }) {
   const [url, setUrl] = useState("");
@@ -11,11 +12,6 @@ export default function EntryForm({ onFormSubmit }) {
   const [description, setDescription] = useState("");
   const [careTipps, setCareTipps] = useState("");
   const [location, setLocation] = useState("");
-
-  const router = useRouter();
-  const goBack = () => {
-    router.back();
-  };
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -36,14 +32,7 @@ export default function EntryForm({ onFormSubmit }) {
   return (
     <>
       <StyledHeadline>PlantBuddy</StyledHeadline>
-      <StyledBackButton type="button" aria-label="Go Back" onClick={goBack}>
-        <Image
-          src="/assets/ArrowIcon.svg"
-          alt="Back Link"
-          width={25}
-          height={20}
-        />
-      </StyledBackButton>
+      <BackButton />
       <main>
         <StyledTitle>Plant Journal</StyledTitle>
         <StyledForm onSubmit={handleSubmit} onReset={handleReset}>

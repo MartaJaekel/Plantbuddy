@@ -9,7 +9,6 @@ export default function JournalOverviewPage({ entries, handleDeleteEntry }) {
   return (
     <>
       <StyledHeadline>PlantBuddy</StyledHeadline>
-
       <main>
         <StyledTitle>Plant Journal</StyledTitle>
         <StyledLink href="/journal/entry">
