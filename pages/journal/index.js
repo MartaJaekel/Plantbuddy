@@ -2,19 +2,14 @@ import React from "react";
 import Link from "next/link";
 import { StyledHeadline } from "@/components/Headline/StyledHeadline";
 import styled from "styled-components";
-import { useRouter } from "next/router";
-import Image from "next/image";
+
 import EntryCard from "@/components/JournalEntryCard";
 
 export default function JournalOverviewPage({ entries, handleDeleteEntry }) {
-  const router = useRouter();
-  const goBack = () => {
-    router.back();
-  };
-
   return (
     <>
       <StyledHeadline>PlantBuddy</StyledHeadline>
+
       <main>
         <StyledTitle>Plant Journal</StyledTitle>
         <StyledLink href="/journal/entry">
@@ -24,7 +19,9 @@ export default function JournalOverviewPage({ entries, handleDeleteEntry }) {
           {entries.length > 0 ? (
             entries.map((entry) => (
               <StyledEntries key={entry.id}>
+                <StyledLink href={`/journal/${entry.id}`}>
                   <EntryCard entry={entry} onDeleteEntry={handleDeleteEntry} />
+                </StyledLink>
               </StyledEntries>
             ))
           ) : (
@@ -57,6 +54,20 @@ const StyledButton = styled.button`
   border-radius: 8px;
   padding: 0.6rem 0.4rem;
   cursor: pointer;
+`;
+const StyledBackButton = styled.button`
+  position: absolute;
+  top: 1.75rem;
+  left: 1rem;
+  font-size: 2rem;
+  background-color: ${({ theme }) => theme.primaryGreen};
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  border: none;
+  z-index: 2;
 `;
 
 const StyledLink = styled(Link)`

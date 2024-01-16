@@ -7,16 +7,20 @@ import Link from "next/link";
 export default function EntryCard({ entry, onDeleteEntry }) {
   const [showPopup, setShowPopup] = useState(false);
 
-  const confirmDelete = () => {
+  const confirmDelete = (event) => {
+    event.preventDefault();
     setShowPopup(true);
   };
 
-  const handleConfirm = () => {
+  const handleConfirm = (event) => {
+    event.preventDefault();
     onDeleteEntry(entry.id);
     setShowPopup(false);
+    
   };
 
-  const handleCancel = () => {
+  const handleCancel = (event) => {
+    event.preventDefault();
     setShowPopup(false);
   };
 
@@ -44,7 +48,11 @@ export default function EntryCard({ entry, onDeleteEntry }) {
         />
       </StyledDeleteButton>
       {showPopup && (
-        <DeletePopup name="entry" onConfirm={handleConfirm} onCancel={handleCancel} />
+        <DeletePopup
+          name="entry"
+          onConfirm={handleConfirm}
+          onCancel={handleCancel}
+        />
       )}
     </StyledEntryCard>
   );
