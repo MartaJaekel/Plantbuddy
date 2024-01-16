@@ -44,7 +44,7 @@ const StyledPlantList = styled.ul`
   justify-content: center;
   gap: 1rem;
   max-width: 41rem;
-  margin: 0 auto;
+  margin: 2rem auto 0 auto;
 
   @media (min-width: 1024px) {
     max-width: 61rem;
