@@ -90,4 +90,5 @@ const SearchFieldInput = styled.input`
   &::-webkit-search-results-decoration {
     display: none;
   }
+  
 `;
