@@ -6,7 +6,7 @@ import { ThemeProvider } from "styled-components";
 import { lightTheme, darkTheme } from "@/components/Theme";
 import { SWRConfig } from "swr";
 import fetcher from "@/utils/fetcher";
-import useSWR from 'swr';
+import useSWR from "swr";
 
 export default function App({ Component, pageProps }) {
   const [theme, setTheme] = useLocalStorageState("theme", {
@@ -27,7 +27,7 @@ export default function App({ Component, pageProps }) {
 
   const [entries, setEntries] = useLocalStorageState("entries", {
     defaultValue: [],
-  })
+  });
 
   function handleToggleFavorite(plantId) {
     if (favorites.includes(plantId)) {
@@ -53,22 +53,31 @@ export default function App({ Component, pageProps }) {
     setPreferences(preferences.filter((preference) => preference.id !== id));
   }
 
-  const { data: plants, error: plantsError } = useSWR('/api/plants', fetcher);
-  const { data: categories, error: categoriesError } = useSWR('/api/categories', fetcher);
+  function handleDeleteEntry(id) {
+    setEntries(entries.filter((entry) => entry.id !== id));
+    console.log(id)
+  }
 
-  if (plantsError || categoriesError) return <div>Error occurred while fetching data</div>;
+  const { data: plants, error: plantsError } = useSWR("/api/plants", fetcher);
+  const { data: categories, error: categoriesError } = useSWR(
+    "/api/categories",
+    fetcher
+  );
+
+  if (plantsError || categoriesError)
+    return <div>Error occurred while fetching data</div>;
   if (!plants || !categories) return <div>Loading...</div>;
 
   function handleFormSubmit(data) {
     const newEntry = { id: uid(), ...data };
     setEntries((prevFormEntry) => [...prevFormEntry, newEntry]);
-
   }
   function handleEditEntry(editedEntry) {
     setEntries(
       entries.map((entry) =>
-      entry.id === editedEntry.id ? editedEntry : entry
-    ))
+        entry.id === editedEntry.id ? editedEntry : entry
+      )
+    );
   }
 
   return (
@@ -91,6 +100,7 @@ export default function App({ Component, pageProps }) {
               toggleTheme={toggleTheme}
               onFormSubmit={handleFormSubmit}
               entries={entries}
+              handleDeleteEntry={handleDeleteEntry}
               onEditEntry={handleEditEntry}
             />
           </Layout>
