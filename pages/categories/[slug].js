@@ -2,6 +2,7 @@ import useSWR from "swr";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import Head from "next/head";
 
 export default function CategoryDetail({theme}) {
   const router = useRouter();
@@ -20,6 +21,11 @@ export default function CategoryDetail({theme}) {
     theme === "light" ? category.bgcolor : category.bgcolorDark;
 
   return (
+    <>
+    <Head>
+        <title>{category.title}</title>
+    
+      </Head>
       <StyledDiv>
       <StyledBackButton type="button" aria-label="Go Back" onClick={goBack}>
         <Image src="/assets/ArrowIcon.svg" alt="Back Link" width={25} height={20} />
@@ -38,6 +44,7 @@ export default function CategoryDetail({theme}) {
           </article>
         </StyledSection>
       </StyledDiv>
+      </>
   )
 }
 
