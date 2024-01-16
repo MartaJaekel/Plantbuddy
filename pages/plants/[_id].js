@@ -5,6 +5,7 @@ import styled from "styled-components";
 import PlantCharacteristics from "@/components/PlantCharacteristics";
 import FavoriteButton from "@/components/FavoriteButton";
 import Link from "next/link";
+import Header from "next/head";
 
 export default function PlantDetail({
   onToggleFavorite,
@@ -35,6 +36,9 @@ export default function PlantDetail({
 
   return (
     <>
+    <Header>
+      <title>Plant Detail</title>
+    </Header>
       <StyledBackButton type="button" aria-label="Go Back" onClick={goBack}>
         <Image
           src="/assets/ArrowIcon.svg"

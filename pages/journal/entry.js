@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { StyledHeadline } from "@/components/Headline/StyledHeadline";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import Head from "next/head";
 
 export default function EntryForm({ onFormSubmit }) {
   const [url, setUrl] = useState("");
@@ -35,6 +36,9 @@ export default function EntryForm({ onFormSubmit }) {
 
   return (
     <>
+    <Head>
+      <title>Formular</title>
+    </Head>
       <StyledHeadline>PlantBuddy</StyledHeadline>
       <StyledBackButton type="button" aria-label="Go Back" onClick={goBack}>
         <Image

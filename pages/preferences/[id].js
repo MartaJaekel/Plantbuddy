@@ -3,6 +3,7 @@ import styled from "styled-components";
 import PlantCard from "@/components/Card";
 import { StyledHeadline } from "@/components/Headline/StyledHeadline";
 import Image from "next/image";
+import Header from "next/head";
 
 export default function Preference({
   preferences,
@@ -37,6 +38,9 @@ export default function Preference({
 
   return (
     <>
+    <Header>
+      <title>Filtered Preferences</title>
+    </Header>
       <StyledHeadline>PlantBuddy</StyledHeadline>
       <main />
       <StyledBackButton type="button" aria-label="Go Back" onClick={goBack}>

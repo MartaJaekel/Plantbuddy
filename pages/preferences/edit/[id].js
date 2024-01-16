@@ -2,6 +2,7 @@ import FilterForm from "@/components/FilterForm";
 import { StyledHeadline } from "@/components/Headline/StyledHeadline";
 import styled from "styled-components";
 import { useRouter } from "next/router";
+import Header from "next/head";
 
 export default function EditPreferencePage({preferences, onEditPreference, plants}) {
   const router = useRouter();
@@ -15,6 +16,9 @@ export default function EditPreferencePage({preferences, onEditPreference, plant
   
   return (
     <>
+    <Header>
+      <title>Edit Preference</title>
+    </Header>
       <StyledHeadline>PlantBuddy</StyledHeadline>;
       <main>
         <StyledTitle>Edit your Preference</StyledTitle>

@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import styled from "styled-components";
-
+import Head from "next/head";
 export default function EntryDetail({ entries }) {
   const router = useRouter();
   const { id } = router.query;
@@ -15,6 +15,9 @@ export default function EntryDetail({ entries }) {
 
   return (
     <>
+      <Head>
+        <title>{entry.name}</title>
+      </Head>
       <StyledBackButton type="button" aria-label="Go Back" onClick={goBack}>
         <img
           src="/assets/ArrowIcon.svg"
@@ -31,17 +34,15 @@ export default function EntryDetail({ entries }) {
           alt={entry.name}
         />
 
-       
-          <StyledArticle>
-            <StyledName>{entry.name}</StyledName>
-            <StyledDescription>Description</StyledDescription>
-            <StyledParagraph>{entry.description}</StyledParagraph>
-            <StyledDescription>Care Tips</StyledDescription>
-            <StyledParagraph>{entry.careTipps}</StyledParagraph>
-            <StyledDescription>Location</StyledDescription>
-            <StyledParagraph>{entry.location}</StyledParagraph>
-          </StyledArticle>
-        
+        <StyledArticle>
+          <StyledName>{entry.name}</StyledName>
+          <StyledDescription>Description</StyledDescription>
+          <StyledParagraph>{entry.description}</StyledParagraph>
+          <StyledDescription>Care Tips</StyledDescription>
+          <StyledParagraph>{entry.careTipps}</StyledParagraph>
+          <StyledDescription>Location</StyledDescription>
+          <StyledParagraph>{entry.location}</StyledParagraph>
+        </StyledArticle>
       </main>
     </>
   );
@@ -72,17 +73,14 @@ const StyledName = styled.h1`
 
 const StyledArticle = styled.article`
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
   flex: 1;
   overflow: hidden;
-  gap: 1rem; 
-  align-items: center; 
+  gap: 1rem;
+  align-items: center;
   border-bottom: 2px solid ${({ theme }) => theme.cardBorder};
   padding: 1rem 0;
-  
 `;
-
-
 
 const StyledDescription = styled.h2`
   font-size: 1.5rem;

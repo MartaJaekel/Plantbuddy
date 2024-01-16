@@ -2,7 +2,7 @@ import { StyledHeadline } from "@/components/Headline/StyledHeadline";
 import styled from "styled-components";
 import PreferenceList from "@/components/PreferenceList";
 import FilterForm from "@/components/FilterForm";
-import Head from "next/head";
+import Header from "next/head";
 
 export default function PreferencesPage({
   plants,
@@ -12,9 +12,9 @@ export default function PreferencesPage({
 }) {
   return (
     <>
-     <Head>
-        <title>PlantBuddy - Add Plant Preferences</title>
-      </Head>
+     <Header>
+        <title>Add Plant Preferences</title>
+      </Header>
       <StyledHeadline>PlantBuddy</StyledHeadline>
       <main>
         <StyledTitle>Add your Plant Preferences</StyledTitle>

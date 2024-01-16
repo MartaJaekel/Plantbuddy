@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import EntryCard from "@/components/JournalEntryCard";
+import Header from "next/head";
 
 export default function JournalOverviewPage({ entries }) {
   const router = useRouter();
@@ -14,6 +15,9 @@ export default function JournalOverviewPage({ entries }) {
 
   return (
     <>
+    <Header>
+      <title>Create Entry</title>
+    </Header>
       <StyledHeadline>PlantBuddy</StyledHeadline>
       <StyledBackButton type="button" aria-label="Go Back" onClick={goBack}>
         <Image
