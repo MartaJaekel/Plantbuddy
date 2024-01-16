@@ -103,7 +103,7 @@ export default function PlantDetail({
                 <PlantCharacteristics
                   headline="Category"
                   imageAlt="Leaf Icons"
-                  imageSrc={theme === "light" ? "/assets/CategoryInActive.svg" : "/assets/CategoryActive.svg"}
+                  imageSrc={theme === "light" ? "/assets/CategoryInactive.svg" : "/assets/CategoryActive.svg"}
                   info={plant.categorySlug}
                 />
               </StyledLink>
