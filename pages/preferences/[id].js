@@ -110,6 +110,12 @@ const StyledPlantList = styled.ul`
   flex-wrap: wrap;
   justify-content: center;
   gap: 1rem;
+  max-width: 41rem;
+  margin: 0 auto;
+
+  @media (min-width: 1024px) {
+    max-width: 61rem;
+  }
 `;
 
 const StyledBackButton = styled.button`

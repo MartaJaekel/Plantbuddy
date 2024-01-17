@@ -69,7 +69,11 @@ const InputWrapper = styled.div`
   flex-flow: column;
   padding: 0 1rem;
   max-width: 21rem;
-  margin: auto;
+  margin: 6rem auto 0 auto;
+
+  @media (min-width: 1024px) {
+    max-width: 31rem;
+  }
 `;
 
 const SearchFieldInput = styled.input`

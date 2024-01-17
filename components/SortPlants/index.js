@@ -63,12 +63,17 @@ const Form = styled.form`
   flex-direction: column;
   flex-wrap: wrap;
   justify-content: center;
-  max-width: 19rem;
+  max-width: 21rem;
   margin: 1rem auto 2rem auto;
+  padding: 0 1rem;
   .form-row {
     display: flex;
     align-items: center;
     gap: 1rem;
+  }
+
+  @media (min-width: 1024px) {
+    max-width: 31rem;
   }
 `;
 
