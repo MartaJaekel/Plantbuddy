@@ -2,9 +2,8 @@ import React from "react";
 import PlantCard from "@/components/Card";
 import styled from "styled-components";
 import Headline from "@/components/Headline";
-import LoginFavorites from "@/components/LoginFavorites";
+import Login from "@/components/Login";
 import { useSession } from "next-auth/react";
-import ProtectedRoute from "@/components/ProtectedRoute";
 
 export default function FavoritePage({
   plants,
@@ -18,12 +17,12 @@ export default function FavoritePage({
   const { status } = useSession();
 
   return (
-    <ProtectedRoute fallback={<LoginFavorites/>}>
+    <>
       <Headline />
       <main>
         <StyledTitle>Your Favorite Plants</StyledTitle>
         {status !== "authenticated" ? (
-          <LoginFavorites />
+          <Login />
         ) : favoritePlants.length === 0 ? (
           <StyledArticle>
             <p>At the moment you do not have any favorite plants.</p>
@@ -45,7 +44,7 @@ export default function FavoritePage({
           </StyledPlantList>
         )}
       </main>
-    </ProtectedRoute>
+    </>
   );
 }
 

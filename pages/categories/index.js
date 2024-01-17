@@ -49,6 +49,7 @@ const StyledPlantList = styled.ul`
   flex-wrap: wrap;
   justify-content: center;
   gap: 1rem;
+  padding-top: 1rem;
 `;
 
 const CategoryCard = styled.li`
