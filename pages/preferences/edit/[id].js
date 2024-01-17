@@ -3,6 +3,7 @@ import { StyledHeadline } from "@/components/Headline/StyledHeadline";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 import BackButton from "@/components/BackButton";
+import { StyledTitle } from "@/components/Title/StyledTitle";
 
 export default function EditPreferencePage({
   preferences,
@@ -39,13 +40,6 @@ export default function EditPreferencePage({
     </>
   );
 }
-
-const StyledTitle = styled.h2`
-  text-align: center;
-  margin: 6rem 0 2rem 0;
-  font-size: 1.25rem;
-  color: ${({ theme }) => theme.primaryGreen};
-`;
 
 const StyledButton = styled.div`
   position: fixed;

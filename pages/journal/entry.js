@@ -2,8 +2,7 @@ import React from "react";
 import { useState } from "react";
 import styled from "styled-components";
 import { StyledHeadline } from "@/components/Headline/StyledHeadline";
-import { useRouter } from "next/router";
-import Image from "next/image";
+import { StyledTitle } from "@/components/Title/StyledTitle";
 import BackButton from "@/components/BackButton";
 
 export default function EntryForm({ onFormSubmit }) {
@@ -181,11 +180,4 @@ const StyledBackButton = styled.button`
   align-items: center;
   border: none;
   z-index: 2;
-`;
-
-const StyledTitle = styled.h2`
-  text-align: center;
-  margin: 6rem 0 2rem 0;
-  font-size: 1.25rem;
-  color: ${({ theme }) => theme.primaryGreen};
 `;

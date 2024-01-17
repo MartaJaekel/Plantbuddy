@@ -3,6 +3,7 @@ import styled from "styled-components";
 import PlantCard from "@/components/Card";
 import { StyledHeadline } from "@/components/Headline/StyledHeadline";
 import BackButton from "@/components/BackButton";
+import { StyledTitle } from "@/components/Title/StyledTitle";
 
 export default function Preference({
   preferences,
@@ -70,14 +71,6 @@ const StyledCallText = styled.p`
 const StyledSpan = styled.span`
   font-family: serif;
   font-style: italic;
-`;
-
-const StyledTitle = styled.h2`
-  text-align: center;
-  font-size: 1.25rem;
-  color: ${({ theme }) => theme.primaryGreen};
-  word-wrap: break-word;
-  padding: 0 2rem 0 2rem;
 `;
 
 const StyledCounterMessage = styled.p`

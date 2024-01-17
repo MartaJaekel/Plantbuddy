@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { StyledHeadline } from "@/components/Headline/StyledHeadline";
 import EntryForm from "components/JournalEntryForm";
 import BackButton from "@/components/BackButton";
+import { StyledTitle } from "@/components/Title/StyledTitle";
 
 export default function EditJournal({ entries, onEditEntry }) {
   const router = useRouter();
@@ -26,12 +27,6 @@ export default function EditJournal({ entries, onEditEntry }) {
     </>
   );
 }
-const StyledTitle = styled.h2`
-  text-align: center;
-  margin: 6rem 0 2rem 0;
-  font-size: 1.25rem;
-  color: ${({ theme }) => theme.primaryGreen};
-`;
 
 const StyledButton = styled.div`
   position: fixed;

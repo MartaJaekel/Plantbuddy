@@ -2,6 +2,7 @@ import React from "react";
 import PlantCard from "@/components/Card";
 import styled from "styled-components";
 import { StyledHeadline } from "@/components/Headline/StyledHeadline";
+import { StyledTitle } from "@/components/Title/StyledTitle";
 
 export default function FavoritePage({ plants, favorites, onToggleFavorite, theme }) {
   const favoritePlants = plants.filter((plant) => favorites.includes(plant._id));
@@ -35,13 +36,6 @@ export default function FavoritePage({ plants, favorites, onToggleFavorite, them
     </>
   );
 }
-
-const StyledTitle = styled.h2`
-  text-align: center;
-  margin-top: 6rem;
-  font-size: 1.25rem;
-  color: ${({ theme }) => theme.primaryGreen};
-`;
 
 const StyledArticle = styled.article`
   text-align: center;

@@ -1,7 +1,7 @@
 import { StyledHeadline } from "@/components/Headline/StyledHeadline";
-import styled from "styled-components";
 import PreferenceList from "@/components/PreferenceList";
 import FilterForm from "@/components/FilterForm";
+import { StyledTitle } from "@/components/Title/StyledTitle";
 
 export default function PreferencesPage({
   plants,
@@ -21,9 +21,3 @@ export default function PreferencesPage({
   );
 }
   
-const StyledTitle = styled.h2`
-  text-align: center;
-  font-size: 1.25rem;
-  color: ${({ theme }) => theme.primaryGreen};
-  margin: 6rem 0 2rem 0;
-`;
