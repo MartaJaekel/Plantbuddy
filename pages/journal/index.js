@@ -2,33 +2,19 @@ import React from "react";
 import Link from "next/link";
 import { StyledHeadline } from "@/components/Headline/StyledHeadline";
 import styled from "styled-components";
-import { useRouter } from "next/router";
-import Image from "next/image";
 import EntryCard from "@/components/JournalEntryCard";
-import Header from "next/head";
+import Head from "next/head";
 
-export default function JournalOverviewPage({ entries }) {
-  const router = useRouter();
-  const goBack = () => {
-    router.back();
-  };
-
+export default function JournalOverviewPage({ entries, handleDeleteEntry }) {
   return (
     <>
-    <Header>
+    <Head>
       <title>Create Entry</title>
-    </Header>
+    </Head>
       <StyledHeadline>PlantBuddy</StyledHeadline>
-      <StyledBackButton type="button" aria-label="Go Back" onClick={goBack}>
-        <Image
-          src="/assets/ArrowIcon.svg"
-          alt="Back Link"
-          width={25}
-          height={20}
-        />
-      </StyledBackButton>
+
       <main>
-        <StyledTitle>Plant Journal </StyledTitle>
+        <StyledTitle>Plant Journal</StyledTitle>
         <StyledLink href="/journal/entry">
           <StyledButton>Create a new Entry</StyledButton>
         </StyledLink>
@@ -37,7 +23,7 @@ export default function JournalOverviewPage({ entries }) {
             entries.map((entry) => (
               <StyledEntries key={entry.id}>
                 <StyledLink href={`/journal/${entry.id}`}>
-                  <EntryCard entry={entry} />
+                  <EntryCard entry={entry} onDeleteEntry={handleDeleteEntry} />
                 </StyledLink>
               </StyledEntries>
             ))
@@ -56,27 +42,21 @@ export default function JournalOverviewPage({ entries }) {
 
 const StyledTitle = styled.h2`
   text-align: center;
-  margin-top: 6rem;
-  margin-bottom: 2rem;
-  font-size: 1.5;
+  margin: 6rem 0 2rem 0;
+  font-size: 1.25rem;
   color: ${({ theme }) => theme.primaryGreen};
 `;
 const StyledButton = styled.button`
+  color: ${({ theme }) => theme.white};
+  background-color: ${({ theme }) => theme.button};
+  border: none;
   display: block;
   margin: 0 auto;
   width: 9rem;
-  color: white;
   font-weight: 600;
   border-radius: 8px;
   padding: 0.6rem 0.4rem;
   cursor: pointer;
-  background-color: ${({ theme }) => theme.primaryGreen};
-`;
-const StyledLink = styled(Link)`
-  text-decoration: none;
-  margin: 0 auto;
-  max-width: 316px;
-  display: block;
 `;
 const StyledBackButton = styled.button`
   position: absolute;
@@ -92,10 +72,23 @@ const StyledBackButton = styled.button`
   border: none;
   z-index: 2;
 `;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  margin: 0 auto;
+  max-width: 316px;
+  display: block;
+`;
+
 const StyledEntriesContainer = styled.ul`
   display: flex;
   flex-direction: column;
-  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  max-width: 20rem;
+  margin: 1rem auto;
+  padding: 1rem 0;
 `;
 
 const StyledEntries = styled.li`

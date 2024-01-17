@@ -4,14 +4,16 @@ import styled from "styled-components";
 import { StyledHeadline } from "@/components/Headline/StyledHeadline";
 import { useRouter } from "next/router";
 import Image from "next/image";
-import Head from "next/head";
 
-export default function EntryForm({ onFormSubmit }) {
-  const [url, setUrl] = useState("");
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [careTipps, setCareTipps] = useState("");
-  const [location, setLocation] = useState("");
+export default function EntryForm({ onFormSubmit, entry }) {
+  const [url, setUrl] = useState(entry ? entry.url : ""); 
+  const [name, setName] = useState(entry ? entry.name : "");
+  const [description, setDescription] = useState(
+    entry ? entry.description : ""
+  );
+  const [careTipps, setCareTipps] = useState(entry ? entry.careTipps : "");
+  const [location, setLocation] = useState(entry ? entry.location : "");
+  
 
   const router = useRouter();
   const goBack = () => {
@@ -20,25 +22,32 @@ export default function EntryForm({ onFormSubmit }) {
 
   function handleSubmit(event) {
     event.preventDefault();
-    const entry = {
+    const entryObject = {
       url,
       name,
       description,
       careTipps,
       location,
     };
-    onFormSubmit(entry);
+
+       
+    if (entry && entry.id) {
+      entryObject.id = entry.id;
+    }
+    onFormSubmit(entryObject);
     router.push("/journal");
   }
   function handleReset(event) {
     event.target.reset();
+
+    if (entry && entry.id) {
+      router.push("/journal")
+    }
   }
+  
 
   return (
     <>
-    <Head>
-      <title>Formular</title>
-    </Head>
       <StyledHeadline>PlantBuddy</StyledHeadline>
       <StyledBackButton type="button" aria-label="Go Back" onClick={goBack}>
         <Image
@@ -49,13 +58,14 @@ export default function EntryForm({ onFormSubmit }) {
         />
       </StyledBackButton>
       <main>
-        <StyledTitle>Plant Journal</StyledTitle>
+        <StyledTitle>Plant Journal </StyledTitle>
         <StyledForm onSubmit={handleSubmit} onReset={handleReset}>
           <StyledLabel htmlFor="url">URL</StyledLabel>
           <StyledInput
             type="url"
             id="url"
             name="url"
+            value={url}
             placeholder="Image Upload URL"
             onChange={(event) => setUrl(event.target.value)}
             required
@@ -66,9 +76,8 @@ export default function EntryForm({ onFormSubmit }) {
             id="name"
             name="name"
             placeholder="Name"
+            value={name}
             onChange={(event) => setName(event.target.value)}
-            minLength="3"
-            maxLength="20"
             required
           />
           <StyledLabel htmlFor="description">Description</StyledLabel>
@@ -76,9 +85,8 @@ export default function EntryForm({ onFormSubmit }) {
             type="text"
             id="description"
             name="description"
-            minLength="3"
-            maxLength="300"
             placeholder="Description"
+            value={description}
             onChange={(event) => setDescription(event.target.value)}
           />
           <StyledLabel htmlFor="care">Care</StyledLabel>
@@ -86,9 +94,8 @@ export default function EntryForm({ onFormSubmit }) {
             type="text"
             id="care"
             name="care"
-            minLength="3"
-            maxLength="300"
             placeholder="Care Tipps"
+            value={careTipps}
             onChange={(event) => setCareTipps(event.target.value)}
           />
           <StyledLabel htmlFor="location">Location</StyledLabel>
@@ -96,9 +103,8 @@ export default function EntryForm({ onFormSubmit }) {
             type="text"
             id="location"
             name="location"
-            minLength="3"
-            maxLength="40"
             placeholder="Location"
+            value={location}
             onChange={(event) => setLocation(event.target.value)}
           />
 
@@ -153,7 +159,7 @@ const StyledInput = styled.input`
 
 const StyledTextarea = styled.textarea`
   background-color: ${({ theme }) => theme.formField};
-  padding: 0.6rem 1.5rem;
+  padding: 1rem;
   border-radius: 8px;
   color: ${({ theme }) => theme.formText};
   border: solid 1px ${({ theme }) => theme.cardBorder};
@@ -161,7 +167,6 @@ const StyledTextarea = styled.textarea`
   cursor: pointer;
   resize: vertical;
   min-height: 100px;
-  font-family: sans-serif;
   &::placeholder {
     color: ${({ theme }) => theme.formTitle};
     font-weight: 600;
@@ -182,7 +187,6 @@ const StyledButton = styled.button`
   cursor: pointer;
   width: 9rem;
 `;
-
 const StyledBackButton = styled.button`
   position: absolute;
   top: 1.75rem;
@@ -197,10 +201,10 @@ const StyledBackButton = styled.button`
   border: none;
   z-index: 2;
 `;
-
 const StyledTitle = styled.h2`
   text-align: center;
-  margin: 6rem 0 2rem 0;
-  font-size: 1.25rem;
-  color: ${({ theme }) => theme.primaryGreen};
+  margin-top: 6rem;
+  margin-bottom: 2rem;
+  font-size: 1.5;
+  color: ${({ theme }) => theme.infoText};
 `;

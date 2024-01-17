@@ -5,7 +5,7 @@ import styled from "styled-components";
 import PlantCharacteristics from "@/components/PlantCharacteristics";
 import FavoriteButton from "@/components/FavoriteButton";
 import Link from "next/link";
-import Header from "next/head";
+import Head from "next/head";
 
 export default function PlantDetail({
   onToggleFavorite,
@@ -36,9 +36,10 @@ export default function PlantDetail({
 
   return (
     <>
-    <Header>
+    <Head>
       <title>Plant Detail</title>
-    </Header>
+    </Head>
+    <StyledMain>
       <StyledBackButton type="button" aria-label="Go Back" onClick={goBack}>
         <Image
           src="/assets/ArrowIcon.svg"
@@ -47,7 +48,6 @@ export default function PlantDetail({
           height={20}
         />
       </StyledBackButton>
-      <main>
         <FavoriteButton
           onClick={() => onToggleFavorite(plant._id)}
           isFavorite={favorites?.includes(plant._id)}
@@ -107,7 +107,7 @@ export default function PlantDetail({
                 <PlantCharacteristics
                   headline="Category"
                   imageAlt="Leaf Icons"
-                  imageSrc={theme === "light" ? "/assets/CategoryInActive.svg" : "/assets/CategoryActive.svg"}
+                  imageSrc={theme === "light" ? "/assets/CategoryInactive.svg" : "/assets/CategoryActive.svg"}
                   info={plant.categorySlug}
                 />
               </StyledLink>
@@ -118,10 +118,20 @@ export default function PlantDetail({
             <p>{plant.description}</p>
           </StyledDescription>
         </StyledSection>
-      </main>
+      </StyledMain>
     </>
   );
 }
+
+const StyledMain = styled.main`
+  position: relative;
+  
+  @media (min-width: 1024px) {
+    display: flex;
+    max-width: 90rem;
+    margin: 0 auto;
+  }
+`;
 
 const StyledBackButton = styled.button`
   position: absolute;
@@ -140,6 +150,12 @@ const StyledImage = styled(Image)`
   width: 100%;
   height: auto;
   display: block;
+  object-fit: cover;
+  
+  @media (min-width: 1024px) {
+    width: 60%;
+    height: 51.6rem;
+  }
 `;
 
 const StyledSection = styled.section`
@@ -171,7 +187,6 @@ const StyledPlantCharacteristics = styled.ul`
   justify-content: center;
   border-bottom: 2px solid ${({ theme }) => theme.dividerDetails};
   padding: 1rem 0 1rem 0;
-  
 `;
 
 const StyledDescription = styled.article`

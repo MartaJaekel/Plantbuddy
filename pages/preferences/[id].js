@@ -3,7 +3,7 @@ import styled from "styled-components";
 import PlantCard from "@/components/Card";
 import { StyledHeadline } from "@/components/Headline/StyledHeadline";
 import Image from "next/image";
-import Header from "next/head";
+import Head from "next/head";
 
 export default function Preference({
   preferences,
@@ -38,9 +38,9 @@ export default function Preference({
 
   return (
     <>
-    <Header>
+    <Head>
       <title>Filtered Preferences</title>
-    </Header>
+    </Head>
       <StyledHeadline>PlantBuddy</StyledHeadline>
       <main />
       <StyledBackButton type="button" aria-label="Go Back" onClick={goBack}>
@@ -105,6 +105,12 @@ const StyledPlantList = styled.ul`
   flex-wrap: wrap;
   justify-content: center;
   gap: 1rem;
+  max-width: 41rem;
+  margin: 0 auto;
+
+  @media (min-width: 1024px) {
+    max-width: 61rem;
+  }
 `;
 
 const StyledBackButton = styled.button`

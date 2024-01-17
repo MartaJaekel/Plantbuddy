@@ -4,11 +4,13 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import Head from "next/head";
 
-export default function CategoryDetail({theme}) {
+export default function CategoryDetail({ theme }) {
   const router = useRouter();
   const { slug } = router.query;
 
-  const { data: category, error: categoriesError } = useSWR(`/api/categories/${slug}`);
+  const { data: category, error: categoriesError } = useSWR(
+    `/api/categories/${slug}`
+  );
 
   if (categoriesError) return <div>Error occurred while fetching data</div>;
   if (!category) return <div>Loading...</div>;
@@ -21,12 +23,11 @@ export default function CategoryDetail({theme}) {
     theme === "light" ? category.bgcolor : category.bgcolorDark;
 
   return (
-    <>
+  <>
     <Head>
-        <title>{category.title}</title>
-    
-      </Head>
-      <StyledDiv>
+      <title>{category.title}</title>
+    </Head>
+    <StyledMain>
       <StyledBackButton type="button" aria-label="Go Back" onClick={goBack}>
         <Image src="/assets/ArrowIcon.svg" alt="Back Link" width={25} height={20} />
       </StyledBackButton>
@@ -43,13 +44,19 @@ export default function CategoryDetail({theme}) {
             <p>{category.description}</p>
           </article>
         </StyledSection>
-      </StyledDiv>
+      </StyledMain>
       </>
   )
 }
 
-const StyledDiv = styled.div`
+const StyledMain = styled.main`
   position: relative;
+  
+  @media (min-width: 1024px) {
+    display: flex;
+    max-width: 90rem;
+    margin: 0 auto;
+  }
 `;
 
 const StyledBackButton = styled.button`
@@ -69,6 +76,12 @@ const StyledImage = styled(Image)`
   width: 100%;
   height: auto;
   display: block;
+  object-fit: cover;
+  
+  @media (min-width: 1024px) {
+    width: 60%;
+    height: 51.6rem;
+  }
 `;
 
 const StyledSection = styled.section`

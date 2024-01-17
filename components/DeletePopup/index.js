@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
-export default function DeletePopup({ message, onConfirm, onCancel }) {
+export default function DeletePopup({ onConfirm, onCancel, name }) {
   return (
     <StyledPopupContainer>
       <StyledPopupContent>
-        <StyledCallText>Are you sure you want to <StyledSpan>delete</StyledSpan> this Preference?</StyledCallText>
+        <StyledCallText>Are you sure you want to <StyledSpan>delete</StyledSpan> this {name}?</StyledCallText>
         <StyledButtonContainer>
           <StyledButton onClick={onConfirm}>Okay</StyledButton>
           <StyledButton onClick={onCancel}>Cancel</StyledButton>
@@ -24,6 +24,7 @@ const StyledPopupContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 2;
 `;
 
 const StyledPopupContent = styled.div`
