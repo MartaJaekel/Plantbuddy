@@ -2,16 +2,12 @@ import React from "react";
 import PlantCard from "@/components/Card";
 import styled from "styled-components";
 import { StyledHeadline } from "@/components/Headline/StyledHeadline";
-import Header from "next/head";
 
 export default function FavoritePage({ plants, favorites, onToggleFavorite, theme }) {
   const favoritePlants = plants.filter((plant) => favorites.includes(plant._id));
 
   return (
     <>
-    <Header>
-      <title>Favorite Plants</title>
-    </Header>
       <StyledHeadline>PlantBuddy</StyledHeadline>
       <main>
         <StyledTitle>Your Favorite Plants</StyledTitle>
@@ -60,6 +56,12 @@ const StyledPlantList = styled.ul`
   flex-wrap: wrap;
   justify-content: center;
   gap: 1rem;
+  max-width: 41rem;
+  margin: 0 auto;
+
+  @media (min-width: 1024px) {
+    max-width: 61rem;
+  }
 `;
 
 const StyledSpan = styled.span`

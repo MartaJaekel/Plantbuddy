@@ -5,7 +5,6 @@ import { StyledHeadline } from "@/components/Headline/StyledHeadline";
 import styled from "styled-components";
 import SortPlants from "@/components/SortPlants";
 import Image from "next/image";
-import Head from 'next/head';
 
 export default function HomePage({
   onToggleFavorite,
@@ -26,10 +25,6 @@ export default function HomePage({
 
   return (
     <>
-    <Head>
-        <title>PlantBuddy</title>
-      
-      </Head>
       <StyledHeadline>PlantBuddy</StyledHeadline>
       <StyledThemeToggler onClick={toggleTheme}>
           {theme === "light" ? (

@@ -10,7 +10,7 @@ export default function PlantList({
   theme
 }) {
   const error = search.length > 0 && searchResult.length === 0;
-
+console.log(favorites)
   if (error) {
     return (
       <ErrorMessageContainer>
@@ -25,24 +25,15 @@ export default function PlantList({
 
   return (
     <StyledPlantList>
-      {search.length === 0
-        ? sortedPlants.map((plant) => (
-            <PlantCard
-              key={plant._id}
-              plant={plant}
-              onToggleFavorite={onToggleFavorite}
-              isFavorite={favorites?.includes(plant._id)}
-              theme={theme}
-            />
-          ))
-        : searchResult.map((plant) => (
-            <PlantCard
-              key={plant._id}
-              plant={plant}
-              onToggleFavorite={onToggleFavorite}
-              isFavorite={favorites?.includes(plant._id)}
-            />
-          ))}
+      {(search.length ? searchResult : sortedPlants).map((plant) =>
+        <PlantCard
+          key={plant._id}
+          plant={plant}
+          onToggleFavorite={onToggleFavorite}
+          isFavorite={favorites?.includes(plant._id)}
+          theme={theme}
+        />
+      )}
     </StyledPlantList>
   );
 }
@@ -52,6 +43,12 @@ const StyledPlantList = styled.ul`
   flex-wrap: wrap;
   justify-content: center;
   gap: 1rem;
+  max-width: 41rem;
+  margin: 2rem auto 0 auto;
+
+  @media (min-width: 1024px) {
+    max-width: 61rem;
+  }
 `;
 
 const ErrorMessageContainer = styled.div`
