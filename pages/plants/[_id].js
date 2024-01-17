@@ -31,7 +31,7 @@ export default function PlantDetail({
     theme === "light" ? category.bgcolor : category.bgcolorDark;
 
   return (
-    <main>
+    <StyledMain>
       <BackButton />
       <FavoriteButton
         onClick={() => onToggleFavorite(plant._id)}
@@ -114,7 +114,7 @@ export default function PlantDetail({
                 imageAlt="Leaf Icons"
                 imageSrc={
                   theme === "light"
-                    ? "/assets/CategoryInActive.svg"
+                    ? "/assets/CategoryInactive.svg"
                     : "/assets/CategoryActive.svg"
                 }
                 info={plant.categorySlug}
@@ -127,14 +127,30 @@ export default function PlantDetail({
           <p>{plant.description}</p>
         </StyledDescription>
       </StyledSection>
-    </main>
+    </StyledMain>
   );
 }
+
+const StyledMain = styled.main`
+  position: relative;
+
+  @media (min-width: 1024px) {
+    display: flex;
+    max-width: 90rem;
+    margin: 0 auto;
+  }
+`;
 
 const StyledImage = styled(Image)`
   width: 100%;
   height: auto;
   display: block;
+  object-fit: cover;
+
+  @media (min-width: 1024px) {
+    width: 60%;
+    height: 51.6rem;
+  }
 `;
 
 const StyledSection = styled.section`

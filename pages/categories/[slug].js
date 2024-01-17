@@ -19,7 +19,7 @@ export default function CategoryDetail({ theme }) {
     theme === "light" ? category.bgcolor : category.bgcolorDark;
 
   return (
-    <StyledDiv>
+    <StyledMain>
       <BackButton />
       <StyledImage
         src={category.image}
@@ -34,18 +34,30 @@ export default function CategoryDetail({ theme }) {
           <p>{category.description}</p>
         </article>
       </StyledSection>
-    </StyledDiv>
+    </StyledMain>
   );
 }
 
-const StyledDiv = styled.div`
+const StyledMain = styled.main`
   position: relative;
+  
+  @media (min-width: 1024px) {
+    display: flex;
+    max-width: 90rem;
+    margin: 0 auto;
+  }
 `;
 
 const StyledImage = styled(Image)`
   width: 100%;
   height: auto;
   display: block;
+  object-fit: cover;
+  
+  @media (min-width: 1024px) {
+    width: 60%;
+    height: 51.6rem;
+  }
 `;
 
 const StyledSection = styled.section`
