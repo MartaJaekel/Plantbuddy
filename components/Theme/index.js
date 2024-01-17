@@ -17,12 +17,12 @@ export const lightTheme = {
 };
 export const darkTheme = {
   background: "#2B2E28",
-  primaryGreen: "#528f1f",
+  primaryGreen: "#53A00A",
   navigation: "#3E4438",
   formText: "#FAFAF5",
   formField: "#2B2E28",
   formTitle: "#53A00A",
-  button: "#528f1f",
+  button: "#53A00A",
   divider: "#E6E6E6",
   dividerDetails: "#FAFAF5)",
   infoText: "#FAFAF5",
