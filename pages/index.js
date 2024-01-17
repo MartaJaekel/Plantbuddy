@@ -1,10 +1,11 @@
 import PlantList from "@/components/PlantList";
 import React, { useState } from "react";
 import SearchField from "@/components/SearchField";
-import { StyledHeadline } from "@/components/Headline/StyledHeadline";
+import Headline from "@/components/Headline";
 import styled from "styled-components";
 import SortPlants from "@/components/SortPlants";
 import Image from "next/image";
+import { useSession } from "next-auth/react";
 
 export default function HomePage({
   onToggleFavorite,
@@ -15,6 +16,7 @@ export default function HomePage({
 }) {
   const [search, setSearch] = useState("");
   const [sortPlants, setSortPlants] = useState(plants);
+  const { status } = useSession();
 
   const searchResult = plants.filter((plant) => {
     return plant.commonName.toLowerCase().startsWith(search.toLowerCase());
@@ -25,24 +27,24 @@ export default function HomePage({
 
   return (
     <>
-      <StyledHeadline>PlantBuddy</StyledHeadline>
-      <StyledThemeToggler onClick={toggleTheme}>
-          {theme === "light" ? (
-            <Image
-              src="/assets/DarkModeIcon.svg"
-              alt="Darkmode Icon"
-              width={25}
-              height={25}
-            />
-          ) : (
-            <Image
-              src="/assets/LightModeIcon.svg"
-              alt="Lightmode Icon"
-              width={25}
-              height={25}
-            />
-          )}
-        </StyledThemeToggler>
+      <Headline />
+      <StyledThemeToggler onClick={toggleTheme} status={status}>
+        {theme === "light" ? (
+          <Image
+            src="/assets/DarkModeIcon.svg"
+            alt="Darkmode Icon"
+            width={25}
+            height={25}
+          />
+        ) : (
+          <Image
+            src="/assets/LightModeIcon.svg"
+            alt="Lightmode Icon"
+            width={25}
+            height={25}
+          />
+        )}
+      </StyledThemeToggler>
       <main>
         <SearchField onChange={setSearch} />
         {search === "" && (
@@ -64,9 +66,9 @@ export default function HomePage({
 
 const StyledThemeToggler = styled.button`
   position: fixed;
-  top: 0.5rem;
+  top: ${({ status }) => (status === "authenticated" ? "3.5rem" : "0.5rem")};
   right: 0.5rem;
-  z-index: 2;
+  z-index: 3;
   border: 0;
   background: none;
   padding: 0;

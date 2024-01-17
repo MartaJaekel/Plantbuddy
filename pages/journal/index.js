@@ -1,37 +1,51 @@
 import React from "react";
 import Link from "next/link";
-import { StyledHeadline } from "@/components/Headline/StyledHeadline";
+import Headline from "@/components/Headline";
 import styled from "styled-components";
+import { useRouter } from "next/router";
 import { StyledTitle } from "@/components/Title/StyledTitle";
-
 import EntryCard from "@/components/JournalEntryCard";
+import { useSession } from "next-auth/react";
+import Login from "@/components/Login";
 
 export default function JournalOverviewPage({ entries, handleDeleteEntry }) {
+  const router = useRouter();
+  const { status } = useSession();
+
   return (
     <>
-      <StyledHeadline>PlantBuddy</StyledHeadline>
+      <Headline />
       <main>
         <StyledTitle>Plant Journal</StyledTitle>
-        <StyledLink href="/journal/entry">
-          <StyledButton>Create a new Entry</StyledButton>
-        </StyledLink>
-        <StyledEntriesContainer>
-          {entries.length > 0 ? (
-            entries.map((entry) => (
-              <StyledEntries key={entry.id}>
-                <StyledLink href={`/journal/${entry.id}`}>
-                  <EntryCard entry={entry} onDeleteEntry={handleDeleteEntry} />
-                </StyledLink>
-              </StyledEntries>
-            ))
-          ) : (
-            <StyledParagraph>
-              You don&apos;t have any entries yet
-              <br />
-              start with your first entry.
-            </StyledParagraph>
-          )}
-        </StyledEntriesContainer>
+        {status !== "authenticated" ? (
+          <Login />
+        ) : (
+          <>
+            <StyledLink href="/journal/entry">
+              <StyledButton>Create a new Entry</StyledButton>
+            </StyledLink>
+            <StyledEntriesContainer>
+              {entries.length > 0 ? (
+                entries.map((entry) => (
+                  <StyledEntries key={entry.id}>
+                    <StyledLink href={`/journal/${entry.id}`}>
+                      <EntryCard
+                        entry={entry}
+                        onDeleteEntry={handleDeleteEntry}
+                      />
+                    </StyledLink>
+                  </StyledEntries>
+                ))
+              ) : (
+                <StyledParagraph>
+                  You don&apos;t have any entries yet
+                  <br />
+                  start with your first entry.
+                </StyledParagraph>
+              )}
+            </StyledEntriesContainer>
+          </>
+        )}
       </main>
     </>
   );

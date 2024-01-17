@@ -6,7 +6,7 @@ export const lightTheme = {
   formField: "#E6E6E6",
   formTitle: "#53A00A",
   button: "#426B1F",
-  divider: "#E6E6E6",
+  divider: "#426B1F",
   dividerDetails: "#E6E6E6",
   infoText: "#010101",
   popUpBackground: "rgba(255, 255, 255, 0.7)",
@@ -28,7 +28,7 @@ export const darkTheme = {
   infoText: "#FAFAF5",
   popUpBackground: "rgba(45, 45, 40, 0.9)",
   popUpField: "#3E4438",
-  popUpFieldButton: "#426B1F",
+  popUpFieldButton: "#53A00A",
   cardBorder: "#E6E6E6",
   white: "#FFFFFF",
 };

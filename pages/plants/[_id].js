@@ -5,7 +5,9 @@ import styled from "styled-components";
 import PlantCharacteristics from "@/components/PlantCharacteristics";
 import FavoriteButton from "@/components/FavoriteButton";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 import BackButton from "@/components/BackButton";
+
 
 export default function PlantDetail({
   onToggleFavorite,
@@ -13,6 +15,7 @@ export default function PlantDetail({
   categories,
   theme,
 }) {
+  const { status } = useSession();
   const router = useRouter();
   const { _id } = router.query;
 
@@ -31,103 +34,103 @@ export default function PlantDetail({
     theme === "light" ? category.bgcolor : category.bgcolorDark;
 
   return (
-    <StyledMain>
-      <BackButton />
-        <FavoriteButton
-          onClick={() => onToggleFavorite(plant._id)}
-          isFavorite={favorites?.includes(plant._id)}
+    <>
+      <StyledMain>
+      <BackButton/>
+        {status === "authenticated" && (
+          <FavoriteButton
+            onClick={() => onToggleFavorite(plant._id)}
+            isFavorite={favorites?.includes(plant._id)}
+          />
+        )}
+        <StyledImage
+          src={plant.image}
+          width={200}
+          height={200}
+          alt={plant.commonName}
         />
-      <StyledImage
-        src={plant.image}
-        width={200}
-        height={200}
-        alt={plant.commonName}
-      />
-      <StyledSection $categoryColor={categoryColor}>
-        <StyledName>{plant.commonName}</StyledName>
-        <StyledSpecies>{plant.species}</StyledSpecies>
-        <StyledPlantCharacteristics>
-          <li>
-            <PlantCharacteristics
-              headline="Size"
-              imageAlt="Size Icon"
-              imageSrc={
-                theme === "light"
-                  ? "/assets/SizeIcon.svg"
-                  : "/assets/SizeIconDarkmode.svg"
-              }
-              info={plant.size}
-            />
-          </li>
-          <li>
-            <PlantCharacteristics
-              headline="Sunlight"
-              imageAlt="Sunlight Icon"
-              imageSrc={
-                theme === "light"
-                  ? "/assets/SunlightIcon.svg"
-                  : "/assets/SunlightIconDarkmode.svg"
-              }
-              info={plant.sunlightRequirements}
-            />
-          </li>
-          <li>
-            <PlantCharacteristics
-              headline="Warmth"
-              imageAlt="Temperature Icon"
-              imageSrc={
-                theme === "light"
-                  ? "/assets/TemperatureIcon.svg"
-                  : "/assets/TemperatureIconDarkmode.svg"
-              }
-              info={plant.optimalTemperature}
-            />
-          </li>
-          <li>
-            <PlantCharacteristics
-              headline="Water"
-              imageAlt="Water Icon"
-              imageSrc={
-                theme === "light"
-                  ? "/assets/WaterIcon.svg"
-                  : "/assets/WaterIconDarkmode.svg"
-              }
-              info={plant.waterNeeds}
-            />
-          </li>
-          <li>
-            <PlantCharacteristics
-              headline="Pet-Friendly"
-              imageAlt="Paw Icon"
-              imageSrc={
-                theme === "light"
-                  ? "/assets/PawIcon.svg"
-                  : "/assets/PawDarkmode.svg"
-              }
-              info={plant.petFriendly === true ? "yes" : "no"}
-            />
-          </li>
-          <li>
-            <StyledLink href={`/categories/${plant.categorySlug}`}>
+        <StyledSection $categoryColor={categoryColor}>
+          <StyledName>{plant.commonName}</StyledName>
+          <StyledSpecies>{plant.species}</StyledSpecies>
+          <StyledPlantCharacteristics>
+            <li>
               <PlantCharacteristics
-                headline="Category"
-                imageAlt="Leaf Icons"
+                headline="Size"
+                imageAlt="Size Icon"
                 imageSrc={
                   theme === "light"
-                    ? "/assets/CategoryInactive.svg"
-                    : "/assets/CategoryActive.svg"
+                    ? "/assets/SizeIcon.svg"
+                    : "/assets/SizeIconDarkmode.svg"
                 }
-                info={plant.categorySlug}
+                info={plant.size}
               />
-            </StyledLink>
-          </li>
-        </StyledPlantCharacteristics>
-        <StyledDescription>
-          <h3>Description</h3>
-          <p>{plant.description}</p>
-        </StyledDescription>
-      </StyledSection>
-    </StyledMain>
+            </li>
+            <li>
+              <PlantCharacteristics
+                headline="Sunlight"
+                imageAlt="Sunlight Icon"
+                imageSrc={
+                  theme === "light"
+                    ? "/assets/SunlightIcon.svg"
+                    : "/assets/SunlightIconDarkmode.svg"
+                }
+                info={plant.sunlightRequirements}
+              />
+            </li>
+            <li>
+              <PlantCharacteristics
+                headline="Warmth"
+                imageAlt="Temperature Icon"
+                imageSrc={
+                  theme === "light"
+                    ? "/assets/TemperatureIcon.svg"
+                    : "/assets/TemperatureIconDarkmode.svg"
+                }
+                info={plant.optimalTemperature}
+              />
+            </li>
+            <li>
+              <PlantCharacteristics
+                headline="Water"
+                imageAlt="Water Icon"
+                imageSrc={
+                  theme === "light"
+                    ? "/assets/WaterIcon.svg"
+                    : "/assets/WaterIconDarkmode.svg"
+                }
+                info={plant.waterNeeds}
+              />
+            </li>
+            <li>
+              <PlantCharacteristics
+                headline="Pet-Friendly"
+                imageAlt="Paw Icon"
+                imageSrc={
+                  theme === "light"
+                    ? "/assets/PawIcon.svg"
+                    : "/assets/PawDarkmode.svg"
+                }
+                info={plant.petFriendly === true ? "yes" : "no"}
+              />
+            </li>
+            <li>
+              <StyledLink href={`/categories/${plant.categorySlug}`}>
+                <PlantCharacteristics
+                  headline="Category"
+                  imageAlt="Leaf Icons"
+                  imageSrc={theme === "light" ? "/assets/CategoryInactive.svg" : "/assets/CategoryActive.svg"}
+                  info={plant.categorySlug}
+                />
+              </StyledLink>
+            </li>
+          </StyledPlantCharacteristics>
+          <StyledDescription>
+            <h3>Description</h3>
+            <p>{plant.description}</p>
+          </StyledDescription>
+        </StyledSection>
+      </StyledMain>
+    </>
   );
 }
 
@@ -180,7 +183,7 @@ const StyledPlantCharacteristics = styled.ul`
   gap: 1rem 2rem;
   flex-wrap: wrap;
   justify-content: center;
-  border-bottom: 2px solid ${({ theme }) => theme.dividerDetails};
+  border-bottom: 2px solid ${({ theme }) => theme.divider};
   padding: 1rem 0 1rem 0;
 `;
 

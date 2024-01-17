@@ -1,10 +1,14 @@
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import Image from "next/image";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
+import ProtectedRoute from "@/components/ProtectedRoute";
 import BackButton from "@/components/BackButton";
 
+
 export default function EntryDetail({ entries }) {
+  const { status } = useSession();
   const router = useRouter();
   const { id } = router.query;
 
@@ -14,7 +18,8 @@ export default function EntryDetail({ entries }) {
   }
 
   return (
-    <StyledMain>
+    <ProtectedRoute fallback={"/"}>
+      <StyledMain>
       <BackButton />
       <StyledEditLink href={`/journal/edit/${entry.id}`}>Edit</StyledEditLink>
         <StyledImage
@@ -45,6 +50,7 @@ export default function EntryDetail({ entries }) {
           )}
         </StyledArticle>
     </StyledMain>
+    </ProtectedRoute>
   );
 }
 
@@ -57,18 +63,7 @@ const StyledMain = styled.main`
     margin: 0 auto;
   }
 `;
-const StyledBackButton = styled.button`
-  position: absolute;
-  top: 1.75rem;
-  left: 1rem;
-  background-color: ${({ theme }) => theme.primaryGreen};
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  border: none;
-`;
+
 const StyledEditLink = styled(Link)`
   position: absolute;
   top: 1.75rem;

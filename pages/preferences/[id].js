@@ -1,7 +1,10 @@
 import { useRouter } from "next/router";
-import styled from "styled-components";
 import PlantCard from "@/components/Card";
-import { StyledHeadline } from "@/components/Headline/StyledHeadline";
+import Headline from "@/components/Headline";
+import styled from "styled-components";
+import { useSession } from "next-auth/react";
+import ProtectedRoute from "@/components/ProtectedRoute";
+import Login from "@/components/Login";
 import BackButton from "@/components/BackButton";
 import { StyledTitle } from "@/components/Title/StyledTitle";
 
@@ -14,6 +17,7 @@ export default function Preference({
 }) {
   const router = useRouter();
   const { id } = router.query;
+  const { status } = useSession();
 
   const preference = preferences.find((preference) => preference.id === id);
 
@@ -33,11 +37,11 @@ export default function Preference({
   }
 
   return (
-    <>
+    <ProtectedRoute fallback={<Login />}>
       <StyledButton>
         <BackButton />
       </StyledButton>
-      <StyledHeadline>PlantBuddy</StyledHeadline>;
+      <Headline />
       <main />
       <StyledTitle>{preference?.preferenceTitle}</StyledTitle>
       <StyledCounterMessage>{counterMessage}</StyledCounterMessage>
@@ -59,7 +63,7 @@ export default function Preference({
           ))}
         </StyledPlantList>
       )}
-    </>
+    </ProtectedRoute>
   );
 }
 
@@ -95,5 +99,6 @@ const StyledPlantList = styled.ul`
 
 const StyledButton = styled.div`
   position: fixed;
+  top: 2.75rem;
   z-index: 3;
 `;

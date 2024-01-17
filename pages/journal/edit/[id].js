@@ -1,7 +1,8 @@
 import { useRouter } from "next/router";
 import styled from "styled-components";
-import { StyledHeadline } from "@/components/Headline/StyledHeadline";
+import Headline from "@/components/Headline";
 import EntryForm from "components/JournalEntryForm";
+import ProtectedRoute from "@/components/ProtectedRoute";
 import BackButton from "@/components/BackButton";
 import { StyledTitle } from "@/components/Title/StyledTitle";
 
@@ -15,16 +16,16 @@ export default function EditJournal({ entries, onEditEntry }) {
   }
 
   return (
-    <>
-      <StyledButton>
+    <ProtectedRoute fallback={"/"}>
+    <StyledButton>
         <BackButton />
       </StyledButton>
-      <StyledHeadline>PlantBuddy</StyledHeadline>;
+      <Headline />
       <main>
         <StyledTitle>Edit your Entry</StyledTitle>
         <EntryForm entry={thisEntry} onFormSubmit={onEditEntry} />
       </main>
-    </>
+    </ProtectedRoute>
   );
 }
 
