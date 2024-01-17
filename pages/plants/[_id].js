@@ -33,10 +33,10 @@ export default function PlantDetail({
   return (
     <StyledMain>
       <BackButton />
-      <FavoriteButton
-        onClick={() => onToggleFavorite(plant._id)}
-        isFavorite={favorites?.includes(plant._id)}
-      />
+        <FavoriteButton
+          onClick={() => onToggleFavorite(plant._id)}
+          isFavorite={favorites?.includes(plant._id)}
+        />
       <StyledImage
         src={plant.image}
         width={200}
