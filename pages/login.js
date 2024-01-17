@@ -1,12 +1,12 @@
 import Headline from "@/components/Headline";
-import Login from "@/components/Login";
+import LoginFavorites from "@/components/LoginFavorites";
 
 export default function login() {
   return (
     <>
       <Headline />
       <main>
-        <Login />
+        <LoginFavorites />
       </main>
     </>
   );
