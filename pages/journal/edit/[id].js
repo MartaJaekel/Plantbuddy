@@ -1,7 +1,8 @@
 import { useRouter } from "next/router";
 import styled from "styled-components";
-import { StyledHeadline } from "@/components/Headline/StyledHeadline";
+import Headline from "@/components/Headline";
 import EntryForm from "components/JournalEntryForm";
+import ProtectedRoute from "@/components/ProtectedRoute";
 
 export default function EditJournal({ entries, onEditEntry }) {
   const router = useRouter();
@@ -11,20 +12,19 @@ export default function EditJournal({ entries, onEditEntry }) {
   if (!thisEntry) {
     return <div>Entry not found</div>;
   }
-  
+
   return (
-    <>
-      <StyledHeadline>PlantBuddy</StyledHeadline>;
+    <ProtectedRoute fallback={"/"}>
+      <Headline />
       <main>
         <StyledTitle>Edit your Entry</StyledTitle>
         <EntryForm entry={thisEntry} onFormSubmit={onEditEntry} />
       </main>
-    </>
+    </ProtectedRoute>
   );
 }
 const StyledTitle = styled.h2`
   text-align: center;
-  margin: 6rem 0 2rem 0;
   font-size: 1.25rem;
   color: ${({ theme }) => theme.primaryGreen};
 `;

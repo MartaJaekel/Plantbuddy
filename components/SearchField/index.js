@@ -69,7 +69,7 @@ const InputWrapper = styled.div`
   flex-flow: column;
   padding: 0 1rem;
   max-width: 21rem;
-  margin: 6rem auto 0 auto;
+  margin: auto;
 
   @media (min-width: 1024px) {
     max-width: 31rem;

@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Link from "next/link";
 import FavoriteButton from "../FavoriteButton";
 import useSWR from "swr";
+import { useSession } from "next-auth/react";
 
 export default function PlantCard({
   onToggleFavorite,
@@ -10,26 +11,29 @@ export default function PlantCard({
   plant,
   theme,
 }) {
-  const { data: categories, error: categoriesError } = useSWR('/api/categories');
-  const { data: plants, error: plantsError } = useSWR('/api/plants');
+  const { data: categories, error: categoriesError } =
+    useSWR("/api/categories");
+  const { data: plants, error: plantsError } = useSWR("/api/plants");
+  const { status } = useSession();
 
-  if (plantsError || categoriesError) return <div>Error occurred while fetching data</div>;
+  if (plantsError || categoriesError)
+    return <div>Error occurred while fetching data</div>;
   if (!plants || !categories) return <div>Loading...</div>;
-  
+
   const category = categories.find(
     (category) => category.slug === plant.categorySlug
   );
   const categoryColor =
     theme === "light" ? category.bgcolor : category.bgcolorDark;
 
-
-
   return (
     <StyledListItem>
-      <FavoriteButton
-        onClick={() => onToggleFavorite(plant._id)}
-        isFavorite={isFavorite}
-      />
+      {status === "authenticated" && (
+        <FavoriteButton
+          onClick={() => onToggleFavorite(plant._id)}
+          isFavorite={isFavorite}
+        />
+      )}
       <StyledLink href={`/plants/${plant?._id}`}>
         <StyledFigure $categoryColor={categoryColor}>
           <Image

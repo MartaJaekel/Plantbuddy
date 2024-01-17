@@ -1,17 +1,29 @@
 import React from "react";
 import PlantCard from "@/components/Card";
 import styled from "styled-components";
-import { StyledHeadline } from "@/components/Headline/StyledHeadline";
+import Headline from "@/components/Headline";
+import Login from "@/components/Login";
+import { useSession } from "next-auth/react";
 
-export default function FavoritePage({ plants, favorites, onToggleFavorite, theme }) {
-  const favoritePlants = plants.filter((plant) => favorites.includes(plant._id));
+export default function FavoritePage({
+  plants,
+  favorites,
+  onToggleFavorite,
+  theme,
+}) {
+  const favoritePlants = plants.filter((plant) =>
+    favorites.includes(plant._id)
+  );
+  const { status } = useSession();
 
   return (
     <>
-      <StyledHeadline>PlantBuddy</StyledHeadline>
+      <Headline />
       <main>
         <StyledTitle>Your Favorite Plants</StyledTitle>
-        {favoritePlants.length === 0 ? (
+        {status !== "authenticated" ? (
+          <Login />
+        ) : favoritePlants.length === 0 ? (
           <StyledArticle>
             <p>At the moment you do not have any favorite plants.</p>
             <p>
@@ -38,7 +50,6 @@ export default function FavoritePage({ plants, favorites, onToggleFavorite, them
 
 const StyledTitle = styled.h2`
   text-align: center;
-  margin-top: 6rem;
   font-size: 1.25rem;
   color: ${({ theme }) => theme.primaryGreen};
 `;

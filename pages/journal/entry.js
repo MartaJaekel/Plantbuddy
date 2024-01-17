@@ -1,11 +1,13 @@
 import React from "react";
 import { useState } from "react";
 import styled from "styled-components";
-import { StyledHeadline } from "@/components/Headline/StyledHeadline";
+import Headline from "@/components/Headline";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import { useSession } from "next-auth/react";
 
 export default function EntryForm({ onFormSubmit }) {
+  const { status } = useSession();
   const [url, setUrl] = useState("");
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -35,8 +37,13 @@ export default function EntryForm({ onFormSubmit }) {
 
   return (
     <>
-      <StyledHeadline>PlantBuddy</StyledHeadline>
-      <StyledBackButton type="button" aria-label="Go Back" onClick={goBack}>
+      <Headline />
+      <StyledBackButton
+        type="button"
+        aria-label="Go Back"
+        onClick={goBack}
+        status={status}
+      >
         <Image
           src="/assets/ArrowIcon.svg"
           alt="Back Link"
@@ -44,66 +51,68 @@ export default function EntryForm({ onFormSubmit }) {
           height={20}
         />
       </StyledBackButton>
-      <main>
-        <StyledTitle>Plant Journal</StyledTitle>
-        <StyledForm onSubmit={handleSubmit} onReset={handleReset}>
-          <StyledLabel htmlFor="url">URL</StyledLabel>
-          <StyledInput
-            type="url"
-            id="url"
-            name="url"
-            placeholder="Image Upload URL"
-            onChange={(event) => setUrl(event.target.value)}
-            required
-          />
-          <StyledLabel htmlFor="name">Name</StyledLabel>
-          <StyledInput
-            type="text"
-            id="name"
-            name="name"
-            placeholder="Name"
-            onChange={(event) => setName(event.target.value)}
-            minLength="3"
-            maxLength="20"
-            required
-          />
-          <StyledLabel htmlFor="description">Description</StyledLabel>
-          <StyledTextarea
-            type="text"
-            id="description"
-            name="description"
-            minLength="3"
-            maxLength="300"
-            placeholder="Description"
-            onChange={(event) => setDescription(event.target.value)}
-          />
-          <StyledLabel htmlFor="care">Care</StyledLabel>
-          <StyledTextarea
-            type="text"
-            id="care"
-            name="care"
-            minLength="3"
-            maxLength="300"
-            placeholder="Care Tipps"
-            onChange={(event) => setCareTipps(event.target.value)}
-          />
-          <StyledLabel htmlFor="location">Location</StyledLabel>
-          <StyledInput
-            type="text"
-            id="location"
-            name="location"
-            minLength="3"
-            maxLength="40"
-            placeholder="Location"
-            onChange={(event) => setLocation(event.target.value)}
-          />
+      {status === "authenticated" && (
+        <main>
+          <StyledTitle>Plant Journal</StyledTitle>
+          <StyledForm onSubmit={handleSubmit} onReset={handleReset}>
+            <StyledLabel htmlFor="url">URL</StyledLabel>
+            <StyledInput
+              type="url"
+              id="url"
+              name="url"
+              placeholder="Image Upload URL"
+              onChange={(event) => setUrl(event.target.value)}
+              required
+            />
+            <StyledLabel htmlFor="name">Name</StyledLabel>
+            <StyledInput
+              type="text"
+              id="name"
+              name="name"
+              placeholder="Name"
+              onChange={(event) => setName(event.target.value)}
+              minLength="3"
+              maxLength="20"
+              required
+            />
+            <StyledLabel htmlFor="description">Description</StyledLabel>
+            <StyledTextarea
+              type="text"
+              id="description"
+              name="description"
+              minLength="3"
+              maxLength="300"
+              placeholder="Description"
+              onChange={(event) => setDescription(event.target.value)}
+            />
+            <StyledLabel htmlFor="care">Care</StyledLabel>
+            <StyledTextarea
+              type="text"
+              id="care"
+              name="care"
+              minLength="3"
+              maxLength="300"
+              placeholder="Care Tipps"
+              onChange={(event) => setCareTipps(event.target.value)}
+            />
+            <StyledLabel htmlFor="location">Location</StyledLabel>
+            <StyledInput
+              type="text"
+              id="location"
+              name="location"
+              minLength="3"
+              maxLength="40"
+              placeholder="Location"
+              onChange={(event) => setLocation(event.target.value)}
+            />
 
-          <StyledButtonContainer>
-            <StyledButton type="reset">Cancel</StyledButton>
-            <StyledButton type="submit">Save</StyledButton>
-          </StyledButtonContainer>
-        </StyledForm>
-      </main>
+            <StyledButtonContainer>
+              <StyledButton type="reset">Cancel</StyledButton>
+              <StyledButton type="submit">Save</StyledButton>
+            </StyledButtonContainer>
+          </StyledForm>
+        </main>
+      )}
     </>
   );
 }
@@ -180,8 +189,8 @@ const StyledButton = styled.button`
 `;
 
 const StyledBackButton = styled.button`
-  position: absolute;
-  top: 1.75rem;
+  position: fixed;
+  top: ${({ status }) => (status === "authenticated" ? "4.75rem" : "1.75rem")};
   left: 1rem;
   font-size: 2rem;
   background-color: ${({ theme }) => theme.primaryGreen};
@@ -196,7 +205,6 @@ const StyledBackButton = styled.button`
 
 const StyledTitle = styled.h2`
   text-align: center;
-  margin: 6rem 0 2rem 0;
   font-size: 1.25rem;
   color: ${({ theme }) => theme.primaryGreen};
 `;
