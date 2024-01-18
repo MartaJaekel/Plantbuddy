@@ -10,7 +10,7 @@ export default function PlantList({
   theme
 }) {
   const error = search.length > 0 && searchResult.length === 0;
-
+console.log(favorites)
   if (error) {
     return (
       <ErrorMessageContainer>

@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import styled from "styled-components";
 import Headline from "@/components/Headline";
 import EntryForm from "components/JournalEntryForm";
+import Head from "next/head";
 import ProtectedRoute from "@/components/ProtectedRoute";
 
 export default function EditJournal({ entries, onEditEntry }) {
@@ -14,13 +15,18 @@ export default function EditJournal({ entries, onEditEntry }) {
   }
 
   return (
-    <ProtectedRoute fallback={"/"}>
-      <Headline />
-      <main>
-        <StyledTitle>Edit your Entry</StyledTitle>
-        <EntryForm entry={thisEntry} onFormSubmit={onEditEntry} />
-      </main>
-    </ProtectedRoute>
+    <>
+      <Head>
+        <title>Edit Entry</title>
+      </Head>
+      <ProtectedRoute fallback={"/"}>
+        <Headline />
+        <main>
+          <StyledTitle>Edit your Entry</StyledTitle>
+          <EntryForm entry={thisEntry} onFormSubmit={onEditEntry} />
+        </main>
+      </ProtectedRoute>
+    </>
   );
 }
 const StyledTitle = styled.h2`

@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import EntryCard from "@/components/JournalEntryCard";
 import { useSession } from "next-auth/react";
 import Login from "@/components/Login";
+import Head from "next/head";
 
 export default function JournalOverviewPage({ entries, handleDeleteEntry }) {
   const router = useRouter();
@@ -13,6 +14,9 @@ export default function JournalOverviewPage({ entries, handleDeleteEntry }) {
 
   return (
     <>
+    <Head>
+      <title>Create Entry</title>
+    </Head>
       <Headline />
       <main>
         <StyledTitle>Plant Journal</StyledTitle>

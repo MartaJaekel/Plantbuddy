@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Headline from "@/components/Headline";
 import Login from "@/components/Login";
 import { useSession } from "next-auth/react";
+import Header from "next/head";
 
 export default function FavoritePage({
   plants,
@@ -18,6 +19,9 @@ export default function FavoritePage({
 
   return (
     <>
+    <Header>
+      <title>Favorites</title>
+    </Header>
       <Headline />
       <main>
         <StyledTitle>Your Favorite Plants</StyledTitle>

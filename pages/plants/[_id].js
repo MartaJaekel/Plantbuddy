@@ -6,6 +6,7 @@ import PlantCharacteristics from "@/components/PlantCharacteristics";
 import FavoriteButton from "@/components/FavoriteButton";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
+import Head from "next/head";
 
 export default function PlantDetail({
   onToggleFavorite,
@@ -37,7 +38,10 @@ export default function PlantDetail({
 
   return (
     <>
-      <StyledMain>
+    <Head>
+      <title>Plant Detail</title>
+    </Head>
+    <StyledMain>
       <StyledBackButton type="button" aria-label="Go Back" onClick={goBack}>
         <Image
           src="/assets/ArrowIcon.svg"

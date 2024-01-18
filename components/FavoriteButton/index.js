@@ -16,10 +16,15 @@ export default function FavoriteButton({ onClick, isFavorite }) {
 
 const StyledButton = styled.button`
   z-index: 1;
+  display: flex;
   border: 0;
   background: none;
   padding: 0;
   position: absolute;
   top: 0.5rem;
   right: 0.5rem;
+  border-radius: 50%; 
+  padding: 0.2rem; 
+  background-color: rgba(255, 255, 255, 0.2);
 `;
+

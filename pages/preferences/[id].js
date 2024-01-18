@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useSession } from "next-auth/react";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import Login from "@/components/Login";
+import Head from "next/head";
 
 export default function Preference({
   preferences,
@@ -40,6 +41,10 @@ export default function Preference({
   }
 
   return (
+    <>
+    <Head>
+      <title>Filtered Preferences</title>
+    </Head>
     <ProtectedRoute fallback={<Login/>}>
       <Headline />
       <main />
@@ -77,6 +82,7 @@ export default function Preference({
         </StyledPlantList>
       )}
     </ProtectedRoute>
+    </>
   );
 }
 

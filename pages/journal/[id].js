@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import ProtectedRoute from "@/components/ProtectedRoute";
+import Head from "next/head";
 
 export default function EntryDetail({ entries }) {
   const { status } = useSession();
@@ -19,7 +20,11 @@ export default function EntryDetail({ entries }) {
   }
 
   return (
-    <ProtectedRoute fallback={"/"}>
+    <>
+      <Head>
+        <title>{entry.name}</title>
+      </Head>
+      <ProtectedRoute fallback={"/"}>
       <StyledMain>
       <StyledBackButton type="button" aria-label="Go Back" onClick={goBack}>
         <Image
@@ -59,6 +64,7 @@ export default function EntryDetail({ entries }) {
         </StyledArticle>
     </StyledMain>
     </ProtectedRoute>
+    </>
   );
 }
 

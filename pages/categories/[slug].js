@@ -2,12 +2,15 @@ import useSWR from "swr";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import Head from "next/head";
 
-export default function CategoryDetail({theme}) {
+export default function CategoryDetail({ theme }) {
   const router = useRouter();
   const { slug } = router.query;
 
-  const { data: category, error: categoriesError } = useSWR(`/api/categories/${slug}`);
+  const { data: category, error: categoriesError } = useSWR(
+    `/api/categories/${slug}`
+  );
 
   if (categoriesError) return <div>Error occurred while fetching data</div>;
   if (!category) return <div>Loading...</div>;
@@ -20,7 +23,11 @@ export default function CategoryDetail({theme}) {
     theme === "light" ? category.bgcolor : category.bgcolorDark;
 
   return (
-      <StyledMain>
+  <>
+    <Head>
+      <title>{category.title}</title>
+    </Head>
+    <StyledMain>
       <StyledBackButton type="button" aria-label="Go Back" onClick={goBack}>
         <Image src="/assets/ArrowIcon.svg" alt="Back Link" width={25} height={20} />
       </StyledBackButton>
@@ -38,6 +45,7 @@ export default function CategoryDetail({theme}) {
           </article>
         </StyledSection>
       </StyledMain>
+      </>
   )
 }
 

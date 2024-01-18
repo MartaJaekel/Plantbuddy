@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import Login from "@/components/Login";
 import ProtectedRoute from "@/components/ProtectedRoute";
+import Head from "next/head";
 
 export default function EditPreferencePage({
   preferences,
@@ -24,6 +25,10 @@ export default function EditPreferencePage({
   }
 
   return (
+    <>
+    <Head>
+      <title>Edit Preference</title>
+    </Head>
     <ProtectedRoute fallback={<Login/>}>
       <Headline />
       <main>
@@ -41,6 +46,7 @@ export default function EditPreferencePage({
         )}
       </main>
     </ProtectedRoute>
+    </>
   );
 }
 
