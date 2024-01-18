@@ -3,6 +3,8 @@ import Link from "next/link";
 import styled from "styled-components";
 import useSWR from "swr";
 import Headline from "@/components/Headline";
+import { StyledTitle } from "@/components/Title/StyledTitle";
+import Head from "next/head";
 
 export default function CategoriesOverview({ theme }) {
   const { data: categories, error: categoriesError } =
@@ -14,6 +16,9 @@ export default function CategoriesOverview({ theme }) {
 
   return (
     <>
+      <Head>
+        <title>Categories</title>
+      </Head>
       <Headline />
       <StyledTitle>Categories</StyledTitle>
       <main>
@@ -37,12 +42,6 @@ export default function CategoriesOverview({ theme }) {
     </>
   );
 }
-
-const StyledTitle = styled.h2`
-  text-align: center;
-  font-size: 1.25rem;
-  color: ${({ theme }) => theme.primaryGreen};
-`;
 
 const StyledPlantList = styled.ul`
   display: flex;

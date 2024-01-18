@@ -3,9 +3,11 @@ import Link from "next/link";
 import Headline from "@/components/Headline";
 import styled from "styled-components";
 import { useRouter } from "next/router";
+import { StyledTitle } from "@/components/Title/StyledTitle";
 import EntryCard from "@/components/JournalEntryCard";
 import { useSession } from "next-auth/react";
 import Login from "@/components/Login";
+import Head from "next/head";
 
 export default function JournalOverviewPage({ entries, handleDeleteEntry }) {
   const router = useRouter();
@@ -13,6 +15,9 @@ export default function JournalOverviewPage({ entries, handleDeleteEntry }) {
 
   return (
     <>
+    <Head>
+      <title>Create Entry</title>
+    </Head>
       <Headline />
       <main>
         <StyledTitle>Plant Journal</StyledTitle>
@@ -50,12 +55,6 @@ export default function JournalOverviewPage({ entries, handleDeleteEntry }) {
   );
 }
 
-const StyledTitle = styled.h2`
-  text-align: center;
-  font-size: 1.25rem;
-  color: ${({ theme }) => theme.primaryGreen};
-`;
-
 const StyledButton = styled.button`
   color: ${({ theme }) => theme.white};
   background-color: ${({ theme }) => theme.button};
@@ -67,20 +66,6 @@ const StyledButton = styled.button`
   border-radius: 8px;
   padding: 0.6rem 0.4rem;
   cursor: pointer;
-`;
-const StyledBackButton = styled.button`
-  position: absolute;
-  top: 1.75rem;
-  left: 1rem;
-  font-size: 2rem;
-  background-color: ${({ theme }) => theme.primaryGreen};
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  border: none;
-  z-index: 2;
 `;
 
 const StyledLink = styled(Link)`

@@ -1,10 +1,13 @@
 import FilterForm from "@/components/FilterForm";
-import Headline from "@/components/Headline";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import Login from "@/components/Login";
+import Headline from "@/components/Headline";
 import ProtectedRoute from "@/components/ProtectedRoute";
+import BackButton from "@/components/BackButton";
+import { StyledTitle } from "@/components/Title/StyledTitle";
+import Head from "next/head";
 
 export default function EditPreferencePage({
   preferences,
@@ -24,13 +27,17 @@ export default function EditPreferencePage({
   }
 
   return (
-    <ProtectedRoute fallback={<Login/>}>
-      <Headline />
-      <main>
-        <StyledTitle>Edit your Preference</StyledTitle>
-        {status !== "authenticated" ? (
-          <Login />
-        ) : (
+    <>
+      <Head>
+        <title>Edit Preference</title>
+      </Head>
+      <ProtectedRoute fallback={<Login />}>
+        <StyledButton>
+          <BackButton />
+        </StyledButton>
+        <Headline />
+        <main>
+          <StyledTitle>Edit your Preference</StyledTitle>
           <FilterForm
             plants={plants}
             preferenceFilterSettings={thisPreference?.filterSettings}
@@ -38,14 +45,14 @@ export default function EditPreferencePage({
             preferenceFilterTitle={thisPreference?.preferenceTitle}
             onEditPreference={onEditPreference}
           />
-        )}
-      </main>
-    </ProtectedRoute>
+        </main>
+      </ProtectedRoute>
+    </>
   );
 }
 
-const StyledTitle = styled.h2`
-  text-align: center;
-  font-size: 1.25rem;
-  color: ${({ theme }) => theme.primaryGreen};
+const StyledButton = styled.div`
+  position: fixed;
+  top: 2.75rem;
+  z-index: 3;
 `;

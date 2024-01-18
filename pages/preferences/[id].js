@@ -1,11 +1,13 @@
 import { useRouter } from "next/router";
-import styled from "styled-components";
 import PlantCard from "@/components/Card";
 import Headline from "@/components/Headline";
-import Image from "next/image";
+import styled from "styled-components";
 import { useSession } from "next-auth/react";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import Login from "@/components/Login";
+import BackButton from "@/components/BackButton";
+import { StyledTitle } from "@/components/Title/StyledTitle";
+import Head from "next/head";
 
 export default function Preference({
   preferences,
@@ -17,10 +19,6 @@ export default function Preference({
   const router = useRouter();
   const { id } = router.query;
   const { status } = useSession();
-
-  const goBack = () => {
-    router.back();
-  };
 
   const preference = preferences.find((preference) => preference.id === id);
 
@@ -40,43 +38,38 @@ export default function Preference({
   }
 
   return (
-    <ProtectedRoute fallback={<Login/>}>
-      <Headline />
-      <main />
-      <StyledBackButton
-        type="button"
-        aria-label="Go Back"
-        onClick={goBack}
-        status={status}
-      >
-        <Image
-          src="/assets/ArrowIcon.svg"
-          alt="Back Link"
-          width={25}
-          height={20}
-        />
-      </StyledBackButton>
-      <StyledTitle>{preference?.preferenceTitle}</StyledTitle>
-      <StyledCounterMessage>{counterMessage}</StyledCounterMessage>
-      {preferencePlants.length === 0 ? (
-        <StyledCallText>
-          Sorry, unfortunately <StyledSpan>none</StyledSpan> of the plants
-          matched your preferences
-        </StyledCallText>
-      ) : (
-        <StyledPlantList>
-          {preferencePlants.map((plant) => (
-            <PlantCard
-              key={plant._id}
-              plant={plant}
-              onToggleFavorite={onToggleFavorite}
-              isFavorite={favorites?.includes(plant._id)}
-              theme={theme}
-            />
-          ))}
-        </StyledPlantList>
-      )}
-    </ProtectedRoute>
+    <>
+      <Head>
+        <title>Filtered Preferences</title>
+      </Head>
+      <ProtectedRoute fallback={<Login />}>
+        <StyledButton>
+          <BackButton />
+        </StyledButton>
+        <Headline />
+        <main />
+        <StyledTitle>{preference?.preferenceTitle}</StyledTitle>
+        <StyledCounterMessage>{counterMessage}</StyledCounterMessage>
+        {preferencePlants.length === 0 ? (
+          <StyledCallText>
+            Sorry, unfortunately <StyledSpan>none</StyledSpan> of the plants
+            matched your preferences
+          </StyledCallText>
+        ) : (
+          <StyledPlantList>
+            {preferencePlants.map((plant) => (
+              <PlantCard
+                key={plant._id}
+                plant={plant}
+                onToggleFavorite={onToggleFavorite}
+                isFavorite={favorites?.includes(plant._id)}
+                theme={theme}
+              />
+            ))}
+          </StyledPlantList>
+        )}
+      </ProtectedRoute>
+    </>
   );
 }
 
@@ -88,14 +81,6 @@ const StyledCallText = styled.p`
 const StyledSpan = styled.span`
   font-family: serif;
   font-style: italic;
-`;
-
-const StyledTitle = styled.h2`
-  text-align: center;
-  font-size: 1.25rem;
-  color: ${({ theme }) => theme.primaryGreen};
-  word-wrap: break-word;
-  padding: 0 2rem 0 2rem;
 `;
 
 const StyledCounterMessage = styled.p`
@@ -118,16 +103,8 @@ const StyledPlantList = styled.ul`
   }
 `;
 
-const StyledBackButton = styled.button`
+const StyledButton = styled.div`
   position: fixed;
-  top: ${({ status }) => (status === "authenticated" ? "4.75rem" : "1.75rem")};
-  left: 1rem;
-  background-color: ${({ theme }) => theme.primaryGreen};
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  z-index: 2;
-  border: none;
+  top: 2.75rem;
+  z-index: 3;
 `;

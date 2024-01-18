@@ -13,6 +13,14 @@ const nextConfig = {
 
     return config;
   },
+  images: {
+    domains: [
+      "images.unsplash.com",
+      "plus.unsplash.com",
+      "https://www.google.com/",
+      "upload.wikimedia.org",
+    ],
+  },
 };
 
 module.exports = nextConfig;

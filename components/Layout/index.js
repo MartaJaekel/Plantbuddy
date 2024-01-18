@@ -20,7 +20,8 @@ export default function Layout({ children, theme }) {
 const StyledMain = styled.main`
   padding-top: ${({ router, status }) =>
     router.pathname === "/plants/[_id]" ||
-    router.pathname === "/categories/[slug]"
+    router.pathname === "/categories/[slug]" ||
+    router.pathname === "/journal/[id]"
       ? "0"
       : status === "authenticated"
       ? "9rem"

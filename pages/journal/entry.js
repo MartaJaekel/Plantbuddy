@@ -1,10 +1,12 @@
 import React from "react";
 import { useState } from "react";
-import styled from "styled-components";
 import Headline from "@/components/Headline";
-import { useRouter } from "next/router";
-import Image from "next/image";
+import { StyledTitle } from "@/components/Title/StyledTitle";
+import BackButton from "@/components/BackButton";
+import styled from "styled-components";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
+import Head from "next/head";
 
 export default function EntryForm({ onFormSubmit }) {
   const { status } = useSession();
@@ -13,11 +15,7 @@ export default function EntryForm({ onFormSubmit }) {
   const [description, setDescription] = useState("");
   const [careTipps, setCareTipps] = useState("");
   const [location, setLocation] = useState("");
-
   const router = useRouter();
-  const goBack = () => {
-    router.back();
-  };
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -37,25 +35,17 @@ export default function EntryForm({ onFormSubmit }) {
 
   return (
     <>
+    <Head>
+      <title>Formular</title>
+    </Head>
       <Headline />
-      <StyledBackButton
-        type="button"
-        aria-label="Go Back"
-        onClick={goBack}
-        status={status}
-      >
-        <Image
-          src="/assets/ArrowIcon.svg"
-          alt="Back Link"
-          width={25}
-          height={20}
-        />
+      <StyledBackButton>
+        <BackButton />
       </StyledBackButton>
       {status === "authenticated" && (
         <main>
           <StyledTitle>Plant Journal</StyledTitle>
           <StyledForm onSubmit={handleSubmit} onReset={handleReset}>
-            <StyledLabel htmlFor="url">URL</StyledLabel>
             <StyledInput
               type="url"
               id="url"
@@ -64,6 +54,10 @@ export default function EntryForm({ onFormSubmit }) {
               onChange={(event) => setUrl(event.target.value)}
               required
             />
+            <StyledLabelImage htmlFor="url">
+              At the moment we only can work with urls from Google, Unsplash &
+              Wikipedia
+            </StyledLabelImage>
             <StyledLabel htmlFor="name">Name</StyledLabel>
             <StyledInput
               type="text"
@@ -117,6 +111,12 @@ export default function EntryForm({ onFormSubmit }) {
   );
 }
 
+const StyledBackButton = styled.div`
+  position: fixed;
+  top: 2.75rem;
+  z-index: 3;
+`;
+
 const StyledForm = styled.form`
   position: relative;
   display: flex;
@@ -129,6 +129,7 @@ const StyledForm = styled.form`
   padding: 0rem 0rem 2rem 0;
   border-bottom: 2px ${({ theme }) => theme.dividerDetails};
 `;
+
 const StyledLabel = styled.label`
   border: 0;
   padding: 0;
@@ -141,6 +142,14 @@ const StyledLabel = styled.label`
   clip-path: inset(50%);
   white-space: nowrap;
 `;
+
+const StyledLabelImage = styled.label`
+  font-size: 0.65rem;
+  margin: -0.75rem auto auto;
+  text-align: center;
+  color: ${({ theme }) => theme.primaryGreen}
+`;
+
 const StyledInput = styled.input`
   background-color: ${({ theme }) => theme.formField};
   padding: 0.6rem 1.5rem;
@@ -186,25 +195,4 @@ const StyledButton = styled.button`
   font-weight: 600;
   cursor: pointer;
   width: 9rem;
-`;
-
-const StyledBackButton = styled.button`
-  position: fixed;
-  top: ${({ status }) => (status === "authenticated" ? "4.75rem" : "1.75rem")};
-  left: 1rem;
-  font-size: 2rem;
-  background-color: ${({ theme }) => theme.primaryGreen};
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  border: none;
-  z-index: 2;
-`;
-
-const StyledTitle = styled.h2`
-  text-align: center;
-  font-size: 1.25rem;
-  color: ${({ theme }) => theme.primaryGreen};
 `;
