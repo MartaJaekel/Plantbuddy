@@ -1,9 +1,9 @@
 import Headline from "@/components/Headline";
-import styled from "styled-components";
 import PreferenceList from "@/components/PreferenceList";
 import FilterForm from "@/components/FilterForm";
 import Login from "@/components/Login";
 import { useSession } from "next-auth/react";
+import { StyledTitle } from "@/components/Title/StyledTitle";
 import Head from "next/head";
 
 export default function PreferencesPage({
@@ -37,9 +37,4 @@ export default function PreferencesPage({
     </>
   );
 }
-
-const StyledTitle = styled.h2`
-  text-align: center;
-  font-size: 1.25rem;
-  color: ${({ theme }) => theme.primaryGreen};
-`;
+  

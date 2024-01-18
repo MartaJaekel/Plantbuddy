@@ -1,19 +1,15 @@
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import Image from "next/image";
-import { useSession } from "next-auth/react";
 import Link from "next/link";
 import ProtectedRoute from "@/components/ProtectedRoute";
+import BackButton from "@/components/BackButton";
 import Head from "next/head";
 
 export default function EntryDetail({ entries }) {
-  const { status } = useSession();
   const router = useRouter();
   const { id } = router.query;
 
-  const goBack = () => {
-    router.back();
-  };
   const entry = entries.find((entry) => entry.id === id);
   if (!entry) {
     return <p>Entry not found</p>;
@@ -26,19 +22,12 @@ export default function EntryDetail({ entries }) {
       </Head>
       <ProtectedRoute fallback={"/"}>
       <StyledMain>
-      <StyledBackButton type="button" aria-label="Go Back" onClick={goBack}>
-        <Image
-          src="/assets/ArrowIcon.svg"
-          alt="Back Link"
-          width={25}
-          height={20}
-        />
-      </StyledBackButton>
+      <BackButton />
       <StyledEditLink href={`/journal/edit/${entry.id}`}>Edit</StyledEditLink>
         <StyledImage
           src={entry.url}
           width={375}
-          height={357}
+          height={375}
           alt={entry.name}
         />
         <StyledArticle>
@@ -77,18 +66,7 @@ const StyledMain = styled.main`
     margin: 0 auto;
   }
 `;
-const StyledBackButton = styled.button`
-  position: absolute;
-  top: 1.75rem;
-  left: 1rem;
-  background-color: ${({ theme }) => theme.primaryGreen};
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  border: none;
-`;
+
 const StyledEditLink = styled(Link)`
   position: absolute;
   top: 1.75rem;
@@ -102,9 +80,8 @@ const StyledEditLink = styled(Link)`
   width: 3.5rem;
 `;
 
-const StyledImage = styled.img`
+const StyledImage = styled(Image)`
   width: 100%;
-  height: auto;
   display: block;
   object-fit: cover;
   

@@ -6,6 +6,7 @@ import PlantCharacteristics from "@/components/PlantCharacteristics";
 import FavoriteButton from "@/components/FavoriteButton";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
+import BackButton from "@/components/BackButton";
 import Head from "next/head";
 
 export default function PlantDetail({
@@ -32,24 +33,13 @@ export default function PlantDetail({
   const categoryColor =
     theme === "light" ? category.bgcolor : category.bgcolorDark;
 
-  const goBack = () => {
-    router.back();
-  };
-
   return (
     <>
-    <Head>
-      <title>Plant Detail</title>
-    </Head>
-    <StyledMain>
-      <StyledBackButton type="button" aria-label="Go Back" onClick={goBack}>
-        <Image
-          src="/assets/ArrowIcon.svg"
-          alt="Back Link"
-          width={25}
-          height={20}
-        />
-      </StyledBackButton>
+      <Head>
+        <title>Plant Detail</title>
+      </Head>
+      <StyledMain>
+        <BackButton />
         {status === "authenticated" && (
           <FavoriteButton
             onClick={() => onToggleFavorite(plant._id)}
@@ -131,7 +121,11 @@ export default function PlantDetail({
                 <PlantCharacteristics
                   headline="Category"
                   imageAlt="Leaf Icons"
-                  imageSrc={theme === "light" ? "/assets/CategoryInactive.svg" : "/assets/CategoryActive.svg"}
+                  imageSrc={
+                    theme === "light"
+                      ? "/assets/CategoryInactive.svg"
+                      : "/assets/CategoryActive.svg"
+                  }
                   info={plant.categorySlug}
                 />
               </StyledLink>
@@ -149,7 +143,7 @@ export default function PlantDetail({
 
 const StyledMain = styled.main`
   position: relative;
-  
+
   @media (min-width: 1024px) {
     display: flex;
     max-width: 90rem;
@@ -157,25 +151,12 @@ const StyledMain = styled.main`
   }
 `;
 
-const StyledBackButton = styled.button`
-  position: absolute;
-  top: 1.75rem;
-  left: 1rem;
-  background-color: ${({ theme }) => theme.primaryGreen};
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  border: none;
-`;
-
 const StyledImage = styled(Image)`
   width: 100%;
   height: auto;
   display: block;
   object-fit: cover;
-  
+
   @media (min-width: 1024px) {
     width: 60%;
     height: 51.6rem;
@@ -209,7 +190,7 @@ const StyledPlantCharacteristics = styled.ul`
   gap: 1rem 2rem;
   flex-wrap: wrap;
   justify-content: center;
-  border-bottom: 2px solid ${({ theme }) => theme.dividerDetails};
+  border-bottom: 2px solid ${({ theme }) => theme.divider};
   padding: 1rem 0 1rem 0;
 `;
 

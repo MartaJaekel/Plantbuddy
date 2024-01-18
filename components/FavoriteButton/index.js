@@ -1,14 +1,21 @@
 import Image from "next/image";
-import styled from "styled-components"
+import styled from "styled-components";
+import { useRouter } from "next/router";
 
 export default function FavoriteButton({ onClick, isFavorite }) {
+  const router = useRouter();
+
   return (
-    <StyledButton type="button" onClick={onClick}>
+    <StyledButton type="button" onClick={onClick} router={router}>
       <Image
-        src={isFavorite ? "/assets/HeartIconLiked.svg" : "/assets/HeartIconDisliked.svg"}
+        src={
+          isFavorite
+            ? "/assets/HeartIconLiked.svg"
+            : "/assets/HeartIconDisliked.svg"
+        }
         alt="Favorite Icon"
-        width={30}
-        height={30}
+        width={router.pathname === "/plants/[_id]" ? 40 : 30}
+        height={router.pathname === "/plants/[_id]" ? 40 : 30}
       />
     </StyledButton>
   );
@@ -21,10 +28,10 @@ const StyledButton = styled.button`
   background: none;
   padding: 0;
   position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
+  top: ${({router}) => router.pathname === "/plants/[_id]" ? "1.25rem" : "0.5rem"};
+  right: ${({router}) => router.pathname === "/plants/[_id]" ? "1rem" : "0.5rem"};
   border-radius: 50%; 
   padding: 0.2rem; 
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: transparent;
 `;
 

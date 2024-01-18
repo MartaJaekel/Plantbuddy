@@ -4,7 +4,9 @@ import styled from "styled-components";
 import Headline from "@/components/Headline";
 import Login from "@/components/Login";
 import { useSession } from "next-auth/react";
+import { StyledTitle } from "@/components/Title/StyledTitle";
 import Header from "next/head";
+
 
 export default function FavoritePage({
   plants,
@@ -51,12 +53,6 @@ export default function FavoritePage({
     </>
   );
 }
-
-const StyledTitle = styled.h2`
-  text-align: center;
-  font-size: 1.25rem;
-  color: ${({ theme }) => theme.primaryGreen};
-`;
 
 const StyledArticle = styled.article`
   text-align: center;

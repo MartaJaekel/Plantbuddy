@@ -4,6 +4,8 @@ import Headline from "@/components/Headline";
 import EntryForm from "components/JournalEntryForm";
 import Head from "next/head";
 import ProtectedRoute from "@/components/ProtectedRoute";
+import BackButton from "@/components/BackButton";
+import { StyledTitle } from "@/components/Title/StyledTitle";
 
 export default function EditJournal({ entries, onEditEntry }) {
   const router = useRouter();
@@ -20,6 +22,9 @@ export default function EditJournal({ entries, onEditEntry }) {
         <title>Edit Entry</title>
       </Head>
       <ProtectedRoute fallback={"/"}>
+        <StyledBackButton>
+          <BackButton />
+        </StyledBackButton>
         <Headline />
         <main>
           <StyledTitle>Edit your Entry</StyledTitle>
@@ -29,8 +34,9 @@ export default function EditJournal({ entries, onEditEntry }) {
     </>
   );
 }
-const StyledTitle = styled.h2`
-  text-align: center;
-  font-size: 1.25rem;
-  color: ${({ theme }) => theme.primaryGreen};
+
+const StyledBackButton = styled.div`
+  position: fixed;
+  top: 2.75rem;
+  z-index: 3;
 `;
