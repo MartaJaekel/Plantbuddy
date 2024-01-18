@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import BackButton from "@/components/BackButton";
+import Head from "next/head";
 
 export default function CategoryDetail({ theme }) {
   const router = useRouter();
@@ -19,29 +20,34 @@ export default function CategoryDetail({ theme }) {
     theme === "light" ? category.bgcolor : category.bgcolorDark;
 
   return (
-    <StyledMain>
-      <BackButton />
-      <StyledImage
-        src={category.image}
-        width={200}
-        height={200}
-        alt={category.title}
-      />
-      <StyledSection $categoryColor={categoryColor}>
-        <StyledName>{category.title}</StyledName>
-        <article>
-          <h3>Description</h3>
-          <p>{category.description}</p>
-        </article>
-      </StyledSection>
-    </StyledMain>
+    <>
+      <Head>
+        <title>{category.title}</title>
+      </Head>
+      <StyledMain>
+        <BackButton />
+        <StyledImage
+          src={category.image}
+          width={200}
+          height={200}
+          alt={category.title}
+        />
+        <StyledSection $categoryColor={categoryColor}>
+          <StyledName>{category.title}</StyledName>
+          <article>
+            <h3>Description</h3>
+            <p>{category.description}</p>
+          </article>
+        </StyledSection>
+      </StyledMain>
+    </>
   );
 }
 
 const StyledMain = styled.main`
   position: relative;
   margin-bottom: 3rem;
-  
+
   @media (min-width: 1024px) {
     display: flex;
     max-width: 90rem;
@@ -54,7 +60,7 @@ const StyledImage = styled(Image)`
   height: auto;
   display: block;
   object-fit: cover;
-  
+
   @media (min-width: 1024px) {
     width: 60%;
     height: 51.6rem;

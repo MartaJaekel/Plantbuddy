@@ -6,6 +6,7 @@ import BackButton from "@/components/BackButton";
 import styled from "styled-components";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import Head from "next/head";
 
 export default function EntryForm({ onFormSubmit }) {
   const { status } = useSession();
@@ -34,6 +35,9 @@ export default function EntryForm({ onFormSubmit }) {
 
   return (
     <>
+    <Head>
+      <title>Formular</title>
+    </Head>
       <Headline />
       <StyledBackButton>
         <BackButton />

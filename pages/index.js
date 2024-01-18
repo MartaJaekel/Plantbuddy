@@ -6,6 +6,7 @@ import styled from "styled-components";
 import SortPlants from "@/components/SortPlants";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
+import Header from "next/head";
 
 export default function HomePage({
   onToggleFavorite,
@@ -27,6 +28,9 @@ export default function HomePage({
 
   return (
     <>
+    <Header>
+      <title>PlantBuddy</title>
+    </Header>
       <Headline />
       <StyledThemeToggler onClick={toggleTheme} status={status}>
         {theme === "light" ? (

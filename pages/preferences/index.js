@@ -4,7 +4,7 @@ import FilterForm from "@/components/FilterForm";
 import Login from "@/components/Login";
 import { useSession } from "next-auth/react";
 import { StyledTitle } from "@/components/Title/StyledTitle";
-
+import Head from "next/head";
 
 export default function PreferencesPage({
   plants,
@@ -16,6 +16,9 @@ export default function PreferencesPage({
 
   return (
     <>
+     <Head>
+        <title>Add Preferences</title>
+      </Head>
       <Headline />
       <main>
         <StyledTitle>Add your Plant Preferences</StyledTitle>

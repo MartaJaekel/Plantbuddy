@@ -7,6 +7,7 @@ import ProtectedRoute from "@/components/ProtectedRoute";
 import Login from "@/components/Login";
 import BackButton from "@/components/BackButton";
 import { StyledTitle } from "@/components/Title/StyledTitle";
+import Head from "next/head";
 
 export default function Preference({
   preferences,
@@ -37,33 +38,38 @@ export default function Preference({
   }
 
   return (
-    <ProtectedRoute fallback={<Login />}>
-      <StyledButton>
-        <BackButton />
-      </StyledButton>
-      <Headline />
-      <main />
-      <StyledTitle>{preference?.preferenceTitle}</StyledTitle>
-      <StyledCounterMessage>{counterMessage}</StyledCounterMessage>
-      {preferencePlants.length === 0 ? (
-        <StyledCallText>
-          Sorry, unfortunately <StyledSpan>none</StyledSpan> of the plants
-          matched your preferences
-        </StyledCallText>
-      ) : (
-        <StyledPlantList>
-          {preferencePlants.map((plant) => (
-            <PlantCard
-              key={plant._id}
-              plant={plant}
-              onToggleFavorite={onToggleFavorite}
-              isFavorite={favorites?.includes(plant._id)}
-              theme={theme}
-            />
-          ))}
-        </StyledPlantList>
-      )}
-    </ProtectedRoute>
+    <>
+      <Head>
+        <title>Filtered Preferences</title>
+      </Head>
+      <ProtectedRoute fallback={<Login />}>
+        <StyledButton>
+          <BackButton />
+        </StyledButton>
+        <Headline />
+        <main />
+        <StyledTitle>{preference?.preferenceTitle}</StyledTitle>
+        <StyledCounterMessage>{counterMessage}</StyledCounterMessage>
+        {preferencePlants.length === 0 ? (
+          <StyledCallText>
+            Sorry, unfortunately <StyledSpan>none</StyledSpan> of the plants
+            matched your preferences
+          </StyledCallText>
+        ) : (
+          <StyledPlantList>
+            {preferencePlants.map((plant) => (
+              <PlantCard
+                key={plant._id}
+                plant={plant}
+                onToggleFavorite={onToggleFavorite}
+                isFavorite={favorites?.includes(plant._id)}
+                theme={theme}
+              />
+            ))}
+          </StyledPlantList>
+        )}
+      </ProtectedRoute>
+    </>
   );
 }
 

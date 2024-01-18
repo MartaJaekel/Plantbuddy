@@ -7,7 +7,7 @@ import FavoriteButton from "@/components/FavoriteButton";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import BackButton from "@/components/BackButton";
-
+import Head from "next/head";
 
 export default function PlantDetail({
   onToggleFavorite,
@@ -35,8 +35,11 @@ export default function PlantDetail({
 
   return (
     <>
+      <Head>
+        <title>Plant Detail</title>
+      </Head>
       <StyledMain>
-      <BackButton/>
+        <BackButton />
         {status === "authenticated" && (
           <FavoriteButton
             onClick={() => onToggleFavorite(plant._id)}
@@ -118,7 +121,11 @@ export default function PlantDetail({
                 <PlantCharacteristics
                   headline="Category"
                   imageAlt="Leaf Icons"
-                  imageSrc={theme === "light" ? "/assets/CategoryInactive.svg" : "/assets/CategoryActive.svg"}
+                  imageSrc={
+                    theme === "light"
+                      ? "/assets/CategoryInactive.svg"
+                      : "/assets/CategoryActive.svg"
+                  }
                   info={plant.categorySlug}
                 />
               </StyledLink>

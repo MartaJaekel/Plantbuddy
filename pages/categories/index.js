@@ -4,7 +4,7 @@ import styled from "styled-components";
 import useSWR from "swr";
 import Headline from "@/components/Headline";
 import { StyledTitle } from "@/components/Title/StyledTitle";
-
+import Head from "next/head";
 
 export default function CategoriesOverview({ theme }) {
   const { data: categories, error: categoriesError } =
@@ -16,6 +16,9 @@ export default function CategoriesOverview({ theme }) {
 
   return (
     <>
+      <Head>
+        <title>Categories</title>
+      </Head>
       <Headline />
       <StyledTitle>Categories</StyledTitle>
       <main>

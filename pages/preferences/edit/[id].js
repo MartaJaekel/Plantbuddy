@@ -7,6 +7,7 @@ import Headline from "@/components/Headline";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import BackButton from "@/components/BackButton";
 import { StyledTitle } from "@/components/Title/StyledTitle";
+import Head from "next/head";
 
 export default function EditPreferencePage({
   preferences,
@@ -26,22 +27,27 @@ export default function EditPreferencePage({
   }
 
   return (
-    <ProtectedRoute fallback={<Login />}>
-      <StyledButton>
-        <BackButton />
-      </StyledButton>
-      <Headline />{" "}
-      <main>
-        <StyledTitle>Edit your Preference</StyledTitle>
-        <FilterForm
-          plants={plants}
-          preferenceFilterSettings={thisPreference?.filterSettings}
-          preferenceId={thisPreference.id}
-          preferenceFilterTitle={thisPreference?.preferenceTitle}
-          onEditPreference={onEditPreference}
-        />
-      </main>
-    </ProtectedRoute>
+    <>
+      <Head>
+        <title>Edit Preference</title>
+      </Head>
+      <ProtectedRoute fallback={<Login />}>
+        <StyledButton>
+          <BackButton />
+        </StyledButton>
+        <Headline />
+        <main>
+          <StyledTitle>Edit your Preference</StyledTitle>
+          <FilterForm
+            plants={plants}
+            preferenceFilterSettings={thisPreference?.filterSettings}
+            preferenceId={thisPreference.id}
+            preferenceFilterTitle={thisPreference?.preferenceTitle}
+            onEditPreference={onEditPreference}
+          />
+        </main>
+      </ProtectedRoute>
+    </>
   );
 }
 
