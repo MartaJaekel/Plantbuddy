@@ -48,7 +48,6 @@ export default function EntryForm({ onFormSubmit, entry }) {
       <main>
         {status === "authenticated" && (
           <StyledForm onSubmit={handleSubmit} onReset={handleReset}>
-            <StyledLabel htmlFor="url">URL</StyledLabel>
             <StyledInput
               type="url"
               id="url"
@@ -58,6 +57,10 @@ export default function EntryForm({ onFormSubmit, entry }) {
               onChange={(event) => setUrl(event.target.value)}
               required
             />
+            <StyledLabelImage htmlFor="url">
+              At the moment we only can work with urls from Google, Unsplash &
+              Wikipedia
+            </StyledLabelImage>
             <StyledLabel htmlFor="name">Name</StyledLabel>
             <StyledInput
               type="text"
@@ -95,7 +98,6 @@ export default function EntryForm({ onFormSubmit, entry }) {
               value={location}
               onChange={(event) => setLocation(event.target.value)}
             />
-
             <StyledButtonContainer>
               <StyledButton type="reset">Cancel</StyledButton>
               <StyledButton type="submit">Save</StyledButton>
@@ -119,6 +121,7 @@ const StyledForm = styled.form`
   padding: 0rem 0rem 2rem 0;
   border-bottom: 2px ${({ theme }) => theme.dividerDetails};
 `;
+
 const StyledLabel = styled.label`
   border: 0;
   padding: 0;
@@ -131,6 +134,14 @@ const StyledLabel = styled.label`
   clip-path: inset(50%);
   white-space: nowrap;
 `;
+
+const StyledLabelImage = styled.label`
+  font-size: 0.65rem;
+  margin: -0.75rem auto auto;
+  text-align: center;
+  color: ${({ theme }) => theme.primaryGreen}
+`;
+
 const StyledInput = styled.input`
   background-color: ${({ theme }) => theme.formField};
   padding: 0.6rem 1.5rem;

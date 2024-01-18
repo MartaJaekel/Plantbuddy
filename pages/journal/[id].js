@@ -25,7 +25,7 @@ export default function EntryDetail({ entries }) {
         <StyledImage
           src={entry.url}
           width={375}
-          height={357}
+          height={375}
           alt={entry.name}
         />
         <StyledArticle>
@@ -79,7 +79,6 @@ const StyledEditLink = styled(Link)`
 
 const StyledImage = styled(Image)`
   width: 100%;
-  height: auto;
   display: block;
   object-fit: cover;
   

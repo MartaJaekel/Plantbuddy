@@ -17,9 +17,9 @@ export default function EditJournal({ entries, onEditEntry }) {
 
   return (
     <ProtectedRoute fallback={"/"}>
-    <StyledButton>
+    <StyledBackButton>
         <BackButton />
-      </StyledButton>
+      </StyledBackButton>
       <Headline />
       <main>
         <StyledTitle>Edit your Entry</StyledTitle>
@@ -29,7 +29,8 @@ export default function EditJournal({ entries, onEditEntry }) {
   );
 }
 
-const StyledButton = styled.div`
+const StyledBackButton = styled.div`
   position: fixed;
+  top: 2.75rem;
   z-index: 3;
 `;

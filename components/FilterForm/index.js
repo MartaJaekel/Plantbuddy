@@ -49,7 +49,13 @@ export default function FilterForm({
   function handleSubmit(event) {
     event.preventDefault();
 
-    const { plantSize, sunlightRequirement, waterNeeds, optimalTemperature, petFriendly } = settings;
+    const {
+      plantSize,
+      sunlightRequirement,
+      waterNeeds,
+      optimalTemperature,
+      petFriendly,
+    } = settings;
 
     const filterSettings = {
       plantSize,
@@ -65,7 +71,10 @@ export default function FilterForm({
         .filter(
           (plant) =>
             filterPlantSize(plant._id, settings.plantSize) &&
-            filterSunlightRequirement(plant._id, settings.sunlightRequirement) &&
+            filterSunlightRequirement(
+              plant._id,
+              settings.sunlightRequirement
+            ) &&
             filterWaterNeeds(plant._id, settings.waterNeeds) &&
             filterOptimalTemperature(plant._id, settings.optimalTemperature) &&
             filterPetFriendly(plant._id, settings.petFriendly)
@@ -90,7 +99,7 @@ export default function FilterForm({
       // navigate back to preferences page if editing an existing preference
       router.push("/preferences");
     } else {
-      // reset the form if adding a new preference, 
+      // reset the form if adding a new preference,
       setSettings(initialPreferenceFilterSettings);
     }
   }
@@ -107,14 +116,18 @@ export default function FilterForm({
         maxLength="25"
         required
         value={settings.preferenceTitle}
-        onChange={(event) => setSettings({ ...settings, preferenceTitle: event.target.value })}
+        onChange={(event) =>
+          setSettings({ ...settings, preferenceTitle: event.target.value })
+        }
       />
 
       <StyledLabel htmlFor="plantSize">Select the plant size:</StyledLabel>
       <StyledSelect
         name="plantSize"
         id="plantSize"
-        onChange={(event) => setSettings({ ...settings, plantSize: event.target.value })}
+        onChange={(event) =>
+          setSettings({ ...settings, plantSize: event.target.value })
+        }
         defaultValue={settings.plantSize}
       >
         <option value="">Select Size</option>
@@ -129,7 +142,9 @@ export default function FilterForm({
       <StyledSelect
         name="sunlightRequirement"
         id="sunlightRequirement"
-        onChange={(event) => setSettings({ ...settings, sunlightRequirement: event.target.value })}
+        onChange={(event) =>
+          setSettings({ ...settings, sunlightRequirement: event.target.value })
+        }
         defaultValue={settings.sunlightRequirement}
       >
         <option value="">Select Sunlight Requirement</option>
@@ -142,7 +157,9 @@ export default function FilterForm({
       <StyledSelect
         name="waterNeeds"
         id="waterNeeds"
-        onChange={(event) => setSettings({ ...settings, waterNeeds: event.target.value })}
+        onChange={(event) =>
+          setSettings({ ...settings, waterNeeds: event.target.value })
+        }
         defaultValue={settings.waterNeeds}
       >
         <option value="">Select Water Needs</option>
@@ -157,7 +174,9 @@ export default function FilterForm({
       <StyledSelect
         name="optimalTemperature"
         id="optimalTemperature"
-        onChange={(event) => setSettings({ ...settings, optimalTemperature: event.target.value })}
+        onChange={(event) =>
+          setSettings({ ...settings, optimalTemperature: event.target.value })
+        }
         defaultValue={settings.optimalTemperature}
       >
         <option value="">Select Temperature</option>
@@ -172,7 +191,9 @@ export default function FilterForm({
       <StyledSelect
         name="petFriendly"
         id="petFriendly"
-        onChange={(event) => setSettings({ ...settings, petFriendly: event.target.value })}
+        onChange={(event) =>
+          setSettings({ ...settings, petFriendly: event.target.value })
+        }
         defaultValue={settings.petFriendly}
       >
         <option value="">Select Pet Compatibility</option>
@@ -180,7 +201,9 @@ export default function FilterForm({
         <option value="false">No</option>
       </StyledSelect>
       <StyledButtonContainer>
-        <StyledButton type="button" onClick={handleCancel}>Cancel</StyledButton>
+        <StyledButton type="button" onClick={handleCancel}>
+          Cancel
+        </StyledButton>
         <StyledButton type="submit">Save</StyledButton>
       </StyledButtonContainer>
     </StyledForm>
@@ -197,7 +220,7 @@ const StyledForm = styled.form`
   max-width: 19rem;
   margin: 1rem auto 1rem auto;
   padding: 0rem 0rem 2rem 0;
-  border-bottom: 2px solid ${({ theme }) => theme.divider};
+  border-bottom: 2px solid ${(props) => props.theme.divider};
 `;
 
 const StyledTitleInput = styled.input`
