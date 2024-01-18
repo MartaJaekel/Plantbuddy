@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import styled from "styled-components";
 import useSWR from "swr";
-import { StyledHeadline } from "@/components/Headline/StyledHeadline";
+import Headline from "@/components/Headline";
 import Head from "next/head";
 
 export default function CategoriesOverview({ theme }) {
@@ -12,12 +12,13 @@ export default function CategoriesOverview({ theme }) {
   if (categoriesError) return <div>Error occurred while fetching data</div>;
   if (!categories) return <div>Loading...</div>;
 
+
   return (
     <>
       <Head>
         <title>Categories</title>
       </Head>
-      <StyledHeadline>PlantBuddy</StyledHeadline>
+      <Headline />
       <StyledTitle>Categories</StyledTitle>
       <main>
         <StyledPlantList>
@@ -43,7 +44,6 @@ export default function CategoriesOverview({ theme }) {
 
 const StyledTitle = styled.h2`
   text-align: center;
-  margin-top: 6rem;
   font-size: 1.25rem;
   color: ${({ theme }) => theme.primaryGreen};
 `;
@@ -53,6 +53,7 @@ const StyledPlantList = styled.ul`
   flex-wrap: wrap;
   justify-content: center;
   gap: 1rem;
+  padding-top: 1rem;
 `;
 
 const CategoryCard = styled.li`

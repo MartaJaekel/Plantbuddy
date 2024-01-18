@@ -1,19 +1,20 @@
 import React from "react";
 import { useState } from "react";
 import styled from "styled-components";
-import { StyledHeadline } from "@/components/Headline/StyledHeadline";
+import Headline from "@/components/Headline";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import { useSession } from "next-auth/react";
 
 export default function EntryForm({ onFormSubmit, entry }) {
-  const [url, setUrl] = useState(entry ? entry.url : ""); 
+  const [url, setUrl] = useState(entry ? entry.url : "");
   const [name, setName] = useState(entry ? entry.name : "");
   const [description, setDescription] = useState(
     entry ? entry.description : ""
   );
   const [careTipps, setCareTipps] = useState(entry ? entry.careTipps : "");
   const [location, setLocation] = useState(entry ? entry.location : "");
-  
+  const { status } = useSession();
 
   const router = useRouter();
   const goBack = () => {
@@ -30,7 +31,6 @@ export default function EntryForm({ onFormSubmit, entry }) {
       location,
     };
 
-       
     if (entry && entry.id) {
       entryObject.id = entry.id;
     }
@@ -41,15 +41,19 @@ export default function EntryForm({ onFormSubmit, entry }) {
     event.target.reset();
 
     if (entry && entry.id) {
-      router.push("/journal")
+      router.push("/journal");
     }
   }
-  
 
   return (
     <>
-      <StyledHeadline>PlantBuddy</StyledHeadline>
-      <StyledBackButton type="button" aria-label="Go Back" onClick={goBack}>
+      <Headline />
+      <StyledBackButton
+        type="button"
+        aria-label="Go Back"
+        onClick={goBack}
+        status={status}
+      >
         <Image
           src="/assets/ArrowIcon.svg"
           alt="Back Link"
@@ -58,61 +62,62 @@ export default function EntryForm({ onFormSubmit, entry }) {
         />
       </StyledBackButton>
       <main>
-        <StyledTitle>Plant Journal </StyledTitle>
-        <StyledForm onSubmit={handleSubmit} onReset={handleReset}>
-          <StyledLabel htmlFor="url">URL</StyledLabel>
-          <StyledInput
-            type="url"
-            id="url"
-            name="url"
-            value={url}
-            placeholder="Image Upload URL"
-            onChange={(event) => setUrl(event.target.value)}
-            required
-          />
-          <StyledLabel htmlFor="name">Name</StyledLabel>
-          <StyledInput
-            type="text"
-            id="name"
-            name="name"
-            placeholder="Name"
-            value={name}
-            onChange={(event) => setName(event.target.value)}
-            required
-          />
-          <StyledLabel htmlFor="description">Description</StyledLabel>
-          <StyledTextarea
-            type="text"
-            id="description"
-            name="description"
-            placeholder="Description"
-            value={description}
-            onChange={(event) => setDescription(event.target.value)}
-          />
-          <StyledLabel htmlFor="care">Care</StyledLabel>
-          <StyledTextarea
-            type="text"
-            id="care"
-            name="care"
-            placeholder="Care Tipps"
-            value={careTipps}
-            onChange={(event) => setCareTipps(event.target.value)}
-          />
-          <StyledLabel htmlFor="location">Location</StyledLabel>
-          <StyledInput
-            type="text"
-            id="location"
-            name="location"
-            placeholder="Location"
-            value={location}
-            onChange={(event) => setLocation(event.target.value)}
-          />
+        {status === "authenticated" && (
+          <StyledForm onSubmit={handleSubmit} onReset={handleReset}>
+            <StyledLabel htmlFor="url">URL</StyledLabel>
+            <StyledInput
+              type="url"
+              id="url"
+              name="url"
+              value={url}
+              placeholder="Image Upload URL"
+              onChange={(event) => setUrl(event.target.value)}
+              required
+            />
+            <StyledLabel htmlFor="name">Name</StyledLabel>
+            <StyledInput
+              type="text"
+              id="name"
+              name="name"
+              placeholder="Name"
+              value={name}
+              onChange={(event) => setName(event.target.value)}
+              required
+            />
+            <StyledLabel htmlFor="description">Description</StyledLabel>
+            <StyledTextarea
+              type="text"
+              id="description"
+              name="description"
+              placeholder="Description"
+              value={description}
+              onChange={(event) => setDescription(event.target.value)}
+            />
+            <StyledLabel htmlFor="care">Care</StyledLabel>
+            <StyledTextarea
+              type="text"
+              id="care"
+              name="care"
+              placeholder="Care Tipps"
+              value={careTipps}
+              onChange={(event) => setCareTipps(event.target.value)}
+            />
+            <StyledLabel htmlFor="location">Location</StyledLabel>
+            <StyledInput
+              type="text"
+              id="location"
+              name="location"
+              placeholder="Location"
+              value={location}
+              onChange={(event) => setLocation(event.target.value)}
+            />
 
-          <StyledButtonContainer>
-            <StyledButton type="reset">Cancel</StyledButton>
-            <StyledButton type="submit">Save</StyledButton>
-          </StyledButtonContainer>
-        </StyledForm>
+            <StyledButtonContainer>
+              <StyledButton type="reset">Cancel</StyledButton>
+              <StyledButton type="submit">Save</StyledButton>
+            </StyledButtonContainer>
+          </StyledForm>
+        )}
       </main>
     </>
   );
@@ -159,7 +164,7 @@ const StyledInput = styled.input`
 
 const StyledTextarea = styled.textarea`
   background-color: ${({ theme }) => theme.formField};
-  padding: 1rem;
+  padding: 0.6rem 1.5rem;
   border-radius: 8px;
   color: ${({ theme }) => theme.formText};
   border: solid 1px ${({ theme }) => theme.cardBorder};
@@ -167,6 +172,7 @@ const StyledTextarea = styled.textarea`
   cursor: pointer;
   resize: vertical;
   min-height: 100px;
+  font-family: sans-serif;
   &::placeholder {
     color: ${({ theme }) => theme.formTitle};
     font-weight: 600;
@@ -188,8 +194,8 @@ const StyledButton = styled.button`
   width: 9rem;
 `;
 const StyledBackButton = styled.button`
-  position: absolute;
-  top: 1.75rem;
+  position: fixed;
+  top: ${({ status }) => (status === "authenticated" ? "4.75rem" : "1.75rem")};
   left: 1rem;
   font-size: 2rem;
   background-color: ${({ theme }) => theme.primaryGreen};
@@ -200,11 +206,4 @@ const StyledBackButton = styled.button`
   align-items: center;
   border: none;
   z-index: 2;
-`;
-const StyledTitle = styled.h2`
-  text-align: center;
-  margin-top: 6rem;
-  margin-bottom: 2rem;
-  font-size: 1.5;
-  color: ${({ theme }) => theme.infoText};
 `;

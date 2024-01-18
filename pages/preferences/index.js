@@ -1,33 +1,45 @@
-import { StyledHeadline } from "@/components/Headline/StyledHeadline";
+import Headline from "@/components/Headline";
 import styled from "styled-components";
 import PreferenceList from "@/components/PreferenceList";
 import FilterForm from "@/components/FilterForm";
+import Login from "@/components/Login";
+import { useSession } from "next-auth/react";
 import Head from "next/head";
 
 export default function PreferencesPage({
   plants,
   preferences,
   handleAddPreference,
-  handleDeletePreference
+  handleDeletePreference,
 }) {
+  const { status } = useSession();
+
   return (
     <>
      <Head>
-        <title>Add Plant Preferences</title>
+        <title>Add Preferences</title>
       </Head>
-      <StyledHeadline>PlantBuddy</StyledHeadline>
+      <Headline />
       <main>
         <StyledTitle>Add your Plant Preferences</StyledTitle>
-        <FilterForm plants={plants} onAddPreference={handleAddPreference} />
-        <PreferenceList preferences={preferences} handleDeletePreference={handleDeletePreference} />
+        {status !== "authenticated" ? (
+          <Login />
+        ) : (
+          <>
+            <FilterForm plants={plants} onAddPreference={handleAddPreference} />
+            <PreferenceList
+              preferences={preferences}
+              handleDeletePreference={handleDeletePreference}
+            />
+          </>
+        )}
       </main>
     </>
   );
 }
-  
+
 const StyledTitle = styled.h2`
   text-align: center;
   font-size: 1.25rem;
   color: ${({ theme }) => theme.primaryGreen};
-  margin: 6rem 0 2rem 0;
 `;

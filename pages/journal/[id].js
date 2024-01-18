@@ -1,10 +1,13 @@
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import Image from "next/image";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
+import ProtectedRoute from "@/components/ProtectedRoute";
 import Head from "next/head";
 
 export default function EntryDetail({ entries }) {
+  const { status } = useSession();
   const router = useRouter();
   const { id } = router.query;
 
@@ -21,9 +24,15 @@ export default function EntryDetail({ entries }) {
       <Head>
         <title>{entry.name}</title>
       </Head>
+      <ProtectedRoute fallback={"/"}>
       <StyledMain>
       <StyledBackButton type="button" aria-label="Go Back" onClick={goBack}>
-        <Image src="/assets/ArrowIcon.svg" alt="Back Link" width={25} height={20} />
+        <Image
+          src="/assets/ArrowIcon.svg"
+          alt="Back Link"
+          width={25}
+          height={20}
+        />
       </StyledBackButton>
       <StyledEditLink href={`/journal/edit/${entry.id}`}>Edit</StyledEditLink>
         <StyledImage
@@ -54,6 +63,7 @@ export default function EntryDetail({ entries }) {
           )}
         </StyledArticle>
     </StyledMain>
+    </ProtectedRoute>
     </>
   );
 }

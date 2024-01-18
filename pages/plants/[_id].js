@@ -5,30 +5,32 @@ import styled from "styled-components";
 import PlantCharacteristics from "@/components/PlantCharacteristics";
 import FavoriteButton from "@/components/FavoriteButton";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 import Head from "next/head";
 
 export default function PlantDetail({
   onToggleFavorite,
   favorites,
-  plants,
   categories,
   theme,
 }) {
+  const { status } = useSession();
   const router = useRouter();
   const { _id } = router.query;
 
   const { data: plant, error: plantError } = useSWR(`/api/plants/${_id}`);
-  const { data: fetchedCategories, error: categoriesError } = useSWR(`/api/categories`);
+  const { data: fetchedCategories, error: categoriesError } =
+    useSWR(`/api/categories`);
 
-  if (plantError || categoriesError) return <div>Error occurred while fetching data</div>;
+  if (plantError || categoriesError)
+    return <div>Error occurred while fetching data</div>;
   if (!plant || !fetchedCategories) return <div>Loading...</div>;
-
 
   const category = categories.find(
     (category) => category.slug === plant.categorySlug
   );
   const categoryColor =
-  theme === "light" ? category.bgcolor : category.bgcolorDark;
+    theme === "light" ? category.bgcolor : category.bgcolorDark;
 
   const goBack = () => {
     router.back();
@@ -48,10 +50,12 @@ export default function PlantDetail({
           height={20}
         />
       </StyledBackButton>
-        <FavoriteButton
-          onClick={() => onToggleFavorite(plant._id)}
-          isFavorite={favorites?.includes(plant._id)}
-        />
+        {status === "authenticated" && (
+          <FavoriteButton
+            onClick={() => onToggleFavorite(plant._id)}
+            isFavorite={favorites?.includes(plant._id)}
+          />
+        )}
         <StyledImage
           src={plant.image}
           width={200}
@@ -66,7 +70,11 @@ export default function PlantDetail({
               <PlantCharacteristics
                 headline="Size"
                 imageAlt="Size Icon"
-                imageSrc={theme === "light" ? "/assets/SizeIcon.svg" : "/assets/SizeIconDarkmode.svg"}
+                imageSrc={
+                  theme === "light"
+                    ? "/assets/SizeIcon.svg"
+                    : "/assets/SizeIconDarkmode.svg"
+                }
                 info={plant.size}
               />
             </li>
@@ -74,7 +82,11 @@ export default function PlantDetail({
               <PlantCharacteristics
                 headline="Sunlight"
                 imageAlt="Sunlight Icon"
-                imageSrc={theme === "light" ? "/assets/SunlightIcon.svg" : "/assets/SunlightIconDarkmode.svg"}
+                imageSrc={
+                  theme === "light"
+                    ? "/assets/SunlightIcon.svg"
+                    : "/assets/SunlightIconDarkmode.svg"
+                }
                 info={plant.sunlightRequirements}
               />
             </li>
@@ -82,7 +94,11 @@ export default function PlantDetail({
               <PlantCharacteristics
                 headline="Warmth"
                 imageAlt="Temperature Icon"
-                imageSrc={theme === "light" ? "/assets/TemperatureIcon.svg" : "/assets/TemperatureIconDarkmode.svg"}
+                imageSrc={
+                  theme === "light"
+                    ? "/assets/TemperatureIcon.svg"
+                    : "/assets/TemperatureIconDarkmode.svg"
+                }
                 info={plant.optimalTemperature}
               />
             </li>
@@ -90,7 +106,11 @@ export default function PlantDetail({
               <PlantCharacteristics
                 headline="Water"
                 imageAlt="Water Icon"
-                imageSrc={theme === "light" ? "/assets/WaterIcon.svg" : "/assets/WaterIconDarkmode.svg"}
+                imageSrc={
+                  theme === "light"
+                    ? "/assets/WaterIcon.svg"
+                    : "/assets/WaterIconDarkmode.svg"
+                }
                 info={plant.waterNeeds}
               />
             </li>
@@ -98,7 +118,11 @@ export default function PlantDetail({
               <PlantCharacteristics
                 headline="Pet-Friendly"
                 imageAlt="Paw Icon"
-                imageSrc={theme === "light" ? "/assets/PawIcon.svg" : "/assets/PawDarkmode.svg"}
+                imageSrc={
+                  theme === "light"
+                    ? "/assets/PawIcon.svg"
+                    : "/assets/PawDarkmode.svg"
+                }
                 info={plant.petFriendly === true ? "yes" : "no"}
               />
             </li>

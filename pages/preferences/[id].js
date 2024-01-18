@@ -1,8 +1,11 @@
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import PlantCard from "@/components/Card";
-import { StyledHeadline } from "@/components/Headline/StyledHeadline";
+import Headline from "@/components/Headline";
 import Image from "next/image";
+import { useSession } from "next-auth/react";
+import ProtectedRoute from "@/components/ProtectedRoute";
+import Login from "@/components/Login";
 import Head from "next/head";
 
 export default function Preference({
@@ -10,10 +13,11 @@ export default function Preference({
   onToggleFavorite,
   favorites,
   plants,
-  theme
+  theme,
 }) {
   const router = useRouter();
   const { id } = router.query;
+  const { status } = useSession();
 
   const goBack = () => {
     router.back();
@@ -41,9 +45,15 @@ export default function Preference({
     <Head>
       <title>Filtered Preferences</title>
     </Head>
-      <StyledHeadline>PlantBuddy</StyledHeadline>
+    <ProtectedRoute fallback={<Login/>}>
+      <Headline />
       <main />
-      <StyledBackButton type="button" aria-label="Go Back" onClick={goBack}>
+      <StyledBackButton
+        type="button"
+        aria-label="Go Back"
+        onClick={goBack}
+        status={status}
+      >
         <Image
           src="/assets/ArrowIcon.svg"
           alt="Back Link"
@@ -71,6 +81,7 @@ export default function Preference({
           ))}
         </StyledPlantList>
       )}
+    </ProtectedRoute>
     </>
   );
 }
@@ -115,7 +126,7 @@ const StyledPlantList = styled.ul`
 
 const StyledBackButton = styled.button`
   position: fixed;
-  top: 1.75rem;
+  top: ${({ status }) => (status === "authenticated" ? "4.75rem" : "1.75rem")};
   left: 1rem;
   background-color: ${({ theme }) => theme.primaryGreen};
   border-radius: 50%;

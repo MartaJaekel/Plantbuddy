@@ -51,6 +51,7 @@ export default function CategoryDetail({ theme }) {
 
 const StyledMain = styled.main`
   position: relative;
+  margin-bottom: 3rem;
   
   @media (min-width: 1024px) {
     display: flex;
