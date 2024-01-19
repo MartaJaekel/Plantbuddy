@@ -8,7 +8,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 
-export default function EntryForm({ onFormSubmit }) {
+export default function EntryForm() {
   const { status } = useSession();
   const [url, setUrl] = useState("");
   const [name, setName] = useState("");
@@ -17,7 +17,7 @@ export default function EntryForm({ onFormSubmit }) {
   const [location, setLocation] = useState("");
   const router = useRouter();
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
     const entry = {
       url,
@@ -26,18 +26,34 @@ export default function EntryForm({ onFormSubmit }) {
       careTipps,
       location,
     };
-    onFormSubmit(entry);
-    router.push("/journal");
+
+    try {
+      const response = await fetch("/api/journals", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(entry),
+      });
+
+      if (!response.ok) {
+        throw new Error('An error occurred while creating the journal');
+      }
+      router.push("/journal");
+    } catch (error) {
+      console.error('An error occurred while submitting the form', error);
+    }
   }
+
   function handleReset(event) {
     event.target.reset();
   }
 
   return (
     <>
-    <Head>
-      <title>Formular</title>
-    </Head>
+      <Head>
+        <title>Formular</title>
+      </Head>
       <Headline />
       <StyledBackButton>
         <BackButton />

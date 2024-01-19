@@ -1,15 +1,15 @@
 import dbConnect from "@/db/connect";
 import Journal from "@/db/models/journals";
-import { getSession } from "next-auth/client";
+import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
 
 export default async function handler(request, response) {
   await dbConnect();
-  const session = await getSession(request, response, authOptions);
+  const session = await getServerSession(request, response, authOptions);
 
   if (request.method === "GET") {
     try {
-      const journals = await Journal.find({ userId: session.user.id });
+      const journals = await Journal.find();
       response.status(200).json(journals);
     } catch (error) {
       console.error(error);
@@ -17,9 +17,13 @@ export default async function handler(request, response) {
         .status(500)
         .json({ message: "An error occurred while fetching the journals" });
     }
-  } else   if (request.method === 'POST') {
+  } else if (request.method === 'POST') {
     try {
-      const { url, name, description, careTipps, location, plantId, userId } = request.body;
+      if (!session) {
+        return response.status(401).json({ message: 'Not authenticated' });
+      }
+
+      const { url, name, description, careTipps, location } = request.body;
 
       const journal = new Journal({
         url,
@@ -27,8 +31,7 @@ export default async function handler(request, response) {
         description,
         careTipps,
         location,
-        plantId,
-        userId,
+        user: session.user.email,
       });
 
       const createdJournal = await journal.save();

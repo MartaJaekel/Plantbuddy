@@ -21,7 +21,7 @@ export default async function handler(request, response) {
 
   if (request.method === 'PUT') {
     try {
-      const { url, name, description, careTipps, location, plantId, userId } = request.body;
+      const { url, name, description, careTipps, location } = request.body;
 
       const updatedJournal = await Journal.findByIdAndUpdate(_id, {
         url,
@@ -29,8 +29,7 @@ export default async function handler(request, response) {
         description,
         careTipps,
         location,
-        plantId,
-        userId,
+        user: session.user.email,
       }, { new: true });
 
       if (!updatedJournal) {

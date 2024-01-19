@@ -1,4 +1,5 @@
 import React from "react";
+import { useState, useEffect } from 'react';
 import Link from "next/link";
 import Headline from "@/components/Headline";
 import styled from "styled-components";
@@ -9,9 +10,19 @@ import { useSession } from "next-auth/react";
 import Login from "@/components/Login";
 import Head from "next/head";
 
-export default function JournalOverviewPage({ entries, handleDeleteEntry }) {
+export default function JournalOverviewPage({ handleDeleteEntry }) {
   const router = useRouter();
   const { status } = useSession();
+  const [entries, setEntries] = useState([]);
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      fetch('/api/journals')
+        .then(response => response.json())
+        .then(data => setEntries(data))
+        .catch(error => console.error('Error:', error));
+    }
+  }, [status]);
 
   return (
     <>
@@ -31,13 +42,11 @@ export default function JournalOverviewPage({ entries, handleDeleteEntry }) {
             <StyledEntriesContainer>
               {entries.length > 0 ? (
                 entries.map((entry) => (
-                  <StyledEntries key={entry.id}>
-                    <StyledLink href={`/journal/${entry.id}`}>
-                      <EntryCard
+                  <StyledEntries key={entry._id}>
+                      <EntryCard href={`/journal/${entry._id}`}
                         entry={entry}
                         onDeleteEntry={handleDeleteEntry}
                       />
-                    </StyledLink>
                   </StyledEntries>
                 ))
               ) : (
