@@ -15,11 +15,11 @@ const nextConfig = {
   },
   images: {
     domains: [
+      "res.cloudinary.com",
       "images.unsplash.com",
       "plus.unsplash.com",
       "https://www.google.com/",
       "upload.wikimedia.org",
-      "res.cloudinary.com/",
     ],
   },
 };

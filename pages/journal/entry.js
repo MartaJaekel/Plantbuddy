@@ -45,6 +45,7 @@ export default function EntryForm({ onFormSubmit }) {
           careTipps,
           location,
         };
+        console.log(entry.url);
         onFormSubmit(entry);
         router.push("/journal");
       } else {
@@ -90,12 +91,7 @@ export default function EntryForm({ onFormSubmit }) {
               onChange={handleImageChange}
               required
             />
-            <StyledLabelImage htmlFor="url">
-              At the moment we only can work with urls from Google, Unsplash &
-              Wikipedia
-            </StyledLabelImage>
-
-            <StyledLabel htmlFor="name">Name</StyledLabel>
+            <StyledLabel htmlFor="plantbuddyImage">Image</StyledLabel>
             <StyledInput
               type="text"
               id="name"
@@ -106,6 +102,7 @@ export default function EntryForm({ onFormSubmit }) {
               maxLength="20"
               required
             />
+            <StyledLabel htmlFor="name">Name</StyledLabel>
             <StyledLabel htmlFor="description">Description</StyledLabel>
             <StyledTextarea
               type="text"
@@ -116,7 +113,7 @@ export default function EntryForm({ onFormSubmit }) {
               placeholder="Description"
               onChange={(event) => setDescription(event.target.value)}
             />
-            <StyledLabel htmlFor="care">Care</StyledLabel>
+            <StyledLabel htmlFor="description">Description</StyledLabel>
             <StyledTextarea
               type="text"
               id="care"
@@ -126,7 +123,7 @@ export default function EntryForm({ onFormSubmit }) {
               placeholder="Care Tipps"
               onChange={(event) => setCareTipps(event.target.value)}
             />
-            <StyledLabel htmlFor="location">Location</StyledLabel>
+            <StyledLabel htmlFor="care">Care</StyledLabel>
             <StyledInput
               type="text"
               id="location"
@@ -136,7 +133,7 @@ export default function EntryForm({ onFormSubmit }) {
               placeholder="Location"
               onChange={(event) => setLocation(event.target.value)}
             />
-
+            <StyledLabel htmlFor="location">Location</StyledLabel>
             <StyledButtonContainer>
               <StyledButton type="reset">Cancel</StyledButton>
               <StyledButton type="submit">Save</StyledButton>
@@ -178,13 +175,6 @@ const StyledLabel = styled.label`
   clip: rect(1px, 1px, 1px, 1px);
   clip-path: inset(50%);
   white-space: nowrap;
-`;
-
-const StyledLabelImage = styled.label`
-  font-size: 0.65rem;
-  margin: -0.75rem auto auto;
-  text-align: center;
-  color: ${({ theme }) => theme.primaryGreen};
 `;
 
 const StyledInput = styled.input`
