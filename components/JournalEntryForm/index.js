@@ -3,7 +3,6 @@ import { useState } from "react";
 import styled from "styled-components";
 import Headline from "@/components/Headline";
 import { useRouter } from "next/router";
-import Image from "next/image";
 import { useSession } from "next-auth/react";
 
 export default function EntryForm({ onFormSubmit, entry }) {
@@ -18,22 +17,51 @@ export default function EntryForm({ onFormSubmit, entry }) {
 
   const router = useRouter();
 
-  function handleSubmit(event) {
+  async function handleImageUpload() {
+    try {
+      const response = await fetch("/api/upload", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ url }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        return data.secure_url;
+      } else {
+        console.error("Image upload failed");
+        return null;
+      }
+    } catch (error) {
+      console.error("Error uploading image:", error);
+      return null;
+    }
+  }
+
+  async function handleSubmit(event) {
     event.preventDefault();
+  
+    const uploadedImageUrl = await handleImageUpload();
+  
     const entryObject = {
-      url,
+      url: uploadedImageUrl || url,
       name,
       description,
       careTipps,
       location,
     };
-
+  
     if (entry && entry.id) {
       entryObject.id = entry.id;
     }
+  
     onFormSubmit(entryObject);
-    router.push("/journal");
+    router.push('/journal');
   }
+
   function handleReset(event) {
     event.target.reset();
 
@@ -85,7 +113,7 @@ export default function EntryForm({ onFormSubmit, entry }) {
               type="text"
               id="care"
               name="care"
-              placeholder="Care Tipps"
+              placeholder="Care Tips"
               value={careTipps}
               onChange={(event) => setCareTipps(event.target.value)}
             />
@@ -139,7 +167,7 @@ const StyledLabelImage = styled.label`
   font-size: 0.65rem;
   margin: -0.75rem auto auto;
   text-align: center;
-  color: ${({ theme }) => theme.primaryGreen}
+  color: ${({ theme }) => theme.primaryGreen};
 `;
 
 const StyledInput = styled.input`

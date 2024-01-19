@@ -16,9 +16,37 @@ export default function EntryForm({ onFormSubmit }) {
   const [careTipps, setCareTipps] = useState("");
   const [location, setLocation] = useState("");
   const router = useRouter();
+  const [selectedImage, setSelectedImage] = useState("");
 
-  function handleSubmit(event) {
+  function handleImageChange(event) {
+    const file = event.target.files[0];
+    setSelectedImage(URL.createObjectURL(file));
+  }
+
+  async function handleSubmit(event) {
     event.preventDefault();
+
+    if (!selectedImage) {
+      alert("Please select an image.");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("plantbuddyImage", selectedImage);
+
+    try {
+      const response = await fetch("/api/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await response.json();
+
+      setUrl(data.secure_url);
+    } catch (error) {
+      console.error("Error uploading image:", error);
+    }
+
     const entry = {
       url,
       name,
@@ -35,9 +63,9 @@ export default function EntryForm({ onFormSubmit }) {
 
   return (
     <>
-    <Head>
-      <title>Formular</title>
-    </Head>
+      <Head>
+        <title>Formular</title>
+      </Head>
       <Headline />
       <StyledBackButton>
         <BackButton />
@@ -45,19 +73,23 @@ export default function EntryForm({ onFormSubmit }) {
       {status === "authenticated" && (
         <main>
           <StyledTitle>Plant Journal</StyledTitle>
+
+
           <StyledForm onSubmit={handleSubmit} onReset={handleReset}>
             <StyledInput
-              type="url"
-              id="url"
-              name="url"
-              placeholder="Image Upload URL"
-              onChange={(event) => setUrl(event.target.value)}
+              type="file"
+              id="plantbuddyImage"
+              name="plantbuddyImage"
+              accept="image/*, .png, .jpeg, .jpg, .webp"
+              onChange={handleImageChange}
               required
             />
             <StyledLabelImage htmlFor="url">
               At the moment we only can work with urls from Google, Unsplash &
               Wikipedia
             </StyledLabelImage>
+
+
             <StyledLabel htmlFor="name">Name</StyledLabel>
             <StyledInput
               type="text"
@@ -147,7 +179,7 @@ const StyledLabelImage = styled.label`
   font-size: 0.65rem;
   margin: -0.75rem auto auto;
   text-align: center;
-  color: ${({ theme }) => theme.primaryGreen}
+  color: ${({ theme }) => theme.primaryGreen};
 `;
 
 const StyledInput = styled.input`

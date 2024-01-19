@@ -31,7 +31,7 @@ export default function EntryCard({ entry, onDeleteEntry }) {
           src={entry.url}
           width={100}
           height={100}
-          alt="Uploaded"
+          alt="Uploaded Image"
         />
         <StyledEntryInfo lang="en">{entry.name}</StyledEntryInfo>
       </StyledLink>
