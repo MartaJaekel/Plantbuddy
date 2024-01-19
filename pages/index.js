@@ -35,7 +35,7 @@ export default function HomePage({
       <Headline />
       <StyledIconContainer status={status}>
       <Link href="/about">
-      <Image src="/assets/AboutDarkmode.svg"
+      <Image src="/assets/About.svg"
        alt="About Icon"
        width={25}
        height={25}>

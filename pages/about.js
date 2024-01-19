@@ -2,6 +2,7 @@ import Headline from "@/components/Headline";
 import Image from "next/image";
 import styled from "styled-components";
 import Link from "next/link";
+import { StyledTitle } from "@/components/Title/StyledTitle";
 
 export default function AboutPage() {
   return (
@@ -46,10 +47,8 @@ export default function AboutPage() {
   );
 }
 
-const StyledTitle = styled.h1`
-text-align: center;
 
-`
+
 
 
 const StyledEntryCard = styled.figure`
@@ -65,16 +64,18 @@ const StyledEntryCard = styled.figure`
   img {
     width: 100px;
     height: 100px;
-    border-radius: 50%;  /* To make the image round */
-    margin-right: 16px;  /* Add some spacing between image and text */
+    border-radius: 50%;  
+    margin-right: 40px;  
   }
 
   figcaption {
-    flex: 1;  /* Take up remaining space */
+    flex: 1; 
+    font-weight: bold; 
   }
 
   a {
     margin-top: 8px;
+   
   }
 `;
 const StyledAboutContainer = styled.ul`
