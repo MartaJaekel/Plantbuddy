@@ -7,6 +7,7 @@ import styled from "styled-components";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import Head from "next/head";
+import Image from "next/image";
 
 export default function EntryForm({ onFormSubmit }) {
   const { status } = useSession();
@@ -45,7 +46,6 @@ export default function EntryForm({ onFormSubmit }) {
           careTipps,
           location,
         };
-        console.log(entry.url);
         onFormSubmit(entry);
         router.push("/journal");
       } else {
@@ -81,7 +81,6 @@ export default function EntryForm({ onFormSubmit }) {
       {status === "authenticated" && (
         <main>
           <StyledTitle>Plant Journal</StyledTitle>
-
           <StyledForm onSubmit={handleSubmit} onReset={handleReset}>
             <StyledInput
               type="file"

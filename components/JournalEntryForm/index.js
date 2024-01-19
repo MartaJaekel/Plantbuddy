@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Headline from "@/components/Headline";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
+import Image from "next/image";
 
 export default function EntryForm({ onFormSubmit, entry }) {
   const [url, setUrl] = useState(entry ? entry.url : "");
@@ -16,6 +17,10 @@ export default function EntryForm({ onFormSubmit, entry }) {
   const { status } = useSession();
 
   const router = useRouter();
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    setUrl(file);
+  };
 
   async function handleImageUpload() {
     try {
@@ -41,26 +46,28 @@ export default function EntryForm({ onFormSubmit, entry }) {
     }
   }
 
-  async function handleSubmit(event) {
+  async function handleEditSubmit(event) {
     event.preventDefault();
-  
+
     const uploadedImageUrl = await handleImageUpload();
-  
+
     const entryObject = {
-      url: uploadedImageUrl || url,
+      url: uploadedImageUrl || entry.url,
       name,
       description,
       careTipps,
       location,
     };
-  
+
     if (entry && entry.id) {
       entryObject.id = entry.id;
     }
-  
-    onFormSubmit(entryObject);
-    router.push('/journal');
+    onFormSubmit(entryObject, entry.id);
+    router.push("/journal");
   }
+  const handleRemoveImage = () => {
+    setUrl("");
+  };
 
   function handleReset(event) {
     event.target.reset();
@@ -75,21 +82,32 @@ export default function EntryForm({ onFormSubmit, entry }) {
       <Headline />
       <main>
         {status === "authenticated" && (
-          <StyledForm onSubmit={handleSubmit} onReset={handleReset}>
+          <StyledForm onSubmit={handleEditSubmit} onReset={handleReset}>
+            {url && (
+              <StyledDiv>
+                <StyledPreviewImage
+                  alt="imagePreview"
+                  name="imagePreview"
+                  width={100}
+                  height={100}
+                  src={entry.url}
+                />
+                <StyledImageRemoveButton
+                  type="button"
+                  onClick={handleRemoveImage}
+                >
+                  remove image
+                </StyledImageRemoveButton>
+              </StyledDiv>
+            )}
             <StyledInput
-              type="url"
-              id="url"
-              name="url"
-              value={url}
-              placeholder="Image Upload URL"
-              onChange={(event) => setUrl(event.target.value)}
-              required
+              type="file"
+              id="plantbuddyImage"
+              name="plantbuddyImage"
+              accept="image/*, .png, .jpeg, .jpg, .webp"
+              onChange={handleImageChange}
             />
-            <StyledLabelImage htmlFor="url">
-              At the moment we only can work with urls from Google, Unsplash &
-              Wikipedia
-            </StyledLabelImage>
-            <StyledLabel htmlFor="name">Name</StyledLabel>
+            <StyledLabel htmlFor="plantbuddyImage">Image</StyledLabel>
             <StyledInput
               type="text"
               id="name"
@@ -99,7 +117,7 @@ export default function EntryForm({ onFormSubmit, entry }) {
               onChange={(event) => setName(event.target.value)}
               required
             />
-            <StyledLabel htmlFor="description">Description</StyledLabel>
+            <StyledLabel htmlFor="name">Name</StyledLabel>
             <StyledTextarea
               type="text"
               id="description"
@@ -108,7 +126,7 @@ export default function EntryForm({ onFormSubmit, entry }) {
               value={description}
               onChange={(event) => setDescription(event.target.value)}
             />
-            <StyledLabel htmlFor="care">Care</StyledLabel>
+            <StyledLabel htmlFor="description">Description</StyledLabel>
             <StyledTextarea
               type="text"
               id="care"
@@ -117,7 +135,7 @@ export default function EntryForm({ onFormSubmit, entry }) {
               value={careTipps}
               onChange={(event) => setCareTipps(event.target.value)}
             />
-            <StyledLabel htmlFor="location">Location</StyledLabel>
+            <StyledLabel htmlFor="care">Care</StyledLabel>
             <StyledInput
               type="text"
               id="location"
@@ -126,6 +144,7 @@ export default function EntryForm({ onFormSubmit, entry }) {
               value={location}
               onChange={(event) => setLocation(event.target.value)}
             />
+            <StyledLabel htmlFor="location">Location</StyledLabel>
             <StyledButtonContainer>
               <StyledButton type="reset">Cancel</StyledButton>
               <StyledButton type="submit">Save</StyledButton>
@@ -163,25 +182,29 @@ const StyledLabel = styled.label`
   white-space: nowrap;
 `;
 
-const StyledLabelImage = styled.label`
-  font-size: 0.65rem;
-  margin: -0.75rem auto auto;
-  text-align: center;
-  color: ${({ theme }) => theme.primaryGreen};
-`;
-
 const StyledInput = styled.input`
   background-color: ${({ theme }) => theme.formField};
-  padding: 0.6rem 1.5rem;
   border-radius: 8px;
   color: ${({ theme }) => theme.formText};
   border: solid 1px ${({ theme }) => theme.cardBorder};
   font-weight: 600;
   cursor: pointer;
 
+  &:not(:first-child):not(:nth-child(2)) {
+    padding: 0.6rem 1.5rem;
+  }
+
   &::placeholder {
     color: ${({ theme }) => theme.formTitle};
     font-weight: 600;
+  }
+
+  &::-webkit-file-upload-button {
+    background-color: ${({ theme }) => theme.primaryGreen};
+    border-radius: 8px;
+    color: ${({ theme }) => theme.white};
+    border: none;
+    padding: 0.6rem 1.5rem;
   }
 `;
 
@@ -215,4 +238,20 @@ const StyledButton = styled.button`
   font-weight: 600;
   cursor: pointer;
   width: 9rem;
+`;
+
+const StyledDiv = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+`;
+
+const StyledPreviewImage = styled(Image)`
+  width: 150px;
+  height: auto;
+  border-radius: 8px;
+`;
+
+const StyledImageRemoveButton = styled(StyledButton)`
+  height: 35px;
 `;
