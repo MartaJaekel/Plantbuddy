@@ -4,7 +4,7 @@ import cloudinary from "cloudinary";
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_SECRET,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
 export const config = {
@@ -19,20 +19,26 @@ export default async function handler(request, response) {
     return;
   }
 
-  const form = formidable({});
-  const [fields, files] = await form.parse(request);
-  const file = files.plantbuddyImage[0];
-  const { newFilename, filepath } = file;
-  const result = await cloudinary.v2.uploader.upload(filepath, {
-    public_id: newFilename,
-    folder: "PlantBuddy",
+  const form = formidable();
+
+  form.parse(request, async (error, fields, files) => {
+    if (error) {
+      console.error("Formidable parse error:", error);
+      response.status(500).json({ error: "Formidable parse error" });
+      return;
+    }
+
+    const file = files.plantbuddyImage[0];
+
+    try {
+      const image = await cloudinary.uploader.upload(file.filepath, {
+        folder: "",
+      });
+      response.status(200).json(image);
+    } catch (cloudinaryError) {
+      console.error(cloudinaryError);
+      console.error("Cloudinary upload error:", cloudinaryError.message);
+      response.status(500).json({ error: "Cloudinary upload error" });
+    }
   });
-
-  if (result.error) {
-    console.error("Cloudinary upload error:", result.error.message);
-    response.status(500).json({ error: "Cloudinary upload error" });
-    return;
-  }
-
-  response.status(200).json(result);
 }

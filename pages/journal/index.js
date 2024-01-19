@@ -8,14 +8,14 @@ import { useSession } from "next-auth/react";
 import Login from "@/components/Login";
 import Head from "next/head";
 
-export default function JournalOverviewPage({ entries, handleDeleteEntry }) {
+export default function JournalOverviewPage({ entries, handleDeleteEntry, }) {
   const { status } = useSession();
 
   return (
     <>
-    <Head>
-      <title>Create Entry</title>
-    </Head>
+      <Head>
+        <title>Create Entry</title>
+      </Head>
       <Headline />
       <main>
         <StyledTitle>Plant Journal</StyledTitle>
@@ -32,6 +32,7 @@ export default function JournalOverviewPage({ entries, handleDeleteEntry }) {
                   <StyledEntries key={entry.id}>
                     <StyledLink href={`/journal/${entry.id}`}>
                       <EntryCard
+                        url={entry.url}
                         entry={entry}
                         onDeleteEntry={handleDeleteEntry}
                       />

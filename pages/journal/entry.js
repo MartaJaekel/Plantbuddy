@@ -16,23 +16,17 @@ export default function EntryForm({ onFormSubmit }) {
   const [careTipps, setCareTipps] = useState("");
   const [location, setLocation] = useState("");
   const router = useRouter();
-  const [selectedImage, setSelectedImage] = useState("");
-
-  function handleImageChange(event) {
-    const file = event.target.files[0];
-    setSelectedImage(URL.createObjectURL(file));
-  }
 
   async function handleSubmit(event) {
     event.preventDefault();
 
-    if (!selectedImage) {
+    if (!url) {
       alert("Please select an image.");
       return;
     }
 
     const formData = new FormData();
-    formData.append("plantbuddyImage", selectedImage);
+    formData.append("plantbuddyImage", url);
 
     try {
       const response = await fetch("/api/upload", {
@@ -40,25 +34,38 @@ export default function EntryForm({ onFormSubmit }) {
         body: formData,
       });
 
-      const data = await response.json();
+      if (response.ok) {
+        const image = await response.json();
+        setUrl(image.secure_url);
 
-      setUrl(data.secure_url);
+        const entry = {
+          url: image.secure_url,
+          name,
+          description,
+          careTipps,
+          location,
+        };
+        onFormSubmit(entry);
+        router.push("/journal");
+      } else {
+        console.error("Error uploading image:", response.statusText);
+        alert(
+          `Error uploading image: ${errorData.error.message}. Please try again.`
+        );
+      }
     } catch (error) {
       console.error("Error uploading image:", error);
+      alert("Error uploading image. Please try again.");
     }
-
-    const entry = {
-      url,
-      name,
-      description,
-      careTipps,
-      location,
-    };
-    onFormSubmit(entry);
-    router.push("/journal");
   }
+
   function handleReset(event) {
     event.target.reset();
+  }
+
+  function handleImageChange(event) {
+    const file = event.target.files[0];
+    setUrl(file);
   }
 
   return (
@@ -74,7 +81,6 @@ export default function EntryForm({ onFormSubmit }) {
         <main>
           <StyledTitle>Plant Journal</StyledTitle>
 
-
           <StyledForm onSubmit={handleSubmit} onReset={handleReset}>
             <StyledInput
               type="file"
@@ -88,7 +94,6 @@ export default function EntryForm({ onFormSubmit }) {
               At the moment we only can work with urls from Google, Unsplash &
               Wikipedia
             </StyledLabelImage>
-
 
             <StyledLabel htmlFor="name">Name</StyledLabel>
             <StyledInput
@@ -184,16 +189,27 @@ const StyledLabelImage = styled.label`
 
 const StyledInput = styled.input`
   background-color: ${({ theme }) => theme.formField};
-  padding: 0.6rem 1.5rem;
   border-radius: 8px;
   color: ${({ theme }) => theme.formText};
   border: solid 1px ${({ theme }) => theme.cardBorder};
   font-weight: 600;
   cursor: pointer;
 
+  &:not(:first-child) {
+    padding: 0.6rem 1.5rem;
+  }
+
   &::placeholder {
     color: ${({ theme }) => theme.formTitle};
     font-weight: 600;
+  }
+
+  &::-webkit-file-upload-button {
+    background-color: ${({ theme }) => theme.primaryGreen};
+    border-radius: 8px;
+    color: ${({ theme }) => theme.white};
+    border: none;
+    padding: 0.6rem 1.5rem;
   }
 `;
 

@@ -19,7 +19,7 @@ const nextConfig = {
       "plus.unsplash.com",
       "https://www.google.com/",
       "upload.wikimedia.org",
-      "res.cloudinary.com/"
+      "res.cloudinary.com/",
     ],
   },
 };

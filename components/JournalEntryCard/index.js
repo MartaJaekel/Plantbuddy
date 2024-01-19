@@ -4,9 +4,8 @@ import DeletePopup from "../DeletePopup";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function EntryCard({ entry, onDeleteEntry }) {
+export default function EntryCard({ entry, onDeleteEntry, url }) {
   const [showPopup, setShowPopup] = useState(false);
-
   const confirmDelete = (event) => {
     event.preventDefault();
     setShowPopup(true);
@@ -16,7 +15,6 @@ export default function EntryCard({ entry, onDeleteEntry }) {
     event.preventDefault();
     onDeleteEntry(entry.id);
     setShowPopup(false);
-    
   };
 
   const handleCancel = (event) => {
@@ -28,7 +26,7 @@ export default function EntryCard({ entry, onDeleteEntry }) {
     <StyledEntryCard>
       <StyledLink href={`/journal/${entry.id}`}>
         <StyledEntryImage
-          src={entry.url}
+          src={url}
           width={100}
           height={100}
           alt="Uploaded Image"
