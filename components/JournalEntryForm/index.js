@@ -7,7 +7,7 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 
 export default function EntryForm({ onFormSubmit, entry }) {
-    const [url, setUrl] = useState(entry ? entry.url : "");
+  const [url, setUrl] = useState(entry ? entry.url : "");
   const [name, setName] = useState(entry ? entry.name : "");
   const [description, setDescription] = useState(
     entry ? entry.description : ""
@@ -15,11 +15,14 @@ export default function EntryForm({ onFormSubmit, entry }) {
   const [careTipps, setCareTipps] = useState(entry ? entry.careTipps : "");
   const [location, setLocation] = useState(entry ? entry.location : "");
   const { status } = useSession();
+  const [showWarning, setShowWarning] = useState("");
 
   const router = useRouter();
+
   const handleImageChange = (event) => {
     const file = event.target.files[0];
-    setUrl(file);
+    setUrl(URL.createObjectURL(file)); // Erstellt eine temporäre URL für die Vorschau
+    setShowWarning("");
   };
 
   async function handleImageUpload() {
@@ -29,7 +32,7 @@ export default function EntryForm({ onFormSubmit, entry }) {
     try {
       const response = await fetch("/api/upload", {
         method: "POST",
-        body:  formData ,
+        body: formData,
       });
 
       if (response.ok) {
@@ -67,6 +70,11 @@ export default function EntryForm({ onFormSubmit, entry }) {
   }
   const handleRemoveImage = () => {
     setUrl("");
+    setShowWarning(true);
+    const input = document.getElementById("plantbuddyImage");
+    if (input) {
+      input.value = null;
+    }
   };
 
   function handleReset(event) {
@@ -90,7 +98,7 @@ export default function EntryForm({ onFormSubmit, entry }) {
                   name="imagePreview"
                   width={100}
                   height={100}
-                  src={entry.url}
+                  src={url}
                 />
                 <StyledImageRemoveButton
                   type="button"
@@ -107,6 +115,11 @@ export default function EntryForm({ onFormSubmit, entry }) {
               accept="image/*, .png, .jpeg, .jpg, .webp"
               onChange={handleImageChange}
             />
+            {showWarning && (
+              <StyledWarningMessage>
+                Please choose an image.
+              </StyledWarningMessage>
+            )}
             <StyledLabel htmlFor="plantbuddyImage">Image</StyledLabel>
             <StyledInput
               type="text"
@@ -254,4 +267,10 @@ const StyledPreviewImage = styled(Image)`
 
 const StyledImageRemoveButton = styled(StyledButton)`
   height: 35px;
+`;
+
+const StyledWarningMessage = styled.p`
+  color: ${({ theme }) => theme.primaryGreen};
+  margin: -0.75rem 0 0.1rem;
+  text-align: center;
 `;
