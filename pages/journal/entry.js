@@ -119,7 +119,7 @@ export default function EntryForm({ onFormSubmit }) {
               name="care"
               minLength="3"
               maxLength="300"
-              placeholder="Care Tipps"
+              placeholder="Care Tips"
               onChange={(event) => setCareTipps(event.target.value)}
             />
             <StyledLabel htmlFor="care">Care</StyledLabel>

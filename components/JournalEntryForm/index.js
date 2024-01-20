@@ -21,7 +21,7 @@ export default function EntryForm({ onFormSubmit, entry }) {
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
-    setUrl(URL.createObjectURL(file)); // Erstellt eine temporäre URL für die Vorschau
+    setUrl(file);
     setShowWarning("");
   };
 
@@ -37,7 +37,6 @@ export default function EntryForm({ onFormSubmit, entry }) {
 
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
         return data.secure_url;
       } else {
         console.error("Image upload failed");
@@ -98,7 +97,7 @@ export default function EntryForm({ onFormSubmit, entry }) {
                   name="imagePreview"
                   width={100}
                   height={100}
-                  src={url}
+                  src={entry.url}
                 />
                 <StyledImageRemoveButton
                   type="button"
