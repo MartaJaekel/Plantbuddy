@@ -16,18 +16,24 @@ export default function EntryForm({ onFormSubmit, entry }) {
   const [location, setLocation] = useState(entry ? entry.location : "");
   const { status } = useSession();
   const [showWarning, setShowWarning] = useState("");
+  const [file, setFile] = useState(null);
 
   const router = useRouter();
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
-    setUrl(file);
     setShowWarning("");
+    setUrl(URL.createObjectURL(file)); // Preview-URL for display in preview
+    setFile(file); // keep file-object for upload
   };
 
   async function handleImageUpload() {
+    if (!file) {
+      return null;
+    }
+
     const formData = new FormData();
-    formData.append("plantbuddyImage", url);
+    formData.append("plantbuddyImage", file);
 
     try {
       const response = await fetch("/api/upload", {
@@ -54,7 +60,7 @@ export default function EntryForm({ onFormSubmit, entry }) {
     const uploadedImageUrl = await handleImageUpload();
 
     const entryObject = {
-      url: uploadedImageUrl || entry.url,
+      url: uploadedImageUrl || (entry && entry.url),
       name,
       description,
       careTipps,
@@ -67,6 +73,7 @@ export default function EntryForm({ onFormSubmit, entry }) {
     onFormSubmit(entryObject, entry.id);
     router.push("/journal");
   }
+
   const handleRemoveImage = () => {
     setUrl("");
     setShowWarning(true);
@@ -97,7 +104,7 @@ export default function EntryForm({ onFormSubmit, entry }) {
                   name="imagePreview"
                   width={100}
                   height={100}
-                  src={entry.url}
+                  src={url || (entry && entry.url)}
                 />
                 <StyledImageRemoveButton
                   type="button"
