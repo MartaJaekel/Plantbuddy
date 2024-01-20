@@ -7,7 +7,7 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 
 export default function EntryForm({ onFormSubmit, entry }) {
-  const [url, setUrl] = useState(entry ? entry.url : "");
+    const [url, setUrl] = useState(entry ? entry.url : "");
   const [name, setName] = useState(entry ? entry.name : "");
   const [description, setDescription] = useState(
     entry ? entry.description : ""
@@ -23,13 +23,13 @@ export default function EntryForm({ onFormSubmit, entry }) {
   };
 
   async function handleImageUpload() {
+    const formData = new FormData();
+    formData.append("plantbuddyImage", url);
+
     try {
       const response = await fetch("/api/upload", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ url }),
+        body:  formData ,
       });
 
       if (response.ok) {
