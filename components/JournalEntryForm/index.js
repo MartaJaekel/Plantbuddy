@@ -17,14 +17,16 @@ export default function EntryForm({ onFormSubmit, entry }) {
   const { status } = useSession();
   const [showWarning, setShowWarning] = useState("");
   const [file, setFile] = useState(null);
+  const [imageInputValue, setImageInputValue] = useState("");
+
 
   const router = useRouter();
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     setShowWarning("");
-    setUrl(URL.createObjectURL(file)); // Preview-URL for display in preview
-    setFile(file); // keep file-object for upload
+    setUrl(URL.createObjectURL(file)); 
+    setFile(file);
   };
 
   async function handleImageUpload() {
@@ -73,14 +75,10 @@ export default function EntryForm({ onFormSubmit, entry }) {
     onFormSubmit(entryObject, entry.id);
     router.push("/journal");
   }
-
   const handleRemoveImage = () => {
     setUrl("");
     setShowWarning(true);
-    const input = document.getElementById("plantbuddyImage");
-    if (input) {
-      input.value = null;
-    }
+    setImageInputValue("");
   };
 
   function handleReset(event) {
