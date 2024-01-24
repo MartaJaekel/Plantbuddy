@@ -72,6 +72,7 @@ export default function App({ Component, pageProps }) {
       const newEntry = { id: uid(), ...data };
       setEntries((prevFormEntry) => [...prevFormEntry, newEntry]);
     }
+    
     function handleEditEntry(editedEntry) {
       setEntries(
         entries.map((entry) =>

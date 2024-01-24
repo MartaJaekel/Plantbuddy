@@ -15,7 +15,6 @@ export default function EditJournal({ entries, onEditEntry }) {
   if (!thisEntry) {
     return <div>Entry not found</div>;
   }
-
   return (
     <>
       <Head>

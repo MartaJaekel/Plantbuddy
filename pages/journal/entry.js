@@ -7,6 +7,7 @@ import styled from "styled-components";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import Head from "next/head";
+import Image from "next/image";
 
 export default function EntryForm({ onFormSubmit }) {
   const { status } = useSession();
@@ -17,27 +18,62 @@ export default function EntryForm({ onFormSubmit }) {
   const [location, setLocation] = useState("");
   const router = useRouter();
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
-    const entry = {
-      url,
-      name,
-      description,
-      careTipps,
-      location,
-    };
-    onFormSubmit(entry);
-    router.push("/journal");
+
+    if (!url) {
+      alert("Please select an image.");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("plantbuddyImage", url);
+
+    try {
+      const response = await fetch("/api/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (response.ok) {
+        const image = await response.json();
+        setUrl(image.secure_url);
+
+        const entry = {
+          url: image.secure_url,
+          name,
+          description,
+          careTipps,
+          location,
+        };
+        onFormSubmit(entry);
+        router.push("/journal");
+      } else {
+        console.error("Error uploading image:", response.statusText);
+        alert(
+          `Error uploading image: ${errorData.error.message}. Please try again.`
+        );
+      }
+    } catch (error) {
+      console.error("Error uploading image:", error);
+      alert("Error uploading image. Please try again.");
+    }
   }
+
   function handleReset(event) {
     event.target.reset();
   }
 
+  function handleImageChange(event) {
+    const file = event.target.files[0];
+    setUrl(file);
+  }
+
   return (
     <>
-    <Head>
-      <title>Formular</title>
-    </Head>
+      <Head>
+        <title>Formular</title>
+      </Head>
       <Headline />
       <StyledBackButton>
         <BackButton />
@@ -47,18 +83,14 @@ export default function EntryForm({ onFormSubmit }) {
           <StyledTitle>Plant Journal</StyledTitle>
           <StyledForm onSubmit={handleSubmit} onReset={handleReset}>
             <StyledInput
-              type="url"
-              id="url"
-              name="url"
-              placeholder="Image Upload URL"
-              onChange={(event) => setUrl(event.target.value)}
+              type="file"
+              id="plantbuddyImage"
+              name="plantbuddyImage"
+              accept="image/*, .png, .jpeg, .jpg, .webp"
+              onChange={handleImageChange}
               required
             />
-            <StyledLabelImage htmlFor="url">
-              At the moment we only can work with urls from Google, Unsplash &
-              Wikipedia
-            </StyledLabelImage>
-            <StyledLabel htmlFor="name">Name</StyledLabel>
+            <StyledLabel htmlFor="plantbuddyImage">Image</StyledLabel>
             <StyledInput
               type="text"
               id="name"
@@ -69,6 +101,7 @@ export default function EntryForm({ onFormSubmit }) {
               maxLength="20"
               required
             />
+            <StyledLabel htmlFor="name">Name</StyledLabel>
             <StyledLabel htmlFor="description">Description</StyledLabel>
             <StyledTextarea
               type="text"
@@ -79,17 +112,17 @@ export default function EntryForm({ onFormSubmit }) {
               placeholder="Description"
               onChange={(event) => setDescription(event.target.value)}
             />
-            <StyledLabel htmlFor="care">Care</StyledLabel>
+            <StyledLabel htmlFor="description">Description</StyledLabel>
             <StyledTextarea
               type="text"
               id="care"
               name="care"
               minLength="3"
               maxLength="300"
-              placeholder="Care Tipps"
+              placeholder="Care Tips"
               onChange={(event) => setCareTipps(event.target.value)}
             />
-            <StyledLabel htmlFor="location">Location</StyledLabel>
+            <StyledLabel htmlFor="care">Care</StyledLabel>
             <StyledInput
               type="text"
               id="location"
@@ -99,7 +132,7 @@ export default function EntryForm({ onFormSubmit }) {
               placeholder="Location"
               onChange={(event) => setLocation(event.target.value)}
             />
-
+            <StyledLabel htmlFor="location">Location</StyledLabel>
             <StyledButtonContainer>
               <StyledButton type="reset">Cancel</StyledButton>
               <StyledButton type="submit">Save</StyledButton>
@@ -143,25 +176,29 @@ const StyledLabel = styled.label`
   white-space: nowrap;
 `;
 
-const StyledLabelImage = styled.label`
-  font-size: 0.65rem;
-  margin: -0.75rem auto auto;
-  text-align: center;
-  color: ${({ theme }) => theme.primaryGreen}
-`;
-
 const StyledInput = styled.input`
   background-color: ${({ theme }) => theme.formField};
-  padding: 0.6rem 1.5rem;
   border-radius: 8px;
   color: ${({ theme }) => theme.formText};
   border: solid 1px ${({ theme }) => theme.cardBorder};
   font-weight: 600;
   cursor: pointer;
 
+  &:not(:first-child) {
+    padding: 0.6rem 1.5rem;
+  }
+
   &::placeholder {
     color: ${({ theme }) => theme.formTitle};
     font-weight: 600;
+  }
+
+  &::-webkit-file-upload-button {
+    background-color: ${({ theme }) => theme.primaryGreen};
+    border-radius: 8px;
+    color: ${({ theme }) => theme.white};
+    border: none;
+    padding: 0.6rem 1.5rem;
   }
 `;
 

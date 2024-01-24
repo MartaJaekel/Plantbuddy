@@ -35,12 +35,10 @@ export default function HomePage({
       <Headline />
       <StyledIconContainer status={status}>
       <Link href="/about">
-      <Image src="/assets/About.svg"
+      <Image src= {theme === "light" ? "/assets/About.svg" : "/assets/About_light-01.svg"}
        alt="About Icon"
        width={25}
        height={25}>
-       
-
       </Image>
       </Link>
       <StyledThemeToggler onClick={toggleTheme} status={status}>
